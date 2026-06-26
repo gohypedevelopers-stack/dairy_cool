@@ -1,4 +1,5 @@
 import React from "react";
+import { FlaskConical, Microscope, ShieldCheck, PackageCheck } from "lucide-react";
 
 function FarmTreesSvgBg() {
   return (
@@ -144,49 +145,57 @@ export default function QualityChecks() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-4 gap-8">
-          <div className="bg-white/70 backdrop-blur-sm border border-sky-100/40 p-6 rounded-2xl relative space-y-4">
-            <span className="absolute top-3 right-3 bg-[#0078BE] text-white text-xs font-black px-2.5 py-1 rounded-full tracking-widest shadow-sm">01</span>
-            <div className="w-12 h-12 bg-sky-100/50 rounded-lg flex items-center justify-center text-primary text-xl font-bold">
-              🧪
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+          <div className="bg-white/70 backdrop-blur-sm border border-sky-100/40 p-4 md:p-6 rounded-2xl relative space-y-4 flex flex-col justify-between">
+            <span className="absolute top-3 right-3 bg-[#0078BE] text-white text-[10px] md:text-xs font-black px-2 md:px-2.5 py-0.5 md:py-1 rounded-full tracking-widest shadow-sm">01</span>
+            <div className="space-y-4">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-sky-100/50 rounded-lg flex items-center justify-center text-[#0284c7]">
+                <FlaskConical className="w-5 h-5 md:w-6 md:h-6" />
+              </div>
+              <h3 className="font-serif font-bold text-slate-900 text-sm md:text-lg">Raw Milk Tested</h3>
+              <p className="text-[10px] md:text-xs text-slate-500 leading-relaxed">
+                Checked daily at the farm for fat %, SNF, water adulterations, and synthetic components.
+              </p>
             </div>
-            <h3 className="font-serif font-bold text-slate-900 text-lg">Raw Milk Tested</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Checked daily at the farm for fat %, SNF, water adulterations, and synthetic components.
-            </p>
           </div>
 
-          <div className="bg-white/70 backdrop-blur-sm border border-sky-100/40 p-6 rounded-2xl relative space-y-4">
-            <span className="absolute top-3 right-3 bg-[#0078BE] text-white text-xs font-black px-2.5 py-1 rounded-full tracking-widest shadow-sm">02</span>
-            <div className="w-12 h-12 bg-sky-100/50 rounded-lg flex items-center justify-center text-primary text-xl font-bold">
-              🔬
+          <div className="bg-white/70 backdrop-blur-sm border border-sky-100/40 p-4 md:p-6 rounded-2xl relative space-y-4 flex flex-col justify-between">
+            <span className="absolute top-3 right-3 bg-[#0078BE] text-white text-[10px] md:text-xs font-black px-2 md:px-2.5 py-0.5 md:py-1 rounded-full tracking-widest shadow-sm">02</span>
+            <div className="space-y-4">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-sky-100/50 rounded-lg flex items-center justify-center text-[#0284c7]">
+                <Microscope className="w-5 h-5 md:w-6 md:h-6" />
+              </div>
+              <h3 className="font-serif font-bold text-slate-900 text-sm md:text-lg">Lab-Report Cleared</h3>
+              <p className="text-[10px] md:text-xs text-slate-500 leading-relaxed">
+                Periodically tested for heavy metals, pesticides, and microbial counts to ensure clean safety levels.
+              </p>
             </div>
-            <h3 className="font-serif font-bold text-slate-900 text-lg">Lab-Report Cleared</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Periodically tested for heavy metals, pesticides, and microbial counts to ensure clean safety levels.
-            </p>
           </div>
 
-          <div className="bg-white/70 backdrop-blur-sm border border-sky-100/40 p-6 rounded-2xl relative space-y-4">
-            <span className="absolute top-3 right-3 bg-[#0078BE] text-white text-xs font-black px-2.5 py-1 rounded-full tracking-widest shadow-sm">03</span>
-            <div className="w-12 h-12 bg-sky-100/50 rounded-lg flex items-center justify-center text-primary text-xl font-bold">
-              🧴
+          <div className="bg-white/70 backdrop-blur-sm border border-sky-100/40 p-4 md:p-6 rounded-2xl relative space-y-4 flex flex-col justify-between">
+            <span className="absolute top-3 right-3 bg-[#0078BE] text-white text-[10px] md:text-xs font-black px-2 md:px-2.5 py-0.5 md:py-1 rounded-full tracking-widest shadow-sm">03</span>
+            <div className="space-y-4">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-sky-100/50 rounded-lg flex items-center justify-center text-[#0284c7]">
+                <ShieldCheck className="w-5 h-5 md:w-6 md:h-6" />
+              </div>
+              <h3 className="font-serif font-bold text-slate-900 text-sm md:text-lg">Hygiene Bottled</h3>
+              <p className="text-[10px] md:text-xs text-slate-500 leading-relaxed">
+                Bottled in sterilized, food-grade glass jars to prevent toxic plastic leaching and keep flavor fresh.
+              </p>
             </div>
-            <h3 className="font-serif font-bold text-slate-900 text-lg">Hygiene Bottled</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Bottled in sterilized, food-grade glass jars to prevent toxic plastic leaching and keep flavor fresh.
-            </p>
           </div>
 
-          <div className="bg-white/70 backdrop-blur-sm border border-sky-100/40 p-6 rounded-2xl relative space-y-4">
-            <span className="absolute top-3 right-3 bg-[#0078BE] text-white text-xs font-black px-2.5 py-1 rounded-full tracking-widest shadow-sm">04</span>
-            <div className="w-12 h-12 bg-sky-100/50 rounded-lg flex items-center justify-center text-sky-600 text-xl font-bold">
-              ✓
+          <div className="bg-white/70 backdrop-blur-sm border border-sky-100/40 p-4 md:p-6 rounded-2xl relative space-y-4 flex flex-col justify-between">
+            <span className="absolute top-3 right-3 bg-[#0078BE] text-white text-[10px] md:text-xs font-black px-2 md:px-2.5 py-0.5 md:py-1 rounded-full tracking-widest shadow-sm">04</span>
+            <div className="space-y-4">
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-sky-100/50 rounded-lg flex items-center justify-center text-[#0284c7]">
+                <PackageCheck className="w-5 h-5 md:w-6 md:h-6" />
+              </div>
+              <h3 className="font-serif font-bold text-slate-900 text-sm md:text-lg">Freshly Hand-Packed</h3>
+              <p className="text-[10px] md:text-xs text-slate-500 leading-relaxed">
+                Hand-wrapped in cloth lids, labeled carefully, and shipped via express network inside corrugated boxes.
+              </p>
             </div>
-            <h3 className="font-serif font-bold text-slate-900 text-lg">Freshly Hand-Packed</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">
-              Hand-wrapped in cloth lids, labeled carefully, and shipped via express network inside corrugated boxes.
-            </p>
           </div>
         </div>
       </div>

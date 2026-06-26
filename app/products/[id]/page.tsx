@@ -166,10 +166,10 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
         </Link>
 
         {/* Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 bg-white rounded-xl border border-slate-100 p-6 md:p-8 shadow-sm">
-          
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 bg-white rounded-xl border border-slate-100 p-6 md:p-8 shadow-sm items-start">
+
           {/* Left Column: Image Gallery */}
-          <div className="lg:col-span-6 space-y-4">
+          <div className="lg:col-span-6 space-y-4 lg:sticky lg:top-24">
             <div className="relative aspect-square w-full rounded-lg overflow-hidden bg-slate-50 border border-slate-150 shadow-inner">
               <Image
                 src={selectedImage}
@@ -187,9 +187,8 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(thumb)}
-                  className={`relative w-20 h-20 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 cursor-pointer ${
-                    selectedImage === thumb ? "border-sky-500 shadow-md scale-95" : "border-slate-200 hover:border-slate-300"
-                  }`}
+                  className={`relative w-20 h-20 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 cursor-pointer ${selectedImage === thumb ? "border-sky-500 shadow-md scale-95" : "border-slate-200 hover:border-slate-300"
+                    }`}
                 >
                   <Image
                     src={thumb}
@@ -205,7 +204,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
           {/* Right Column: Product Config & Details */}
           <div className="lg:col-span-6 space-y-6">
-            
+
             {/* Title & Badges */}
             <div className="space-y-2">
               <span className="inline-block bg-sky-50 text-sky-600 border border-sky-200 font-extrabold text-[9px] px-3 py-1 rounded-full uppercase tracking-wider">
@@ -215,7 +214,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                 {product.title}
               </h1>
               <p className="text-xs font-bold text-green-600 flex items-center gap-1.5 pt-0.5">
-                <span>🔥</span> {product.ordersDelivered} | Love of India
+                {product.ordersDelivered} | Love of India
               </p>
             </div>
 
@@ -254,11 +253,10 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                       setSelectedOption(opt);
                       setQuantity(1); // Reset qty on option switch
                     }}
-                    className={`px-6 py-2.5 rounded-lg text-xs font-bold border transition cursor-pointer ${
-                      selectedOption.size === opt.size
-                        ? "bg-[#f0f9ff] border-[#0284c7] text-[#0284c7] font-extrabold shadow-sm"
-                        : "bg-white border-slate-200 text-slate-650 hover:bg-slate-50"
-                    }`}
+                    className={`px-6 py-2.5 rounded-lg text-xs font-bold border transition cursor-pointer ${selectedOption.size === opt.size
+                      ? "bg-[#f0f9ff] border-[#0284c7] text-[#0284c7] font-extrabold shadow-sm"
+                      : "bg-white border-slate-200 text-slate-650 hover:bg-slate-50"
+                      }`}
                   >
                     {opt.size}
                   </button>
@@ -266,15 +264,10 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
               </div>
             </div>
 
-            {/* Promo text */}
-            <p className="text-xs font-semibold text-slate-500 bg-amber-50/70 border border-amber-100 rounded-xl px-4 py-2.5">
-              💡 <span className="font-extrabold text-amber-800">Earn Rewards:</span> Click &amp; get upto 5% off using Love of India Rewards on checkout.
-            </p>
-
             {/* Quantity Selector & Action Buttons */}
             <div className="space-y-4 pt-2 border-t border-slate-100">
               <div className="flex flex-wrap items-center gap-4">
-                
+
                 {/* Quantity */}
                 <div className="flex items-center border border-slate-200 rounded-lg bg-white overflow-hidden shadow-sm h-[42px]">
                   <button
@@ -309,39 +302,10 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                 onClick={handleBuyNow}
                 className="w-full flex items-center justify-center gap-2 bg-[#0284c7] hover:bg-[#0274b3] text-white font-extrabold py-3.5 rounded-lg text-xs uppercase tracking-widest transition shadow-lg shadow-sky-500/10 cursor-pointer"
               >
-                Buy Now 💳 →
+                Buy Now →
               </button>
             </div>
 
-            {/* Offers box */}
-            <div className="border border-slate-250 rounded-xl p-4 bg-slate-50/50 space-y-3 flex items-start gap-4">
-              <div className="text-2xl mt-0.5">🎁</div>
-              <div className="space-y-1">
-                <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Free Gift Vouchers &amp; Bank Offers</h4>
-                <p className="text-slate-500 text-[11px] leading-relaxed">
-                  Enter your mobile number during checkout to unlock special scratch card rewards and bank cashback.
-                </p>
-              </div>
-            </div>
-
-            {/* Comparisons Box */}
-            <div className="border border-slate-100 rounded-xl p-5 bg-sky-50/30 space-y-4">
-              <h4 className="text-sm font-serif font-extrabold text-slate-900 border-b border-slate-150 pb-2">How it is made:</h4>
-              <div className="space-y-3 text-xs leading-relaxed text-slate-600">
-                <div>
-                  <p className="font-extrabold text-red-600 uppercase tracking-wider text-[10px]">❌ The fast way (Commercial Ghee):</p>
-                  <p className="pl-3 mt-0.5 text-[11px]">
-                    Separate cream from milk mechanically. Melt it in large vats and clarify it. Done in a few hours. Scalable to millions of litres, cheap but strips away nutrition.
-                  </p>
-                </div>
-                <div>
-                  <p className="font-extrabold text-green-600 uppercase tracking-wider text-[10px]">✅ The right way (Traditional Bilona):</p>
-                  <p className="pl-3 mt-0.5 text-[11px]">
-                    Collect fresh milk, boil, and set it into curd overnight. Churn it bi-directionally with wooden Bilona to extract Makhan. Slow-cook the Makhan on low fire till clarified. Takes 3 days &amp; 30 litres of milk for 1 litre. Pure love.
-                  </p>
-                </div>
-              </div>
-            </div>
 
             {/* Accordion Tabs */}
             <div className="border border-slate-200 rounded-xl overflow-hidden divide-y divide-slate-200">
@@ -389,9 +353,9 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                 </button>
                 {activeAccordion === "benefits" && (
                   <div className="px-5 pb-5 pt-1 text-xs text-slate-500 leading-relaxed space-y-1.5">
-                    <p>✨ Boosts metabolism and physical strength</p>
-                    <p>✨ Excellent source of butyric acid for healthy gut microbes</p>
-                    <p>✨ High smoke point makes it perfect for roasting and cooking</p>
+                    <p>Boosts metabolism and physical strength</p>
+                    <p>Excellent source of butyric acid for healthy gut microbes</p>
+                    <p>High smoke point makes it perfect for roasting and cooking</p>
                   </div>
                 )}
               </div>

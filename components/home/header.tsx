@@ -22,7 +22,7 @@ export default function Header({
     <header className="sticky top-0 z-40 bg-[#0078BE] text-white border-b border-white/10 shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center">
+        <a href="/" className="flex items-center">
           <div className="relative h-18 w-56">
             <Image
               src="https://dairycoolfarm.com/wp-content/uploads/2026/01/PicsArt_08-17-04.14.09-Edited-1-1.png"
@@ -37,8 +37,8 @@ export default function Header({
 
         {/* Desktop Navigation & Actions */}
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8 font-bold text-xs uppercase tracking-wider text-sky-100/90 whitespace-nowrap ml-auto">
-          <a href="#" className="text-white transition">Home</a>
-          <a href="#about-dadi" className="hover:text-white transition">About Dadi</a>
+          <a href="/" className="text-white transition">Home</a>
+          <a href="/about-dadi" className="hover:text-white transition">About Dadi</a>
           <a href="#bilona-process" className="hover:text-white transition">Bilona Process</a>
           <a href="#shop" className="hover:text-white transition">Shop</a>
           <a href="#benefits" className="hover:text-white transition">Blog</a>
@@ -125,8 +125,8 @@ export default function Header({
       {isMobileMenuOpen && (
         <div className="lg:hidden border-t border-white/10 bg-[#0078BE] px-4 py-6 space-y-4 shadow-lg text-white font-bold text-sm tracking-wider uppercase">
           <div className="flex flex-col gap-3">
-            <a href="#" onClick={() => setIsMobileMenuOpen(false)} className="px-3 py-2 rounded-lg hover:bg-white/10 hover:text-sky-100 transition">Home</a>
-            <a href="#about-dadi" onClick={() => setIsMobileMenuOpen(false)} className="px-3 py-2 rounded-lg hover:bg-white/10 hover:text-sky-100 transition">About Dadi</a>
+            <a href="/" onClick={() => setIsMobileMenuOpen(false)} className="px-3 py-2 rounded-lg hover:bg-white/10 hover:text-sky-100 transition">Home</a>
+            <a href="/about-dadi" onClick={() => setIsMobileMenuOpen(false)} className="px-3 py-2 rounded-lg hover:bg-white/10 hover:text-sky-100 transition">About Dadi</a>
             <a href="#bilona-process" onClick={() => setIsMobileMenuOpen(false)} className="px-3 py-2 rounded-lg hover:bg-white/10 hover:text-sky-100 transition">Bilona Process</a>
             <a href="#shop" onClick={() => setIsMobileMenuOpen(false)} className="px-3 py-2 rounded-lg hover:bg-white/10 hover:text-sky-100 transition">Shop</a>
             <a href="#benefits" onClick={() => setIsMobileMenuOpen(false)} className="px-3 py-2 rounded-lg hover:bg-white/10 hover:text-sky-100 transition">Blog</a>

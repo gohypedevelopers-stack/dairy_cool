@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { WhatsAppIcon } from "@/components/icons";
+
 import CartDrawer from "@/components/cart-drawer";
 import VideoModal from "@/components/video-modal";
 
@@ -104,17 +104,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white text-slate-800 selection:bg-sky-500 selection:text-white antialiased font-sans">
       
-      {/* WhatsApp Floating Button */}
-      <button
-        onClick={() => handleWhatsAppDirect("Hello! I want to order Pure Bilona A2 Ghee.")}
-        className="fixed bottom-6 right-6 z-40 bg-green-500 hover:bg-green-600 active:scale-95 transition-all text-white p-4 rounded-full shadow-2xl flex items-center justify-center group cursor-pointer"
-        aria-label="Order on WhatsApp"
-      >
-        <WhatsAppIcon className="w-6 h-6" />
-        <span className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-2 transition-all duration-300 ease-out font-bold text-sm whitespace-nowrap">
-          Order on WhatsApp
-        </span>
-      </button>
+
 
       {/* Page Sections */}
       <TopBanner />
@@ -128,7 +118,6 @@ export default function Home() {
       />
 
       <Hero
-        onWhatsAppOrder={handleWhatsAppDirect}
         onPlayVideo={playVideo}
       />
 

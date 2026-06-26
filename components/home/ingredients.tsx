@@ -1,5 +1,5 @@
 import React from "react";
-import { Flame, Leaf } from "lucide-react";
+import { Flame, Leaf, ChevronLeft, ChevronRight } from "lucide-react";
 import { ChurnIcon } from "@/components/icons";
 
 const CowIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -118,6 +118,19 @@ function FarmTreesSvgBg() {
 }
 
 export default function Ingredients() {
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollAmount = clientWidth * 0.8;
+      scrollRef.current.scrollTo({
+        left: direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <section className="relative py-12 md:py-20 bg-[#dceef5] border-b border-sky-100/50 overflow-hidden">
       {/* SVG Farm Trees Background */}
@@ -138,102 +151,127 @@ export default function Ingredients() {
           </p>
         </div>
 
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 max-w-7xl mx-auto scrollbar-none pb-6 md:grid md:grid-cols-4 md:overflow-visible md:pb-0">
-          {/* Card 1 */}
-          <div className="group bg-white rounded-[2rem] overflow-hidden shadow-md hover:shadow-xl transition duration-300 relative aspect-[3/4] border border-slate-100 w-[280px] shrink-0 snap-center md:w-auto md:shrink">
-            <video
-              src="https://dairycoolfarm.com/wp-content/uploads/2026/03/WhatsApp-Video-2026-03-13-at-4.11.43-PM.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
-            <div className="absolute bottom-0 inset-x-0 p-6 space-y-3 text-white">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#0284c7] shadow-md">
-                <CowIcon className="w-5.5 h-5.5" />
+        {/* Carousel Wrapper */}
+        <div className="relative px-2">
+          {/* Left Arrow Button */}
+          <button
+            onClick={() => scroll("left")}
+            className="absolute -left-1 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/95 border border-sky-200 flex items-center justify-center text-[#0284c7] shadow-md active:scale-95 transition md:hidden cursor-pointer"
+            aria-label="Previous Ingredients"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+
+          {/* Cards */}
+          <div
+            ref={scrollRef}
+            className="flex overflow-x-auto snap-x snap-mandatory gap-6 max-w-7xl mx-auto scrollbar-none pb-6 md:grid md:grid-cols-4 md:overflow-visible md:pb-0"
+          >
+            {/* Card 1 */}
+            <div className="group bg-white rounded-[2rem] overflow-hidden shadow-md hover:shadow-xl transition duration-300 relative aspect-[3/4] border border-slate-100 w-[280px] shrink-0 snap-center md:w-auto md:shrink">
+              <video
+                src="https://dairycoolfarm.com/wp-content/uploads/2026/03/WhatsApp-Video-2026-03-13-at-4.11.43-PM.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
+              <div className="absolute bottom-0 inset-x-0 p-6 space-y-3 text-white">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#0284c7] shadow-md">
+                  <CowIcon className="w-5.5 h-5.5" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-serif font-bold text-lg leading-tight text-white">Pure A2 Cow Milk</h3>
+                  <p className="text-[11px] text-sky-100/90 leading-normal">
+                    Made from fresh A2 cow milk sourced from trusted farms.
+                  </p>
+                </div>
               </div>
-              <div className="space-y-1">
-                <h3 className="font-serif font-bold text-lg leading-tight text-white">Pure A2 Cow Milk</h3>
-                <p className="text-[11px] text-sky-100/90 leading-normal">
-                  Made from fresh A2 cow milk sourced from trusted farms.
-                </p>
+            </div>
+
+            {/* Card 2 */}
+            <div className="group bg-white rounded-[2rem] overflow-hidden shadow-md hover:shadow-xl transition duration-300 relative aspect-[3/4] border border-slate-100 w-[280px] shrink-0 snap-center md:w-auto md:shrink">
+              <video
+                src="https://dairycoolfarm.com/wp-content/uploads/2026/03/WhatsApp-Video-2026-03-11-at-11.39.52-AM-3.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
+              <div className="absolute bottom-0 inset-x-0 p-6 space-y-3 text-white">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#0284c7] shadow-md">
+                  <ChurnIcon className="w-5.5 h-5.5 text-[#0284c7]" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-serif font-bold text-lg leading-tight text-white">Traditional Bilona Method</h3>
+                  <p className="text-[11px] text-sky-100/90 leading-normal">
+                    Curd is hand-churned using the age-old Bilona process.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="group bg-white rounded-[2rem] overflow-hidden shadow-md hover:shadow-xl transition duration-300 relative aspect-[3/4] border border-slate-100 w-[280px] shrink-0 snap-center md:w-auto md:shrink">
+              <video
+                src="https://dairycoolfarm.com/wp-content/uploads/2026/02/videoplayback.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
+              <div className="absolute bottom-0 inset-x-0 p-6 space-y-3 text-white">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#0284c7] shadow-md">
+                  <Flame className="w-5.5 h-5.5 fill-[#0284c7] text-[#0284c7]" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-serif font-bold text-lg leading-tight text-white">Slow-Cooked Ghee</h3>
+                  <p className="text-[11px] text-sky-100/90 leading-normal">
+                    Prepared on low flame to keep the natural aroma, texture, and richness.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 4 */}
+            <div className="group bg-white rounded-[2rem] overflow-hidden shadow-md hover:shadow-xl transition duration-300 relative aspect-[3/4] border border-slate-100 w-[280px] shrink-0 snap-center md:w-auto md:shrink">
+              <video
+                src="https://dairycoolfarm.com/wp-content/uploads/2026/02/videoplayback-1.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
+              <div className="absolute bottom-0 inset-x-0 p-6 space-y-3 text-white">
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#0284c7] shadow-md">
+                  <Leaf className="w-5.5 h-5.5 fill-[#0284c7] text-[#0284c7]" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-serif font-bold text-lg leading-tight text-white">No Preservatives</h3>
+                  <p className="text-[11px] text-sky-100/90 leading-normal">
+                    Free from hydrogenated oils, artificial colors, flavors, and additives.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Card 2 */}
-          <div className="group bg-white rounded-[2rem] overflow-hidden shadow-md hover:shadow-xl transition duration-300 relative aspect-[3/4] border border-slate-100 w-[280px] shrink-0 snap-center md:w-auto md:shrink">
-            <video
-              src="https://dairycoolfarm.com/wp-content/uploads/2026/03/WhatsApp-Video-2026-03-11-at-11.39.52-AM-3.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
-            <div className="absolute bottom-0 inset-x-0 p-6 space-y-3 text-white">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#0284c7] shadow-md">
-                <ChurnIcon className="w-5.5 h-5.5 text-[#0284c7]" />
-              </div>
-              <div className="space-y-1">
-                <h3 className="font-serif font-bold text-lg leading-tight text-white">Traditional Bilona Method</h3>
-                <p className="text-[11px] text-sky-100/90 leading-normal">
-                  Curd is hand-churned using the age-old Bilona process.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="group bg-white rounded-[2rem] overflow-hidden shadow-md hover:shadow-xl transition duration-300 relative aspect-[3/4] border border-slate-100 w-[280px] shrink-0 snap-center md:w-auto md:shrink">
-            <video
-              src="https://dairycoolfarm.com/wp-content/uploads/2026/02/videoplayback.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
-            <div className="absolute bottom-0 inset-x-0 p-6 space-y-3 text-white">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#0284c7] shadow-md">
-                <Flame className="w-5.5 h-5.5 fill-[#0284c7] text-[#0284c7]" />
-              </div>
-              <div className="space-y-1">
-                <h3 className="font-serif font-bold text-lg leading-tight text-white">Slow-Cooked Ghee</h3>
-                <p className="text-[11px] text-sky-100/90 leading-normal">
-                  Prepared on low flame to keep the natural aroma, texture, and richness.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 4 */}
-          <div className="group bg-white rounded-[2rem] overflow-hidden shadow-md hover:shadow-xl transition duration-300 relative aspect-[3/4] border border-slate-100 w-[280px] shrink-0 snap-center md:w-auto md:shrink">
-            <video
-              src="https://dairycoolfarm.com/wp-content/uploads/2026/02/videoplayback-1.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
-            <div className="absolute bottom-0 inset-x-0 p-6 space-y-3 text-white">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#0284c7] shadow-md">
-                <Leaf className="w-5.5 h-5.5 fill-[#0284c7] text-[#0284c7]" />
-              </div>
-              <div className="space-y-1">
-                <h3 className="font-serif font-bold text-lg leading-tight text-white">No Preservatives</h3>
-                <p className="text-[11px] text-sky-100/90 leading-normal">
-                  Free from hydrogenated oils, artificial colors, flavors, and additives.
-                </p>
-              </div>
-            </div>
-          </div>
+          {/* Right Arrow Button */}
+          <button
+            onClick={() => scroll("right")}
+            className="absolute -right-1 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/95 border border-sky-200 flex items-center justify-center text-[#0284c7] shadow-md active:scale-95 transition md:hidden cursor-pointer"
+            aria-label="Next Ingredients"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </div>
 
         {/* Explore Featured Products Button */}
