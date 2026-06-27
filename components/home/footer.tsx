@@ -178,10 +178,24 @@ export default function Footer() {
             <p className="text-xs text-white leading-relaxed">
               We preserve traditional Indian dairy recipes and heritage, overseen by grandmother Kamlesh Gurjari at Greater Noida.
             </p>
-            <div className="flex gap-2 pt-1">
-              <a href="#" className="w-7 h-7 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 text-white transition text-xs font-bold">FB</a>
-              <a href="#" className="w-7 h-7 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 text-white transition text-xs font-bold">IG</a>
-              <a href="#" className="w-7 h-7 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 text-white transition text-xs font-bold">YT</a>
+            <div className="flex gap-2.5 pt-1">
+              <a href="#" aria-label="Facebook" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 text-white transition">
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" />
+                </svg>
+              </a>
+              <a href="#" aria-label="Instagram" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 text-white transition">
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
+              <a href="#" aria-label="YouTube" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 text-white transition">
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.108C19.512 3.5 12 3.5 12 3.5s-7.512 0-9.388.555A3.002 3.002 0 0 0 .5 6.163C0 8.07 0 12 0 12s0 3.93.5 5.837a3.003 3.003 0 0 0 2.11 2.108C4.488 20.5 12 20.5 12 20.5s7.512 0 9.388-.555a3.002 3.002 0 0 0 2.11-2.108C24 15.93 24 12 24 12s0-3.93-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
+              </a>
             </div>
           </div>
 

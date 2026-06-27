@@ -1,11 +1,11 @@
 import React from "react";
 
 const items = [
-  "✨ Factory Ka Nahi, Dadi Ke Haathon Ka Asli Bilona Ghee",
-  "🥛 100% Pure A2 Ghee",
-  "✅ No Preservatives",
-  "🏡 Farm Fresh Daily",
-  "🛡️ FSSAI Certified",
+  "Factory Ka Nahi, Dadi Ke Haathon Ka Asli Bilona Ghee",
+  "100% Pure A2 Ghee",
+  "No Preservatives",
+  "Farm Fresh Daily",
+  "FSSAI Certified",
 ];
 
 export default function TopBanner() {

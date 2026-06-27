@@ -73,6 +73,14 @@ export default function VideoModal({ isOpen, onClose, videoTitle, videoUrl }: Vi
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             />
+          ) : videoUrl && (videoUrl.startsWith("http") || videoUrl.includes(".mp4")) ? (
+            <video
+              className="w-full h-full object-contain"
+              src={videoUrl}
+              autoPlay
+              controls
+              playsInline
+            />
           ) : (
             // Simulated Player Screen
             <div className="w-full h-full flex flex-col items-center justify-center relative p-8">

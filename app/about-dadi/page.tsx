@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/home/header";
 import Footer from "@/components/home/footer";
+import { ShieldCheck, RotateCw, Flame, Heart } from "lucide-react";
 
 const stats = [
   { value: "30+", label: "Saalon Ka Anubhav" },
@@ -38,22 +39,22 @@ const timeline = [
 
 const values = [
   {
-    icon: "🌿",
+    icon: ShieldCheck,
     title: "Bina Milawat",
     desc: "Shuddh ghee — koi chemical, koi additive, koi shortcut nahi. Bilkul waise banaya jaata hai jaise ghar ke liye banate hain.",
   },
   {
-    icon: "🔥",
+    icon: RotateCw,
     title: "Bilona Vidhi",
     desc: "Dahi ko haath se bilone se mathaa jaata hai — dheere, pyaar se. Yeh vidhi hazar saalon purani hai aur aaj bhi wahi hai.",
   },
   {
-    icon: "🥛",
+    icon: Flame,
     title: "Dheere Pakaya Hua",
     desc: "Makhan ko chulhe par dheere-dheere pakaya jaata hai. Koi jaldi nahi. Sahi aroma aur poshan isi tarah milta hai.",
   },
   {
-    icon: "👵",
+    icon: Heart,
     title: "Imaandaar Tareeqa",
     desc: "Hamari pehchaan hai — shuddh ghee, imaandaar tareeke se banaya hua, sehat ke liye behtar.",
   },
@@ -325,7 +326,11 @@ export default function AboutDadiPage() {
                 key={i}
                 className="group bg-[#f9f5ee] border border-amber-100 rounded-2xl p-8 shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300 text-center"
               >
-                <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">{v.icon}</div>
+                <div className="flex justify-center mb-5">
+                  <div className="p-4 bg-sky-50 text-[#0078BE] rounded-2xl group-hover:bg-[#0078BE] group-hover:text-white transition-all duration-300 group-hover:scale-110">
+                    <v.icon className="w-8 h-8" />
+                  </div>
+                </div>
                 <h3 className="font-serif font-bold text-slate-900 text-lg mb-2">{v.title}</h3>
                 <p className="text-xs text-slate-500 leading-relaxed">{v.desc}</p>
               </div>

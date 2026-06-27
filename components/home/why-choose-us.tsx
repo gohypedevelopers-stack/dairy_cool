@@ -1,65 +1,125 @@
 import React from "react";
-import { Leaf, Flame } from "lucide-react";
-import { ChurnIcon, MilkIcon } from "@/components/icons";
+import { Leaf, Flame, Star, Droplet, ShieldAlert, HeartPulse } from "lucide-react";
 
-const features = [
+const cards = [
   {
-    Icon: Leaf,
-    title: "Grass-Fed A2 Cows",
-    desc: "Our native cows graze freely in green fields, yielding highly nutritive A2 milk.",
-    bg: "bg-sky-100",
-    border: "border-sky-200",
-    shadow: "shadow-sky-100",
+    title: "Bilona Method",
+    desc: "100% traditional bilona process",
+    icon: Flame
   },
   {
-    Icon: MilkIcon,
-    title: "Clay Pot Setting",
-    desc: "We slowly convert fresh warm milk into thick curd in earthenware clay pots overnight.",
-    bg: "bg-sky-100",
-    border: "border-sky-200",
-    shadow: "shadow-sky-100",
+    title: "Pure & Natural",
+    desc: "Sirf 1 ingredient - Shuddh makkhan",
+    icon: Leaf
   },
   {
-    Icon: ChurnIcon,
-    title: "Traditional Churning",
-    desc: "Bidirectional slow churning with wooden Bilona churns to extract sweet Makhan.",
-    bg: "bg-sky-100",
-    border: "border-sky-200",
-    shadow: "shadow-sky-100",
+    title: "Rich Aroma",
+    desc: "Lajawab khushboo aur swad",
+    icon: Star
+  }
+];
+
+const sidePoints = [
+  {
+    title: "Rich in Good Fats",
+    desc: "Essential healthy fatty acids",
+    icon: Droplet
   },
   {
-    Icon: Flame,
-    title: "Slow Wood Fire",
-    desc: "Slow-heated on low chulha fires for hours to bring out maximum aroma and grain sizes.",
-    bg: "bg-sky-100",
-    border: "border-sky-200",
-    shadow: "shadow-sky-100",
+    title: "Boosts Immunity",
+    desc: "Loaded with natural antioxidants",
+    icon: ShieldAlert
   },
+  {
+    title: "Good for Heart",
+    desc: "Supports active cardiovascular health",
+    icon: HeartPulse
+  }
 ];
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-20 bg-white border-b border-sky-100/50">
-      <div className="max-w-7xl mx-auto px-4 text-center space-y-14">
-        <div className="space-y-2">
-          <span className="text-primary font-extrabold text-[11px] uppercase tracking-widest block">Why Choose Dairy Cool</span>
-          <h2 className="text-3xl sm:text-4xl font-serif font-extrabold text-slate-900 leading-tight">Why Choose Dairy Cool?</h2>
+    <section className="py-24 bg-[#FAF6F0] border-b border-amber-100/30">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Header */}
+        <div className="space-y-2 mb-16 text-center">
+          <span className="font-cursive text-2xl text-amber-600 font-bold block">
+            Why Daily Cool Ghee
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-black text-[#2E271E] leading-tight">
+            Kyun Hai Hum Alag?
+          </h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
-          {features.map((f, i) => (
-            <div key={i} className="flex flex-col items-center space-y-4 group">
-              {/* Icon circle */}
-              <div
-                className={`w-24 h-24 ${f.bg} border-2 ${f.border} rounded-full flex items-center justify-center text-primary shadow-lg ${f.shadow} transition-transform duration-300 group-hover:scale-110`}
-              >
-                <f.Icon className="w-10 h-10" />
-              </div>
-              <h3 className="font-serif font-bold text-slate-900 text-xl">{f.title}</h3>
-              <p className="text-sm text-slate-500 leading-relaxed max-w-[220px] mx-auto">{f.desc}</p>
+        {/* Two Equal Columns Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start">
+          
+          {/* Left Column: 3 Core Benefits */}
+          <div className="space-y-6">
+            <h3 className="text-lg font-serif font-bold text-[#2E271E] pb-2 border-b border-amber-150/30 uppercase tracking-wide">
+              Core Benefits
+            </h3>
+            <div className="space-y-4">
+              {cards.map((card, idx) => (
+                <div 
+                  key={idx} 
+                  className="bg-white border border-amber-100/40 rounded-2xl p-5 flex items-start gap-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100/60 text-amber-700 flex items-center justify-center shrink-0 group-hover:bg-amber-100 transition-colors">
+                    <card.icon className="w-5.5 h-5.5" />
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="font-serif font-bold text-[#2E271E] text-base">
+                      {card.title}
+                    </h4>
+                    <p className="text-xs text-[#5A4F43] leading-relaxed">
+                      {card.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+
+            <div className="flex justify-center md:justify-start pt-4">
+              <a
+                href="#shop"
+                className="bg-[#0078BE] hover:bg-[#0067a5] text-white font-extrabold px-10 py-4 rounded-full text-xs uppercase tracking-widest transition shadow-lg shadow-sky-500/20 active:scale-95 inline-block"
+              >
+                Order Now
+              </a>
+            </div>
+          </div>
+
+          {/* Right Column: 3 Health Benefits */}
+          <div className="space-y-6">
+            <h3 className="text-lg font-serif font-bold text-[#2E271E] pb-2 border-b border-amber-150/30 uppercase tracking-wide">
+              Health &amp; Nutrition
+            </h3>
+            <div className="space-y-4">
+              {sidePoints.map((pt, idx) => (
+                <div 
+                  key={idx} 
+                  className="bg-white border border-amber-100/40 rounded-2xl p-5 flex items-start gap-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100/60 text-amber-700 flex items-center justify-center shrink-0 group-hover:bg-amber-100 transition-colors">
+                    <pt.icon className="w-5.5 h-5.5" />
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="font-serif font-bold text-[#2E271E] text-base">
+                      {pt.title}
+                    </h4>
+                    <p className="text-xs text-[#5A4F43] leading-relaxed">
+                      {pt.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
+
       </div>
     </section>
   );

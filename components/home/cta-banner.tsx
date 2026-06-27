@@ -9,7 +9,12 @@ export default function CtaBanner({ onWhatsAppDirect }: CtaBannerProps) {
   return (
     <section className="py-16 bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <div className="bg-gradient-to-br from-[#0096E4] to-sky-600 rounded-[2rem] p-8 md:p-12 text-center text-white space-y-6 shadow-xl shadow-sky-500/10 relative overflow-hidden">
+        <div 
+          className="rounded-[2rem] p-8 md:p-12 text-center text-white space-y-6 shadow-xl relative overflow-hidden bg-cover bg-center"
+          style={{
+            backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.7)), url('/images/cta_bg.png')`
+          }}
+        >
           {/* Decorative circle */}
           <div className="absolute -top-12 -right-12 w-36 h-36 bg-white/5 rounded-full" />
 

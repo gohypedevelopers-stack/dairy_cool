@@ -9,10 +9,11 @@ import VideoModal from "@/components/video-modal";
 import TopBanner from "@/components/home/top-banner";
 import Header from "@/components/home/header";
 import Hero from "@/components/home/hero";
+import MeetDadi from "@/components/home/meet-dadi";
 import Categories from "@/components/home/categories";
 import ProductGrid from "@/components/home/product-grid";
 import WhyChooseUs from "@/components/home/why-choose-us";
-import Ingredients from "@/components/home/ingredients";
+
 import QualityChecks from "@/components/home/quality-checks";
 import Testimonials from "@/components/home/testimonials";
 import Certifications from "@/components/home/certifications";
@@ -121,6 +122,12 @@ export default function Home() {
         onPlayVideo={playVideo}
       />
 
+      <MeetDadi />
+
+      <QualityChecks
+        onPlayVideo={playVideo}
+      />
+
       <Categories />
 
       <ProductGrid
@@ -129,8 +136,7 @@ export default function Home() {
       />
 
       <WhyChooseUs />
-      <Ingredients />
-      <QualityChecks />
+
       <Testimonials />
       <Certifications />
 

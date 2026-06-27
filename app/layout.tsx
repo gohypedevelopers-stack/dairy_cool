@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Roboto, Cormorant_Garamond } from "next/font/google";
+import { Roboto, Cormorant_Garamond, Caveat } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +16,12 @@ const cormorant = Cormorant_Garamond({
   style: ["normal", "italic"],
 });
 
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-cursive",
+  weight: ["400", "700"],
+});
+
 export const metadata: Metadata = {
   title: "Dairy Cool Farm - Pure Bilona A2 Ghee",
   description: "Traditional Cow Bilona Ghee handcrafted by Dadi Kamlesh Gurjari",
@@ -29,7 +35,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", "font-sans", roboto.variable, cormorant.variable)}
+      className={cn("h-full", "antialiased", "font-sans", roboto.variable, cormorant.variable, caveat.variable)}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>{children}</body>

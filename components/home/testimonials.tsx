@@ -16,7 +16,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section id="reviews" className="py-20 bg-white border-b border-sky-100/50">
+    <section id="reviews" className="py-20 bg-[#FAF6F0] border-b border-amber-100/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-3 mb-16">
           <span className="text-primary font-extrabold text-[11px] uppercase tracking-widest block">Customer Testimonials</span>
@@ -45,7 +45,7 @@ export default function Testimonials() {
             ref={scrollRef}
             className="flex overflow-x-auto snap-x snap-mandatory gap-6 scrollbar-none pb-6 md:grid md:grid-cols-3 md:overflow-visible md:pb-0"
           >
-            <div className="p-6 rounded-2xl bg-sky-50/10 border border-sky-100/60 flex flex-col justify-between shadow-sm w-[280px] shrink-0 snap-center md:w-auto md:shrink">
+            <div className="p-6 rounded-2xl bg-white border border-amber-100/40 flex flex-col justify-between shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 w-[280px] shrink-0 snap-center md:w-auto md:shrink">
               <div className="space-y-3">
                 <div className="flex items-center text-amber-500 text-sm">
                   ★ ★ ★ ★ ★
@@ -65,7 +65,7 @@ export default function Testimonials() {
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-sky-50/10 border border-sky-100/60 flex flex-col justify-between shadow-sm w-[280px] shrink-0 snap-center md:w-auto md:shrink">
+            <div className="p-6 rounded-2xl bg-white border border-amber-100/40 flex flex-col justify-between shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 w-[280px] shrink-0 snap-center md:w-auto md:shrink">
               <div className="space-y-3">
                 <div className="flex items-center text-amber-500 text-sm">
                   ★ ★ ★ ★ ★
@@ -85,7 +85,7 @@ export default function Testimonials() {
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-sky-50/10 border border-sky-100/60 flex flex-col justify-between shadow-sm w-[280px] shrink-0 snap-center md:w-auto md:shrink">
+            <div className="p-6 rounded-2xl bg-white border border-amber-100/40 flex flex-col justify-between shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 w-[280px] shrink-0 snap-center md:w-auto md:shrink">
               <div className="space-y-3">
                 <div className="flex items-center text-amber-500 text-sm">
                   ★ ★ ★ ★ ★

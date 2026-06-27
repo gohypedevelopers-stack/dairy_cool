@@ -65,7 +65,7 @@ export default function Categories() {
   };
 
   return (
-    <section className="py-16 bg-white border-b border-sky-100/50">
+    <section className="py-16 bg-[#FAF6F0] border-b border-amber-100/50">
       <div className="max-w-7xl mx-auto px-4 text-center space-y-12">
 
         {/* Heading */}
