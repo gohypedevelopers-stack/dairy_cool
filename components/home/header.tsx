@@ -1,5 +1,9 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ShoppingCart, Menu, X, Truck } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons";
 
@@ -18,12 +22,26 @@ export default function Header({
   setIsCartOpen,
   onWhatsAppOrder,
 }: HeaderProps) {
+  const pathname = usePathname();
+
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "About Dadi", href: "/about-dadi" },
+    { name: "Bilona Process", href: "/bilona-process" },
+    { name: "Shop", href: "/shop" },
+    { name: "Blog", href: "/blog" },
+    { name: "Gallery", href: "/gallery" },
+    { name: "Track Order", href: "/track-order" },
+    { name: "Our Location", href: "/location" },
+    { name: "Contact Us", href: "/contact" },
+  ];
+
   return (
-    <header className="sticky top-0 z-40 bg-[#FAF6F0]/95 backdrop-blur-md text-[#2E271E] border-b border-amber-100/50 shadow-sm">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md text-slate-800 border-b border-sky-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
         
         {/* Logo */}
-        <a href="/" className="flex items-center gap-1.5 shrink-0 group">
+        <Link href="/" className="flex items-center gap-1.5 shrink-0 group">
           <div className="relative h-18 w-36">
             <Image
               src="/images/logo.png"
@@ -37,35 +55,32 @@ export default function Header({
               priority
             />
           </div>
-        </a>
+        </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden xl:flex items-center gap-6 font-extrabold text-xs uppercase tracking-wider text-[#5A4F43] whitespace-nowrap mx-auto">
-          <a href="/" className="text-[#0078BE] transition-colors duration-300">Home</a>
-          <a href="/about-dadi" className="hover:text-[#0078BE] transition-colors duration-300">About Dadi</a>
-          <a href="#bilona-process" className="hover:text-[#0078BE] transition-colors duration-300">Bilona Process</a>
-          <a href="#shop" className="hover:text-[#0078BE] transition-colors duration-300">Shop</a>
-          <a href="#benefits" className="hover:text-[#0078BE] transition-colors duration-300">Blog</a>
-          <a href="#reviews" className="hover:text-[#0078BE] transition-colors duration-300">Gallery</a>
-          <a href="/contact" className="hover:text-[#0078BE] transition-colors duration-300">Contact Us</a>
+        <nav className="hidden xl:flex items-center gap-6 font-extrabold text-xs uppercase tracking-wider whitespace-nowrap mx-auto">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link 
+                key={link.name} 
+                href={link.href} 
+                className={`transition-colors duration-300 ${
+                  isActive ? "text-[#0078BE]" : "text-slate-600 hover:text-[#0078BE]"
+                }`}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Desktop Actions */}
         <div className="hidden lg:flex items-center gap-4 shrink-0">
-          {/* Track Order Icon Link */}
-          <a
-            href="/track-order"
-            className="p-2.5 text-[#2E271E] hover:text-[#0078BE] hover:bg-amber-50 rounded-full transition-all duration-300 cursor-pointer flex items-center justify-center"
-            aria-label="Track Order"
-            title="Track Order"
-          >
-            <Truck className="w-5.5 h-5.5" />
-          </a>
-
           {/* Cart Icon Button */}
           <button
             onClick={() => setIsCartOpen(true)}
-            className="relative p-2.5 text-[#2E271E] hover:text-[#0078BE] hover:bg-amber-50 rounded-full transition-all duration-300 cursor-pointer flex items-center justify-center"
+            className="relative p-2.5 text-slate-700 hover:text-[#0078BE] hover:bg-sky-50 rounded-full transition-all duration-300 cursor-pointer flex items-center justify-center"
             aria-label="Open Cart"
           >
             <ShoppingCart className="w-5.5 h-5.5" />
@@ -88,19 +103,9 @@ export default function Header({
 
         {/* Mobile Menu & Cart Trigger */}
         <div className="flex items-center gap-2 lg:hidden ml-auto">
-          {/* Track Order Icon Link Mobile */}
-          <a
-            href="/track-order"
-            className="p-2 text-[#2E271E] hover:text-[#0078BE] rounded-full transition-all duration-300 flex items-center justify-center"
-            aria-label="Track Order Mobile"
-            title="Track Order"
-          >
-            <Truck className="w-5.5 h-5.5" />
-          </a>
-
           <button
             onClick={() => setIsCartOpen(true)}
-            className="relative p-2 text-[#2E271E] flex items-center justify-center"
+            className="relative p-2 text-slate-700 flex items-center justify-center"
             aria-label="Open Cart Mobile"
           >
             <ShoppingCart className="w-5.5 h-5.5" />
@@ -113,7 +118,7 @@ export default function Header({
 
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 text-[#2E271E]"
+            className="p-2 text-slate-700 hover:text-[#0078BE]"
             aria-label="Toggle Menu"
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -123,24 +128,31 @@ export default function Header({
 
       {/* Mobile Navigation Drawer */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden border-t border-amber-100/50 bg-[#FAF6F0] px-4 py-6 space-y-4 shadow-lg text-[#2E271E] font-bold text-sm tracking-wider uppercase">
+        <div className="lg:hidden border-t border-sky-100 bg-white px-4 py-6 space-y-4 shadow-lg text-slate-800 font-bold text-sm tracking-wider uppercase">
           <div className="flex flex-col gap-3">
-            <a href="/" onClick={() => setIsMobileMenuOpen(false)} className="px-3 py-2 rounded-lg hover:bg-amber-50 hover:text-[#0078BE] transition">Home</a>
-            <a href="/about-dadi" onClick={() => setIsMobileMenuOpen(false)} className="px-3 py-2 rounded-lg hover:bg-amber-50 hover:text-[#0078BE] transition">About Dadi</a>
-            <a href="#bilona-process" onClick={() => setIsMobileMenuOpen(false)} className="px-3 py-2 rounded-lg hover:bg-amber-50 hover:text-[#0078BE] transition">Bilona Process</a>
-            <a href="#shop" onClick={() => setIsMobileMenuOpen(false)} className="px-3 py-2 rounded-lg hover:bg-amber-50 hover:text-[#0078BE] transition">Shop</a>
-            <a href="#benefits" onClick={() => setIsMobileMenuOpen(false)} className="px-3 py-2 rounded-lg hover:bg-amber-50 hover:text-[#0078BE] transition">Blog</a>
-            <a href="#reviews" onClick={() => setIsMobileMenuOpen(false)} className="px-3 py-2 rounded-lg hover:bg-amber-50 hover:text-[#0078BE] transition">Gallery</a>
-            <a href="/track-order" onClick={() => setIsMobileMenuOpen(false)} className="px-3 py-2 rounded-lg hover:bg-amber-50 hover:text-[#0078BE] transition">Track Order</a>
-            <a href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="px-3 py-2 rounded-lg hover:bg-amber-50 hover:text-[#0078BE] transition">Contact Us</a>
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link 
+                  key={link.name} 
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)} 
+                  className={`px-3 py-2 rounded-lg transition ${
+                    isActive ? "bg-sky-50 text-[#0078BE]" : "hover:bg-sky-50 hover:text-[#0078BE]"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
           </div>
-          <div className="pt-4 border-t border-amber-100/50 flex flex-col gap-3">
+          <div className="pt-4 border-t border-sky-100 flex flex-col gap-3">
             <button
               onClick={() => {
                 setIsMobileMenuOpen(false);
                 onWhatsAppOrder();
               }}
-              className="w-full flex items-center justify-center gap-2 bg-[#22c55e] text-white font-extrabold py-3.5 rounded-full text-xs uppercase tracking-widest cursor-pointer whitespace-nowrap shadow-md"
+              className="w-full flex items-center justify-center gap-2 bg-[#22c55e] hover:bg-[#1eb052] text-white font-extrabold py-3.5 rounded-full text-xs uppercase tracking-widest cursor-pointer whitespace-nowrap shadow-md transition"
             >
               <span>WhatsApp Order</span>
               <WhatsAppIcon className="w-5 h-5" />

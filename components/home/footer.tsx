@@ -205,9 +205,9 @@ export default function Footer() {
             <ul className="space-y-1.5 text-xs">
               <li><a href="/"               className="hover:text-white transition">Home</a></li>
               <li><a href="/about-dadi"     className="hover:text-white transition">About Dadi</a></li>
-              <li><a href="#bilona-process" className="hover:text-white transition">Bilona Process</a></li>
-              <li><a href="#shop"           className="hover:text-white transition">Buy Direct Ghee</a></li>
-              <li><a href="#store-location" className="hover:text-white transition">Our Store Location</a></li>
+              <li><a href="/bilona-process" className="hover:text-white transition">Bilona Process</a></li>
+              <li><a href="/shop"           className="hover:text-white transition">Buy Direct Ghee</a></li>
+              <li><a href="/location"       className="hover:text-white transition">Our Store Location</a></li>
             </ul>
           </div>
 
@@ -215,11 +215,11 @@ export default function Footer() {
           <div className="space-y-3">
             <h4 className="font-bold text-xs tracking-wider uppercase text-white">Policies</h4>
             <ul className="space-y-1.5 text-xs">
-              <li><a href="#faqs" className="hover:text-white transition">Shipping Policy</a></li>
-              <li><a href="#faqs" className="hover:text-white transition">Return Policy</a></li>
-              <li><a href="#"     className="hover:text-white transition">Privacy Policy</a></li>
-              <li><a href="#"     className="hover:text-white transition">Terms of Service</a></li>
-              <li><a href="#faqs" className="hover:text-white transition">FAQs</a></li>
+              <li><a href="/shipping-policy" className="hover:text-white transition">Shipping Policy</a></li>
+              <li><a href="/return-policy" className="hover:text-white transition">Return Policy</a></li>
+              <li><a href="/privacy-policy"  className="hover:text-white transition">Privacy Policy</a></li>
+              <li><a href="/terms"           className="hover:text-white transition">Terms of Service</a></li>
+              <li><a href="/#faqs"           className="hover:text-white transition">FAQs</a></li>
             </ul>
           </div>
 
