@@ -120,6 +120,7 @@ export default function Home() {
 
       <Hero
         onPlayVideo={playVideo}
+        onWhatsAppOrder={() => handleWhatsAppDirect("Hello Dairy Cool! I want to place a quick order.")}
       />
       
       <MeetDadi />

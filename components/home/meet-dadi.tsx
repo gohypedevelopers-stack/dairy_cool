@@ -24,7 +24,7 @@ export default function MeetDadi() {
               
               <div className="relative aspect-square w-full overflow-hidden rounded border border-slate-100">
                 <Image
-                  src="/images/dadi_image.webp"
+                  src="/images/dadi_image.jpg"
                   alt="Kamlesh Khari - Chief Ghee Maker"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
