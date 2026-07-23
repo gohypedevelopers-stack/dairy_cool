@@ -18,6 +18,7 @@ export default function Hero({ onPlayVideo, onWhatsAppOrder }: HeroProps) {
           src="/images/dadi_banner_images.png"
           alt="Dadi making authentic bilona ghee"
           fill
+          sizes="100vw"
           priority
           className="object-cover object-center hidden md:block"
         />
@@ -26,6 +27,7 @@ export default function Hero({ onPlayVideo, onWhatsAppOrder }: HeroProps) {
           src="/images/dadi_banner_images_mobile.png"
           alt="Dadi making authentic bilona ghee"
           fill
+          sizes="100vw"
           priority
           className="object-cover object-center block md:hidden"
         />

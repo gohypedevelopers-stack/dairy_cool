@@ -47,6 +47,7 @@ export default function Header({
               src="/images/logo.png"
               alt="Dairy Cool Logo"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               style={{ 
                 objectFit: "contain",
                 filter: "brightness(0) saturate(100%) invert(33%) sepia(97%) saturate(1478%) hue-rotate(179deg) brightness(91%) contrast(101%)"

@@ -1,53 +1,38 @@
 import React from "react";
-import { ChurnIcon, MilkIcon, ButterIcon, HoneyIcon, WellnessIcon } from "@/components/icons";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 
 const categories = [
   {
-    Icon: ChurnIcon,
+    title: "Pure Buffalo Milk",
+    subtitle: "Thick & Creamy",
+    image: "/images/ingredients_cow_milk.png",
+    link: "/#shop"
+  },
+  {
+    title: "Farm Fresh Milk",
+    subtitle: "Pure & Natural",
+    image: "/images/DSC_5108.JPG",
+    link: "/#shop"
+  },
+  {
     title: "A2 Bilona Ghee",
-    subtitle: "Handcrafted & pure",
-    bg: "from-sky-50 to-blue-100",
-    border: "border-sky-200",
-    hover: "hover:shadow-sky-200/60",
-    dot: "bg-sky-400",
+    subtitle: "Authentic & Handcrafted",
+    image: "/images/DSC_5141.JPG",
+    link: "/#shop"
   },
   {
-    Icon: MilkIcon,
-    title: "Fresh A2 Milk",
-    subtitle: "Farm to your door",
-    bg: "from-sky-50 to-blue-100",
-    border: "border-sky-200",
-    hover: "hover:shadow-sky-200/60",
-    dot: "bg-sky-400",
+    title: "Desi Ghee",
+    subtitle: "Traditionally Churned",
+    image: "/images/DSC_5208.JPG",
+    link: "/#shop"
   },
   {
-    Icon: ButterIcon,
-    title: "Desi Makhan",
-    subtitle: "Churned with love",
-    bg: "from-sky-50 to-blue-100",
-    border: "border-sky-200",
-    hover: "hover:shadow-sky-200/60",
-    dot: "bg-sky-400",
-  },
-  {
-    Icon: HoneyIcon,
-    title: "Raw Honey",
-    subtitle: "Wild & unprocessed",
-    bg: "from-sky-50 to-blue-100",
-    border: "border-sky-200",
-    hover: "hover:shadow-sky-200/60",
-    dot: "bg-sky-400",
-  },
-  {
-    Icon: WellnessIcon,
     title: "Wellness Combos",
-    subtitle: "Nature's best kits",
-    bg: "from-sky-50 to-blue-100",
-    border: "border-sky-200",
-    hover: "hover:shadow-sky-200/60",
-    dot: "bg-sky-400",
-  },
+    subtitle: "Curated for Health",
+    image: "/images/buffalo_ghee_combo.png",
+    link: "/#shop"
+  }
 ];
 
 export default function Categories() {
@@ -56,7 +41,7 @@ export default function Categories() {
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;
-      const scrollAmount = clientWidth * 0.8;
+      const scrollAmount = clientWidth * 0.7; // Scroll slightly less than full width
       scrollRef.current.scrollTo({
         left: direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
         behavior: "smooth",
@@ -65,78 +50,97 @@ export default function Categories() {
   };
 
   return (
-    <section className="py-16 bg-[#FAF6F0] border-b border-amber-100/50">
-      <div className="max-w-7xl mx-auto px-4 text-center space-y-12">
+    <section className="relative py-24 bg-white overflow-hidden">
+      {/* Decorative background element */}
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-[#f9f8f6] -skew-x-12 opacity-40 pointer-events-none" />
 
-        {/* Heading */}
-        <div className="space-y-2">
-          <span className="text-primary font-extrabold text-[11px] uppercase tracking-widest block">
-            Dairy Cool Farm Store
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-serif font-extrabold text-slate-900 leading-tight">
-            Your One-Stop Dairy &amp; Organic Store
-          </h2>
-          <p className="text-slate-550 text-sm max-w-md mx-auto mt-1">
-            Sourced fresh from our farm — pure, natural and full of goodness.
-          </p>
+      <div className="w-full max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 relative z-10">
+        
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div className="space-y-3 max-w-2xl">
+            <span className="font-cursive text-2xl text-amber-600 font-bold block tracking-wide">
+              Farm Fresh
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-black text-slate-900 leading-[1.1]">
+              Explore Our <br className="hidden md:block" />
+              <span className="text-[#0284c7]">Pure Collections</span>
+            </h2>
+          </div>
+          
+          <div className="md:max-w-md pb-2">
+            <p className="text-slate-500 text-sm md:text-base leading-relaxed">
+              Every product is sourced directly from our farm, ensuring you get only the most natural, unadulterated goodness delivered to your table.
+            </p>
+          </div>
         </div>
 
         {/* Carousel Wrapper */}
-        <div className="relative px-2">
-          {/* Left Arrow Button */}
-          <button
-            onClick={() => scroll("left")}
-            className="absolute -left-1 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/95 border border-sky-200 flex items-center justify-center text-primary shadow-md active:scale-95 transition md:hidden cursor-pointer"
-            aria-label="Previous Categories"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-
+        <div className="relative group/slider -mx-4 px-4 sm:mx-0 sm:px-0">
+          
           {/* Cards */}
           <div
             ref={scrollRef}
-            className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 md:flex-wrap md:justify-center md:pb-0 scrollbar-none"
+            className="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 pb-12 pt-4 scrollbar-none"
           >
             {categories.map((cat, i) => (
               <a
                 key={i}
-                href="#shop"
-                className={`group relative flex flex-col items-center gap-3 w-40 shrink-0 snap-center md:w-44 py-7 px-4 rounded-2xl bg-gradient-to-b ${cat.bg} border ${cat.border} shadow-sm hover:shadow-lg ${cat.hover} transition-all duration-300 hover:-translate-y-1`}
+                href={cat.link}
+                className="group relative flex flex-col w-[260px] md:w-[320px] aspect-[4/5] shrink-0 snap-start overflow-hidden rounded-[2rem] bg-slate-100 cursor-pointer shadow-sm hover:shadow-2xl transition-all duration-500"
               >
-                {/* Dot badge */}
-                <span className={`absolute top-3 right-3 w-2.5 h-2.5 rounded-full ${cat.dot} opacity-70`} />
+                {/* Full-bleed Image */}
+                <Image
+                  src={cat.image}
+                  alt={cat.title}
+                  fill
+                  sizes="(max-width: 768px) 260px, 320px"
+                  className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                />
+                
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-[#0284c7]/20 opacity-0 group-hover:opacity-100 mix-blend-overlay transition-opacity duration-500" />
 
-                {/* Icon */}
-                <div className="text-primary group-hover:scale-110 transition-transform duration-300 drop-shadow-sm w-12 h-12 flex items-center justify-center">
-                  <cat.Icon className="w-10 h-10" />
-                </div>
-
-                {/* Text */}
-                <div className="space-y-0.5 text-center">
-                  <p className="text-sm font-extrabold text-slate-800 tracking-wide group-hover:text-primary transition-colors">
-                    {cat.title}
-                  </p>
-                  <p className="text-[11px] text-slate-500 font-medium">
+                {/* Content aligned to bottom */}
+                <div className="absolute bottom-0 left-0 right-0 p-8 flex flex-col justify-end transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                  <p className="text-amber-400 font-medium text-xs tracking-widest uppercase mb-2 opacity-80 group-hover:opacity-100 transition-opacity">
                     {cat.subtitle}
                   </p>
+                  <h3 className="text-2xl font-serif font-bold text-white mb-4 group-hover:text-white drop-shadow-md">
+                    {cat.title}
+                  </h3>
+                  
+                  {/* Hover Button */}
+                  <div className="flex items-center gap-2 text-white font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                    <span className="border-b border-white/40 pb-0.5 group-hover:border-white transition-colors tracking-wide">
+                      Shop Collection
+                    </span>
+                    <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
-
-                {/* Hover arrow */}
-                <span className="text-xs font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-200 tracking-wider">
-                  Shop →
-                </span>
               </a>
             ))}
           </div>
 
-          {/* Right Arrow Button */}
-          <button
-            onClick={() => scroll("right")}
-            className="absolute -right-1 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/95 border border-sky-200 flex items-center justify-center text-primary shadow-md active:scale-95 transition md:hidden cursor-pointer"
-            aria-label="Next Categories"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
+          {/* Navigation Controls */}
+          <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 hidden md:flex justify-between pointer-events-none px-4 opacity-0 group-hover/slider:opacity-100 transition-opacity duration-300 z-20">
+            <button
+              onClick={() => scroll("left")}
+              className="w-14 h-14 rounded-full bg-white/90 backdrop-blur border border-slate-200 flex items-center justify-center text-slate-600 hover:text-[#0284c7] hover:border-[#0284c7] hover:scale-105 shadow-xl pointer-events-auto transition-all"
+              aria-label="Previous Categories"
+            >
+              <ChevronLeft className="w-6 h-6 ml-[-2px]" />
+            </button>
+            <button
+              onClick={() => scroll("right")}
+              className="w-14 h-14 rounded-full bg-white/90 backdrop-blur border border-slate-200 flex items-center justify-center text-slate-600 hover:text-[#0284c7] hover:border-[#0284c7] hover:scale-105 shadow-xl pointer-events-auto transition-all"
+              aria-label="Next Categories"
+            >
+              <ChevronRight className="w-6 h-6 mr-[-2px]" />
+            </button>
+          </div>
+          
         </div>
       </div>
     </section>

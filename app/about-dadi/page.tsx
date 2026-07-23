@@ -5,7 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/home/header";
 import Footer from "@/components/home/footer";
-import { ShieldCheck, RotateCw, Flame, Heart } from "lucide-react";
+import { ShieldCheck, RotateCw, Flame, Heart, ShoppingCart } from "lucide-react";
+import { WhatsAppIcon } from "@/components/icons";
+import CartDrawer from "@/components/cart-drawer";
 
 const stats = [
   { value: "30+", label: "Saalon Ka Anubhav" },
@@ -83,10 +85,20 @@ const principles = [
   },
 ];
 
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  size: string;
+  image: string;
+}
+
 export default function AboutDadiPage() {
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const timelineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -110,88 +122,100 @@ export default function AboutDadiPage() {
     window.open("https://wa.me/9716003060?text=Hello%20Dairy%20Cool!%20I%20want%20to%20place%20an%20order.", "_blank");
   };
 
+  const updateQuantity = (id: string, newQty: number) => {
+    if (newQty <= 0) return;
+    setCartItems((prevItems) =>
+      prevItems.map((item) => (item.id === id ? { ...item, quantity: newQty } : item))
+    );
+  };
+
+  const removeItem = (id: string) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
+  const totalCartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
-    <div className="min-h-screen bg-[#f9f5ee] text-slate-800 antialiased font-sans">
+    <div className="min-h-screen bg-[#FAF6F0] text-[#2E271E] antialiased font-sans">
       <Header
         isMobileMenuOpen={isMobileMenuOpen}
         setIsMobileMenuOpen={setIsMobileMenuOpen}
-        cartItemsCount={0}
+        cartItemsCount={totalCartCount}
         setIsCartOpen={setIsCartOpen}
         onWhatsAppOrder={handleWhatsApp}
       />
 
       {/* ── HERO ── */}
-      <div className="relative bg-[#0078BE] overflow-hidden min-h-[480px] md:min-h-[560px] flex items-center">
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-10"
-          style={{ backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)", backgroundSize: "60px 60px" }}
-        />
-        {/* Wave bottom */}
-        <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 90" preserveAspectRatio="none">
-          <path d="M0,90 C480,10 960,10 1440,90 L1440,90 L0,90 Z" fill="#f9f5ee" />
-        </svg>
+      <section className="relative overflow-hidden bg-[#18130F] min-h-[500px] lg:min-h-[600px] flex flex-col justify-center text-white">
+        <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-[#18130F]">
+          <Image
+            src="/images/dadi_banner_images.png"
+            alt="Dadi making authentic bilona ghee"
+            fill
+            sizes="100vw"
+            priority
+            className="object-cover object-center hidden md:block"
+          />
+          <Image
+            src="/images/dadi_banner_images_mobile.png"
+            alt="Dadi making authentic bilona ghee"
+            fill
+            sizes="100vw"
+            priority
+            className="object-cover object-center block md:hidden"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent w-[80%] hidden md:block" />
+          <div className="absolute inset-0 bg-black/50 md:hidden" />
+        </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 grid grid-cols-1 md:grid-cols-2 gap-10 items-center w-full">
-          {/* Left text */}
-          <div className="text-white">
-            <p className="text-xs font-extrabold tracking-[0.35em] uppercase text-sky-300 mb-4">Our Story</p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-black leading-[1.05] mb-6">
-              Meet the Heart<br />
-              <span className="text-amber-300">Behind the Ghee.</span>
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10 pt-16 pb-12 sm:pt-24 sm:pb-20 flex-grow flex flex-col justify-center">
+          <div className="max-w-xl space-y-4 sm:space-y-6">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="w-10 h-[1px] bg-amber-400/40 relative hidden sm:block">
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-amber-400 rounded-full" />
+              </div>
+              <span className="font-cursive text-xl sm:text-2xl md:text-3xl text-amber-400 block italic drop-shadow-md">
+                Our Story ♡
+              </span>
+            </div>
+
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-black leading-[1.2] sm:leading-[1.15] tracking-wide drop-shadow-lg">
+              Meet the Heart <br className="hidden sm:block" />
+              <span className="text-[#2B92E4] drop-shadow-md">Behind the Ghee</span>
             </h1>
-            <p className="text-white/80 text-lg leading-relaxed max-w-lg mb-8">
-              Pichhle kai saalon se Kamlesh Khari ji ghee bana rahi hain — pehle sirf apne ghar aur parivaar ke liye. Aaj unki poti (granddaughter) ki soch se yeh ghee aapke ghar tak pahunch raha hai.
+
+            <p className="text-sm md:text-base font-medium text-stone-200 tracking-wide leading-relaxed drop-shadow-md">
+              Pichhle kai saalon se Kamlesh Khari ji ghee bana rahi hain — pehle sirf apne ghar aur parivaar ke liye. Aaj unki poti ki soch se yeh ghee aapke ghar tak pahunch raha hai.
             </p>
-            <div className="flex flex-wrap gap-4">
+
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-3 sm:pt-4 w-full max-w-[320px] sm:max-w-none">
               <Link
                 href="/#shop"
-                className="inline-flex items-center gap-2 bg-white text-[#0078BE] font-extrabold px-8 py-3.5 rounded-xl text-sm uppercase tracking-widest hover:bg-amber-50 transition shadow-lg"
+                className="inline-flex items-center justify-center gap-1.5 bg-[#2B92E4] hover:bg-[#207fcc] text-white font-bold px-6 py-3.5 rounded-full text-xs uppercase tracking-wider transition shadow-lg shadow-sky-500/20 active:scale-95 whitespace-nowrap"
               >
-                Shop Dadi's Ghee →
+                <ShoppingCart className="w-4 h-4" />
+                <span>Shop Dadi's Ghee</span>
               </Link>
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 border-2 border-white/40 text-white font-bold px-8 py-3.5 rounded-xl text-sm uppercase tracking-widest hover:border-white/80 transition"
+                className="inline-flex items-center justify-center gap-2 bg-black/40 hover:bg-black/60 backdrop-blur-sm text-white font-bold px-6 py-3.5 rounded-full text-xs uppercase tracking-wider transition border border-white/30 active:scale-95 whitespace-nowrap"
               >
-                Back to Home
+                <span>Back to Home</span>
               </Link>
             </div>
           </div>
-
-          {/* Right: Dadi image */}
-          <div className="relative flex justify-center md:justify-end">
-            <div className="relative w-72 h-80 md:w-96 md:h-[420px] rounded-[2.5rem] overflow-hidden border-4 border-white/20 shadow-2xl">
-              <Image
-                src="/images/dadi_illustration_new.webp"
-                alt="Grandmother Kamlesh Khari making ghee"
-                fill
-                style={{ objectFit: "cover" }}
-                className="object-cover"
-                priority
-              />
-              {/* Badge */}
-              <div className="absolute bottom-5 left-5 right-5 bg-white/95 backdrop-blur rounded-2xl px-4 py-3 shadow-xl">
-                <p className="text-sm font-black text-slate-900">Kamlesh Khari</p>
-                <p className="text-xs text-[#0078BE] font-semibold">Jaanchh Wala gaon, Greater Noida</p>
-              </div>
-            </div>
-            {/* Floating pill */}
-            <div className="absolute -top-3 -left-3 md:left-auto md:-right-3 bg-amber-400 text-white rounded-2xl px-4 py-2 shadow-xl font-black text-sm rotate-3 whitespace-nowrap">
-              Traditional Bilona Ghee
-            </div>
-          </div>
         </div>
-      </div>
+      </section>
 
       {/* ── STATS ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-8 relative z-20">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {stats.map((s, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl p-6 text-center shadow-sm border border-amber-100 hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+              className="bg-white rounded-2xl p-6 text-center shadow-lg border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
-              <p className="text-3xl md:text-4xl font-black text-[#0078BE] mb-1">{s.value}</p>
+              <p className="text-3xl md:text-4xl font-black text-[#0284c7] mb-1">{s.value}</p>
               <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider">{s.label}</p>
             </div>
           ))}
@@ -200,54 +224,63 @@ export default function AboutDadiPage() {
 
       {/* ── STORY SPLIT ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
-        {/* Image side */}
-        <div className="relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-100 to-sky-50 rounded-[3rem] -rotate-2 scale-95 opacity-70" />
-          <div className="relative bg-white rounded-[2.5rem] overflow-hidden shadow-xl border border-amber-100 p-2">
-            <Image
-              src="/images/dadi_image.webp"
-              alt="Dadi making bilona ghee"
-              width={600}
-              height={480}
-              className="rounded-[2rem] w-full object-cover"
-            />
-            <div className="absolute inset-x-6 bottom-6 bg-[#0078BE]/92 backdrop-blur-sm rounded-2xl p-5 text-white">
-              <p className="text-sm font-serif italic leading-relaxed">
-                &quot;Hamari pehchaan hai — shuddh ghee, imaandaar tareeke se banaya hua, sehat ke liye behtar.&quot;
-              </p>
-              <p className="text-xs text-sky-200 font-bold mt-2">— Kamlesh Khari</p>
-            </div>
-          </div>
-        </div>
-
         {/* Story text */}
-        <div className="space-y-5">
-          <p className="text-xs font-extrabold tracking-[0.35em] uppercase text-[#0078BE]">The Dairy Cool Story</p>
-          <h2 className="text-3xl md:text-4xl font-serif font-black text-slate-900 leading-tight">
-            Namaste, Main Kamlesh Khari hoon,<br />
-            <span className="text-[#0078BE]">Jaanchh Wala gaon, Greater Noida se.</span>
-          </h2>
-          <p className="text-slate-600 leading-relaxed">
-            Pichhle kai saalon se main ghee bana rahi hoon — pehle sirf apne ghar aur parivaar ke liye. Meri poti (granddaughter) ki soch se yeh ghee aaj aur logon tak pahunch raha hai, wahi shuddhta aur pyaar ke saath.
-          </p>
-          <p className="text-slate-600 leading-relaxed">
-            Hum aaj bhi bilona vidhi se, bina milawat, dheere-dheere pakaya hua ghee banate hain — bilkul waise hi jaise ghar ke liye banaya jaata hai. Farq sirf itna hai ki aaj yeh ghee zyada logon ke ghar tak pahunch raha hai.
-          </p>
+        <div className="space-y-6">
+          <div className="space-y-2">
+            <span className="font-cursive text-2xl text-amber-600 font-bold flex items-center gap-1">
+              The Dairy Cool Story <span className="text-sm">♡</span>
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-black leading-tight text-slate-900">
+              Namaste, Main Kamlesh Khari hoon, <br />
+              <span className="text-[#0284c7]">Jaanchh Wala gaon se.</span>
+            </h2>
+          </div>
+          <div className="w-20 h-1 bg-amber-500/80 rounded" />
+          <div className="space-y-4 text-slate-600 leading-relaxed">
+            <p>
+              Pichhle kai saalon se main ghee bana rahi hoon — pehle sirf apne ghar aur parivaar ke liye. Meri poti (granddaughter) ki soch se yeh ghee aaj aur logon tak pahunch raha hai, wahi shuddhta aur pyaar ke saath.
+            </p>
+            <p>
+              Hum aaj bhi bilona vidhi se, bina milawat, dheere-dheere pakaya hua ghee banate hain — bilkul waise hi jaise ghar ke liye banaya jaata hai. Farq sirf itna hai ki aaj yeh ghee zyada logon ke ghar tak pahunch raha hai.
+            </p>
+          </div>
           <Link
             href="/#shop"
-            className="inline-flex items-center gap-3 bg-[#0078BE] hover:bg-[#0067a5] text-white font-extrabold px-8 py-4 rounded-xl text-sm uppercase tracking-widest transition shadow-lg shadow-sky-500/20"
+            className="inline-flex items-center gap-3 bg-[#0284c7] hover:bg-[#0274b3] text-white font-extrabold px-8 py-4 rounded-full text-sm uppercase tracking-widest transition shadow-lg shadow-sky-500/20"
           >
             Shop Our Ghee →
           </Link>
         </div>
+
+        {/* Image side - Polaroid Style */}
+        <div className="flex justify-center lg:justify-end">
+          <div className="relative bg-white p-4 pb-12 rounded-lg shadow-2xl border border-amber-100/40 rotate-2 max-w-md w-full group hover:rotate-0 transition-transform duration-500">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-8 bg-amber-100/60 backdrop-blur-sm -rotate-1 border border-amber-200/30 shadow-sm z-10" />
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded border border-slate-100">
+              <Image
+                src="/images/dadi_image.webp"
+                alt="Dadi making bilona ghee"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+            <div className="mt-4 text-center">
+              <p className="font-cursive text-2xl text-amber-700 font-bold">Hamari Pehchaan ♡</p>
+            </div>
+            <div className="absolute -bottom-4 -right-4 w-12 h-12 text-amber-600/20 pointer-events-none">
+              🌿
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* ── PROCESS PRINCIPLES ── */}
-      <div className="bg-white py-16 md:py-20">
+      <div className="bg-white py-16 md:py-20 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="text-xs font-extrabold tracking-[0.35em] uppercase text-[#0078BE] mb-2">How We Make It</p>
-            <h2 className="text-3xl md:text-4xl font-serif font-black text-slate-900">The Four Pillars of Purity</h2>
+          <div className="text-center mb-14 space-y-3">
+            <span className="font-cursive text-2xl text-amber-600 font-bold block">How We Make It</span>
+            <h2 className="text-3xl sm:text-4xl font-serif font-black text-slate-900">The Four Pillars of Purity</h2>
             <p className="text-slate-500 mt-3 max-w-xl mx-auto text-sm leading-relaxed">
               Every step of our process is deliberate and non-negotiable. This is what makes Dairy Cool ghee different from everything else in the market.
             </p>
@@ -256,9 +289,9 @@ export default function AboutDadiPage() {
             {principles.map((p, i) => (
               <div
                 key={i}
-                className="group flex gap-6 bg-[#f9f5ee] border border-amber-100 rounded-2xl p-7 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                className="group flex gap-6 bg-[#FAF6F0] border border-amber-100/50 rounded-2xl p-7 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-[#0078BE] text-white flex items-center justify-center font-black text-xl group-hover:scale-110 transition-transform">
+                <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-[#0284c7] text-white flex items-center justify-center font-black text-xl group-hover:scale-110 transition-transform shadow-md">
                   {p.num}
                 </div>
                 <div>
@@ -272,11 +305,20 @@ export default function AboutDadiPage() {
       </div>
 
       {/* ── TIMELINE ── */}
-      <div className="bg-[#f9f5ee] py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="text-xs font-extrabold tracking-[0.35em] uppercase text-[#0078BE] mb-2">Our Journey</p>
-            <h2 className="text-3xl md:text-4xl font-serif font-black text-slate-900">A Legacy Built Over Decades</h2>
+      <div className="bg-[#FAF6F0] py-16 md:py-20 relative overflow-hidden">
+        {/* Subtle background SVG */}
+        <div className="absolute right-0 top-0 opacity-5 pointer-events-none hidden md:block">
+          <svg viewBox="0 0 200 200" className="w-96 h-96 fill-none stroke-amber-900" strokeWidth="0.5">
+            <circle cx="100" cy="100" r="80" />
+            <circle cx="100" cy="100" r="60" />
+            <circle cx="100" cy="100" r="40" />
+          </svg>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-14 space-y-3">
+            <span className="font-cursive text-2xl text-amber-600 font-bold block">Our Journey</span>
+            <h2 className="text-3xl sm:text-4xl font-serif font-black text-slate-900">A Legacy Built Over Decades</h2>
           </div>
 
           <div ref={timelineRef} className="relative">
@@ -289,12 +331,13 @@ export default function AboutDadiPage() {
                   <div
                     key={i}
                     data-idx={i}
-                    className={`relative flex flex-col md:flex-row items-center gap-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-                      } ${isLeft ? "md:flex-row" : "md:flex-row-reverse"}`}
+                    className={`relative flex flex-col md:flex-row items-center gap-6 transition-all duration-700 ${
+                      isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                    } ${isLeft ? "md:flex-row" : "md:flex-row-reverse"}`}
                   >
                     <div className={`w-full md:w-5/12 ${isLeft ? "md:text-right" : "md:text-left"}`}>
-                      <div className="bg-white border border-amber-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                        <span className="inline-block bg-[#0078BE] text-white text-xs font-extrabold px-3 py-1 rounded-full mb-3 uppercase tracking-wider">
+                      <div className="bg-white border border-amber-100/50 rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow">
+                        <span className="inline-block bg-[#0284c7] text-white text-xs font-extrabold px-3 py-1 rounded-full mb-3 uppercase tracking-wider">
                           {item.year}
                         </span>
                         <h3 className="text-lg font-serif font-bold text-slate-900 mb-2">{item.title}</h3>
@@ -302,7 +345,7 @@ export default function AboutDadiPage() {
                       </div>
                     </div>
                     <div className="hidden md:flex w-2/12 justify-center">
-                      <div className={`w-5 h-5 rounded-full bg-[#0078BE] border-4 border-white shadow-lg ring-2 ring-sky-200 transition-transform duration-500 ${isVisible ? "scale-100" : "scale-0"}`} />
+                      <div className={`w-5 h-5 rounded-full bg-[#0284c7] border-4 border-white shadow-lg ring-2 ring-sky-200 transition-transform duration-500 ${isVisible ? "scale-100" : "scale-0"}`} />
                     </div>
                     <div className="hidden md:block w-5/12" />
                   </div>
@@ -314,20 +357,20 @@ export default function AboutDadiPage() {
       </div>
 
       {/* ── VALUES ── */}
-      <div className="bg-white py-16 md:py-20">
+      <div className="bg-[#f0f9f0] py-16 md:py-20 border-t border-sky-100/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-xs font-extrabold tracking-[0.35em] uppercase text-[#0078BE] mb-2">What We Stand For</p>
-            <h2 className="text-3xl md:text-4xl font-serif font-black text-slate-900">Our Unbreakable Promises</h2>
+          <div className="text-center mb-12 space-y-3">
+            <span className="font-cursive text-2xl text-amber-600 font-bold block">What We Stand For</span>
+            <h2 className="text-3xl sm:text-4xl font-serif font-black text-slate-900">Our Unbreakable Promises</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((v, i) => (
               <div
                 key={i}
-                className="group bg-[#f9f5ee] border border-amber-100 rounded-2xl p-8 shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300 text-center"
+                className="group bg-white border border-slate-100 rounded-2xl p-8 shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300 text-center"
               >
                 <div className="flex justify-center mb-5">
-                  <div className="p-4 bg-sky-50 text-[#0078BE] rounded-2xl group-hover:bg-[#0078BE] group-hover:text-white transition-all duration-300 group-hover:scale-110">
+                  <div className="p-4 bg-[#e8f4fd] text-[#0284c7] rounded-2xl group-hover:bg-[#0284c7] group-hover:text-white transition-all duration-300 group-hover:scale-110">
                     <v.icon className="w-8 h-8" />
                   </div>
                 </div>
@@ -340,36 +383,47 @@ export default function AboutDadiPage() {
       </div>
 
       {/* ── BOTTOM CTA ── */}
-      <div className="relative bg-[#0078BE] overflow-hidden">
+      <div className="relative bg-[#0284c7] overflow-hidden">
         <svg className="absolute top-0 left-0 w-full" viewBox="0 0 1440 70" preserveAspectRatio="none">
-          <path d="M0,0 C480,70 960,70 1440,0 L1440,0 L0,0 Z" fill="white" />
+          <path d="M0,0 C480,70 960,70 1440,0 L1440,0 L0,0 Z" fill="#f0f9f0" />
         </svg>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 text-center relative z-10">
           <p className="text-sky-200 text-xs font-extrabold tracking-[0.35em] uppercase mb-4">Pure. Traditional. Honest.</p>
           <h2 className="text-3xl md:text-5xl font-serif font-black text-white mb-4 leading-tight">
             Taste the Difference That<br />Three Decades of Tradition Make
           </h2>
-          <p className="text-white/70 mb-10 text-lg max-w-xl mx-auto">
+          <p className="text-white/80 mb-10 text-lg max-w-xl mx-auto">
             Order Dadi&apos;s Bilona Ghee today — made the right way, delivered to your door.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/#shop"
-              className="inline-flex items-center gap-3 bg-white hover:bg-amber-50 text-[#0078BE] font-extrabold px-10 py-4 rounded-xl text-sm uppercase tracking-widest transition shadow-2xl"
+              className="inline-flex items-center gap-2 bg-[#2B92E4] hover:bg-[#207fcc] text-white font-bold px-8 py-4 rounded-full text-sm uppercase tracking-wider transition shadow-xl"
             >
-              Order Now →
+              <ShoppingCart className="w-5 h-5" />
+              <span>Order Now</span>
             </Link>
             <button
               onClick={handleWhatsApp}
-              className="inline-flex items-center gap-3 border-2 border-white/50 hover:border-white text-white font-extrabold px-10 py-4 rounded-xl text-sm uppercase tracking-widest transition cursor-pointer"
+              className="inline-flex items-center gap-2 bg-[#22c55e] hover:bg-[#1eb052] text-white font-bold px-8 py-4 rounded-full text-sm uppercase tracking-wider transition shadow-xl cursor-pointer"
             >
-              WhatsApp Order
+              <WhatsAppIcon className="w-5 h-5" />
+              <span>WhatsApp Order</span>
             </button>
           </div>
         </div>
       </div>
 
       <Footer />
+      
+      {/* Cart Drawer Component */}
+      <CartDrawer
+        isOpen={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
+        items={cartItems}
+        onUpdateQuantity={updateQuantity}
+        onRemoveItem={removeItem}
+      />
     </div>
   );
 }

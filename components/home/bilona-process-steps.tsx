@@ -1,95 +1,111 @@
 import React from "react";
-import { Droplet, Utensils, RefreshCw, Snowflake, Flame, Award } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 const steps = [
   { 
     name: "Fresh Milk", 
-    icon: Droplet,
+    image: "/images/DSC_5108.JPG",
     desc: "We start with pure, fresh milk sourced directly from healthy cows on our farms."
   },
   { 
     name: "Dahi (Curd)", 
-    icon: Utensils,
+    image: "/images/ingredients_cow_milk.png",
     desc: "The milk is boiled in earthen pots and naturally cultured into thick, probiotic-rich curd."
   },
   { 
     name: "Bilona Churning", 
-    icon: RefreshCw,
+    image: "/images/ingredients_bilona.png",
     desc: "The curd is churned bidirectionally using a traditional wooden bilona before dawn."
   },
   { 
     name: "Makhan Separation", 
-    icon: Snowflake,
+    image: "/images/DSC_5208.JPG",
     desc: "Continuous churning separates the rich, pure butter (Makhan) from the buttermilk."
   },
   { 
     name: "Slow Heating", 
-    icon: Flame,
+    image: "/images/ingredients_slow_cooked.png",
     desc: "The Makhan is slow-heated over a low flame using traditional mud chulhas (hearths)."
   },
   { 
     name: "Pure Bilona Ghee", 
-    icon: Award,
+    image: "/images/DSC_5141.JPG",
     desc: "The result is 100% pure, golden, granular Bilona Ghee with an authentic aroma."
   },
 ];
 
 export default function BilonaProcessSteps() {
-  return (
-    <section id="bilona-process" className="py-24 bg-sky-50/50 border-b border-sky-100/50 relative overflow-hidden">
-      
-      {/* Decorative background blur */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-sky-200/30 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-sky-200/30 rounded-full blur-3xl translate-y-1/2 translate-x-1/2 pointer-events-none" />
+  const scrollRef = React.useRef<HTMLDivElement>(null);
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+  return (
+    <section id="bilona-process" className="py-24 bg-[#FAF6F0] relative overflow-hidden">
+      
+      {/* Decorative background styling */}
+      <div className="absolute top-0 right-0 w-1/3 h-[600px] bg-gradient-to-bl from-amber-100/50 to-transparent opacity-70 pointer-events-none" />
+
+      <div className="w-full max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 relative z-10">
         
         {/* Header */}
-        <div className="space-y-4 mb-20 text-center max-w-2xl mx-auto">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-white border border-sky-100 text-[#0078BE] font-extrabold text-[11px] uppercase tracking-widest shadow-sm">
+        <div className="text-center space-y-3 mb-16 max-w-2xl mx-auto">
+          <span className="font-cursive text-2xl text-amber-600 font-bold block">
             Authentic & Traditional
           </span>
-          <h2 className="text-4xl md:text-5xl font-serif font-black text-slate-800 leading-tight">
+          {/* Solid color heading */}
+          <h2 className="text-4xl md:text-5xl font-serif font-black text-slate-900 leading-tight">
             The Bilona Process
           </h2>
-          <p className="text-slate-600 text-sm md:text-base leading-relaxed">
+          <p className="text-slate-500 text-sm md:text-base leading-relaxed pt-2">
             Every drop of our ghee is crafted using the ancient Vedic process. We never use machines or raw cream, ensuring maximum nutrition and taste.
           </p>
         </div>
 
-        {/* 3x2 Grid Container */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {steps.map((step, index) => (
-            <div 
-              key={index} 
-              className="relative group bg-white p-8 rounded-3xl border border-sky-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden"
-            >
-              {/* Background Number Watermark */}
-              <div className="absolute -right-4 -bottom-8 text-[120px] font-black text-sky-50 leading-none group-hover:text-sky-100/50 transition-colors pointer-events-none">
-                0{index + 1}
-              </div>
+        {/* Horizontally Scrolling Single Row Container */}
+        <div className="relative group/slider -mx-4 px-4 sm:mx-0 sm:px-0">
+          <div 
+            ref={scrollRef}
+            className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-12 pt-4 scrollbar-none"
+          >
+            {steps.map((step, index) => (
+              <div 
+                key={index} 
+                className="group relative flex flex-col w-[280px] shrink-0 snap-start bg-white rounded-3xl overflow-hidden border border-amber-100/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500"
+              >
+                {/* Image Section */}
+                <div className="relative h-48 w-full bg-slate-100 overflow-hidden">
+                  <Image
+                    src={step.image}
+                    alt={step.name}
+                    fill
+                    sizes="(max-width: 768px) 280px, 280px"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  />
+                  
+                  {/* Step Number Badge */}
+                  <div className="absolute top-4 left-4 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center font-black text-amber-600 font-serif">
+                    {index + 1}
+                  </div>
+                </div>
 
-              {/* Icon */}
-              <div className="relative w-16 h-16 rounded-2xl bg-sky-50 flex items-center justify-center text-[#0078BE] mb-6 group-hover:bg-[#0078BE] group-hover:text-white transition-all duration-300 shadow-sm border border-sky-100 group-hover:border-[#0078BE]">
-                <step.icon className="w-8 h-8" />
-              </div>
+                {/* Content Section */}
+                <div className="p-6 relative z-10 bg-white flex-1 flex flex-col">
+                  <h3 className="text-xl font-bold font-serif text-slate-900 mb-2 group-hover:text-amber-600 transition-colors">
+                    {step.name}
+                  </h3>
+                  <p className="text-sm text-slate-500 leading-relaxed group-hover:text-slate-600 transition-colors">
+                    {step.desc}
+                  </p>
+                </div>
 
-              {/* Content */}
-              <div className="relative z-10">
-                <h3 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-[#0078BE] transition-colors font-serif">
-                  {step.name}
-                </h3>
-                <p className="text-sm text-slate-600 leading-relaxed group-hover:text-slate-700">
-                  {step.desc}
-                </p>
+                {/* Connecting Arrow (except last) - Visible only on large screens if they fit, but flex keeps them connected conceptually */}
+                {index < steps.length - 1 && (
+                  <div className="hidden lg:flex absolute top-24 -right-3 w-6 h-6 bg-white shadow-md rounded-full items-center justify-center z-20 text-slate-300">
+                    <ArrowRight className="w-3 h-3" />
+                  </div>
+                )}
               </div>
-
-              {/* Progress Line indicating next step (except last) */}
-              {index < steps.length - 1 && (
-                <div className="absolute top-16 right-0 w-8 h-[2px] bg-sky-100 hidden lg:block" />
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
       </div>

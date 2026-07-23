@@ -1,7 +1,9 @@
 import React from "react";
+import Image from "next/image";
 import { Leaf, Flame, Star, Droplet, ShieldAlert, HeartPulse } from "lucide-react";
+import Link from "next/link";
 
-const cards = [
+const coreBenefits = [
   {
     title: "Bilona Method",
     desc: "100% traditional bilona process",
@@ -19,7 +21,7 @@ const cards = [
   }
 ];
 
-const sidePoints = [
+const healthBenefits = [
   {
     title: "Rich in Good Fats",
     desc: "Essential healthy fatty acids",
@@ -39,78 +41,92 @@ const sidePoints = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-24 bg-[#FAF6F0] border-b border-amber-100/30">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 bg-[#FAF6F0] overflow-hidden relative border-t border-amber-50">
+      
+      {/* Decorative Background Elements */}
+      <div className="absolute top-0 right-0 w-1/3 h-[600px] bg-gradient-to-bl from-amber-100/40 to-transparent opacity-70 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-1/4 h-[400px] bg-gradient-to-tr from-sky-100/40 to-transparent opacity-70 pointer-events-none" />
+      
+      <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
-        <div className="space-y-2 mb-16 text-center">
+        <div className="text-center space-y-3 mb-20 max-w-2xl mx-auto">
           <span className="font-cursive text-2xl text-amber-600 font-bold block">
             Why Daily Cool Ghee
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-black text-[#2E271E] leading-tight">
-            Kyun Hai Hum Alag?
+          <h2 className="text-4xl md:text-5xl font-serif font-black text-[#2E271E] leading-tight">
+            Kyun Hai <span className="text-[#0284c7]">Hum Alag?</span>
           </h2>
         </div>
 
-        {/* Two Equal Columns Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
           
-          {/* Left Column: 3 Core Benefits */}
-          <div className="space-y-6">
-            <h3 className="text-lg font-serif font-bold text-[#2E271E] pb-2 border-b border-amber-150/30 uppercase tracking-wide">
+          {/* Left Column: Core Benefits */}
+          <div className="flex-1 w-full space-y-8 lg:space-y-6">
+            <h3 className="text-center lg:text-right text-sm font-bold text-amber-600/80 uppercase tracking-[0.2em] mb-4 lg:mb-6">
               Core Benefits
             </h3>
-            <div className="space-y-4">
-              {cards.map((card, idx) => (
+            <div className="space-y-5">
+              {coreBenefits.map((item, idx) => (
                 <div 
                   key={idx} 
-                  className="bg-white border border-amber-100/40 rounded-2xl p-5 flex items-start gap-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group"
+                  className="group bg-white/80 backdrop-blur-sm p-4 rounded-3xl flex flex-col sm:flex-row lg:flex-row-reverse items-center lg:items-center gap-4 lg:gap-5 text-center lg:text-right border border-white shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100/60 text-amber-700 flex items-center justify-center shrink-0 group-hover:bg-amber-100 transition-colors">
-                    <card.icon className="w-5.5 h-5.5" />
+                  <div className="w-14 h-14 shrink-0 rounded-[1.25rem] bg-gradient-to-br from-amber-50 to-amber-100 text-amber-600 flex items-center justify-center shadow-inner group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-amber-200/50 transition-all duration-300">
+                    <item.icon className="w-6 h-6" />
                   </div>
                   <div className="space-y-1">
-                    <h4 className="font-serif font-bold text-[#2E271E] text-base">
-                      {card.title}
+                    <h4 className="font-serif font-black text-lg text-slate-900 group-hover:text-amber-700 transition-colors">
+                      {item.title}
                     </h4>
-                    <p className="text-xs text-[#5A4F43] leading-relaxed">
-                      {card.desc}
+                    <p className="text-slate-500 text-[13px] leading-relaxed max-w-[280px] mx-auto lg:ml-auto lg:mr-0">
+                      {item.desc}
                     </p>
                   </div>
                 </div>
               ))}
             </div>
+          </div>
 
-            <div className="flex justify-center md:justify-start pt-4">
-              <a
-                href="#shop"
-                className="bg-[#0078BE] hover:bg-[#0067a5] text-white font-extrabold px-10 py-4 rounded-full text-xs uppercase tracking-widest transition shadow-lg shadow-sky-500/20 active:scale-95 inline-block"
-              >
-                Order Now
-              </a>
+          {/* Center Column: Product Image Focus */}
+          <div className="w-full lg:w-[420px] shrink-0 relative flex justify-center py-6 lg:py-0">
+            {/* Elegant Glow */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] lg:w-[380px] lg:h-[380px] bg-gradient-to-tr from-amber-200/50 to-sky-200/50 rounded-full blur-[50px] opacity-80 pointer-events-none" />
+            
+            {/* The Image Container - Styled beautifully */}
+            <div className="relative w-[300px] h-[300px] lg:w-[380px] lg:h-[380px] rounded-[3rem] overflow-hidden border-8 border-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] transform group-hover:scale-105 transition-transform duration-700">
+              <Image 
+                src="/images/buffalo_ghee_single.png"
+                alt="Daily Cool Pure Bilona Ghee"
+                fill
+                className="object-cover hover:scale-110 transition-transform duration-1000 ease-out"
+                priority
+              />
+              {/* Inner shadow overlay for depth */}
+              <div className="absolute inset-0 rounded-[2.5rem] shadow-[inset_0_0_20px_rgba(0,0,0,0.05)] pointer-events-none" />
             </div>
           </div>
 
-          {/* Right Column: 3 Health Benefits */}
-          <div className="space-y-6">
-            <h3 className="text-lg font-serif font-bold text-[#2E271E] pb-2 border-b border-amber-150/30 uppercase tracking-wide">
-              Health &amp; Nutrition
+          {/* Right Column: Health & Nutrition */}
+          <div className="flex-1 w-full space-y-8 lg:space-y-6">
+            <h3 className="text-center lg:text-left text-sm font-bold text-[#0284c7]/80 uppercase tracking-[0.2em] mb-4 lg:mb-6">
+              Health & Nutrition
             </h3>
-            <div className="space-y-4">
-              {sidePoints.map((pt, idx) => (
+            <div className="space-y-5">
+              {healthBenefits.map((item, idx) => (
                 <div 
                   key={idx} 
-                  className="bg-white border border-amber-100/40 rounded-2xl p-5 flex items-start gap-4 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group"
+                  className="group bg-white/80 backdrop-blur-sm p-4 rounded-3xl flex flex-col sm:flex-row items-center lg:items-center gap-4 lg:gap-5 text-center lg:text-left border border-white shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100/60 text-amber-700 flex items-center justify-center shrink-0 group-hover:bg-amber-100 transition-colors">
-                    <pt.icon className="w-5.5 h-5.5" />
+                  <div className="w-14 h-14 shrink-0 rounded-[1.25rem] bg-gradient-to-br from-sky-50 to-sky-100 text-[#0284c7] flex items-center justify-center shadow-inner group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-sky-200/50 transition-all duration-300">
+                    <item.icon className="w-6 h-6" />
                   </div>
                   <div className="space-y-1">
-                    <h4 className="font-serif font-bold text-[#2E271E] text-base">
-                      {pt.title}
+                    <h4 className="font-serif font-black text-lg text-slate-900 group-hover:text-[#0284c7] transition-colors">
+                      {item.title}
                     </h4>
-                    <p className="text-xs text-[#5A4F43] leading-relaxed">
-                      {pt.desc}
+                    <p className="text-slate-500 text-[13px] leading-relaxed max-w-[280px] mx-auto lg:ml-0 lg:mr-auto">
+                      {item.desc}
                     </p>
                   </div>
                 </div>
@@ -118,6 +134,17 @@ export default function WhyChooseUs() {
             </div>
           </div>
 
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="mt-20 flex justify-center">
+          <Link
+            href="/#shop"
+            className="group relative inline-flex items-center justify-center gap-3 px-12 py-4 rounded-full bg-[#0284c7] hover:bg-[#0274b3] text-white font-black text-sm uppercase tracking-widest overflow-hidden shadow-[0_8px_20px_rgba(2,132,199,0.3)] hover:shadow-[0_12px_30px_rgba(2,132,199,0.4)] transition-all hover:-translate-y-1"
+          >
+            <span className="relative z-10">Order Now</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] transition-transform z-0" />
+          </Link>
         </div>
 
       </div>

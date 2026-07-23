@@ -15,6 +15,7 @@ import ProductGrid from "@/components/home/product-grid";
 import WhyChooseUs from "@/components/home/why-choose-us";
 
 import QualityChecks from "@/components/home/quality-checks";
+import BilonaProcessSteps from "@/components/home/bilona-process-steps";
 import Testimonials from "@/components/home/testimonials";
 import Certifications from "@/components/home/certifications";
 import Locations from "@/components/home/locations";
@@ -122,6 +123,8 @@ export default function Home() {
         onPlayVideo={playVideo}
         onWhatsAppOrder={() => handleWhatsAppDirect("Hello Dairy Cool! I want to place a quick order.")}
       />
+      
+      <BilonaProcessSteps />
       
       <MeetDadi />
 
