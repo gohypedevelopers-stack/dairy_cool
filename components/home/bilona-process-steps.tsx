@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 const steps = [
   { 
@@ -38,6 +38,14 @@ const steps = [
 export default function BilonaProcessSteps() {
   const scrollRef = React.useRef<HTMLDivElement>(null);
 
+  const scroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const { current } = scrollRef;
+      const scrollAmount = direction === "left" ? -320 : 320;
+      current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
+
   return (
     <section id="bilona-process" className="py-24 bg-[#FAF6F0] relative overflow-hidden">
       
@@ -46,18 +54,37 @@ export default function BilonaProcessSteps() {
 
       <div className="w-full max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 relative z-10">
         
-        {/* Header */}
-        <div className="text-center space-y-3 mb-16 max-w-2xl mx-auto">
-          <span className="font-cursive text-2xl text-amber-600 font-bold block">
-            Authentic & Traditional
-          </span>
-          {/* Solid color heading */}
-          <h2 className="text-4xl md:text-5xl font-serif font-black text-slate-900 leading-tight">
-            The Bilona Process
-          </h2>
-          <p className="text-slate-500 text-sm md:text-base leading-relaxed pt-2">
-            Every drop of our ghee is crafted using the ancient Vedic process. We never use machines or raw cream, ensuring maximum nutrition and taste.
-          </p>
+        {/* Header with Navigation Controls */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div className="text-left space-y-3 max-w-2xl">
+            <span className="font-cursive text-2xl text-amber-600 font-bold block">
+              Authentic & Traditional
+            </span>
+            <h2 className="text-4xl md:text-5xl font-serif font-black text-slate-900 leading-tight">
+              The Bilona Process
+            </h2>
+            <p className="text-slate-500 text-sm md:text-base leading-relaxed pt-2">
+              Every drop of our ghee is crafted using the ancient Vedic process. We never use machines or raw cream, ensuring maximum nutrition and taste.
+            </p>
+          </div>
+
+          {/* Carousel Navigation Buttons */}
+          <div className="flex items-center gap-3 shrink-0 self-start md:self-end">
+            <button
+              onClick={() => scroll("left")}
+              aria-label="Previous Step"
+              className="w-12 h-12 rounded-full bg-white border border-amber-200/80 text-slate-800 flex items-center justify-center shadow-md hover:bg-amber-500 hover:text-white hover:border-amber-500 transition-all duration-300 active:scale-95 cursor-pointer"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              onClick={() => scroll("right")}
+              aria-label="Next Step"
+              className="w-12 h-12 rounded-full bg-white border border-amber-200/80 text-slate-800 flex items-center justify-center shadow-md hover:bg-amber-500 hover:text-white hover:border-amber-500 transition-all duration-300 active:scale-95 cursor-pointer"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </div>
         </div>
 
         {/* Horizontally Scrolling Single Row Container */}

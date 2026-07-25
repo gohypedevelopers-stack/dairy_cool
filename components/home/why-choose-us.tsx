@@ -89,12 +89,12 @@ export default function WhyChooseUs() {
           </div>
 
           {/* Center Column: Product Image Focus */}
-          <div className="w-full lg:w-[420px] shrink-0 relative flex justify-center py-6 lg:py-0">
+          <div className="w-full lg:w-[420px] shrink-0 relative flex justify-center py-6 lg:py-0 overflow-hidden sm:overflow-visible">
             {/* Elegant Glow */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] lg:w-[380px] lg:h-[380px] bg-gradient-to-tr from-amber-200/50 to-sky-200/50 rounded-full blur-[50px] opacity-80 pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] lg:w-[380px] lg:h-[380px] bg-gradient-to-tr from-amber-200/50 to-sky-200/50 rounded-full blur-[50px] opacity-80 pointer-events-none" />
             
             {/* The Image Container - Styled beautifully */}
-            <div className="relative w-[300px] h-[300px] lg:w-[380px] lg:h-[380px] rounded-[3rem] overflow-hidden border-8 border-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] transform group-hover:scale-105 transition-transform duration-700">
+            <div className="relative w-[260px] h-[260px] sm:w-[300px] sm:h-[300px] lg:w-[380px] lg:h-[380px] rounded-[2.5rem] sm:rounded-[3rem] overflow-hidden border-6 sm:border-8 border-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] transform group-hover:scale-105 transition-transform duration-700">
               <Image 
                 src="/images/buffalo_ghee_single.png"
                 alt="Daily Cool Pure Bilona Ghee"
@@ -103,7 +103,7 @@ export default function WhyChooseUs() {
                 priority
               />
               {/* Inner shadow overlay for depth */}
-              <div className="absolute inset-0 rounded-[2.5rem] shadow-[inset_0_0_20px_rgba(0,0,0,0.05)] pointer-events-none" />
+              <div className="absolute inset-0 rounded-[2rem] sm:rounded-[2.5rem] shadow-[inset_0_0_20px_rgba(0,0,0,0.05)] pointer-events-none" />
             </div>
           </div>
 

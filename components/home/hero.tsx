@@ -64,33 +64,36 @@ export default function Hero({ onPlayVideo, onWhatsAppOrder }: HeroProps) {
             <span>Pure & Natural</span>
           </p>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-3 sm:pt-4 w-full max-w-[320px] sm:max-w-none">
-            {/* Primary Actions Grid for Mobile */}
-            <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-4 w-full sm:w-auto">
-              <a
-                href="#shop"
-                className="inline-flex items-center justify-center gap-1.5 bg-[#2B92E4] hover:bg-[#207fcc] text-white font-bold px-2 sm:px-6 py-3 sm:py-3.5 rounded-full text-[10px] sm:text-xs uppercase tracking-wider transition shadow-lg shadow-sky-500/20 active:scale-95 whitespace-nowrap"
-              >
-                <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                <span>Order Now</span>
-              </a>
-              
-              <button
-                onClick={onWhatsAppOrder}
-                className="inline-flex items-center justify-center gap-1.5 bg-[#22c55e] hover:bg-[#1eb052] text-white font-bold px-2 sm:px-6 py-3 sm:py-3.5 rounded-full text-[10px] sm:text-xs uppercase tracking-wider transition shadow-lg shadow-green-500/20 active:scale-95 whitespace-nowrap"
-              >
-                <WhatsAppIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                <span>WhatsApp</span>
-              </button>
-            </div>
-
-            {/* Secondary Action */}
-            <button
-              onClick={() => onPlayVideo("Sacred Bilona Churning", "TraditionalChurn")}
-              className="inline-flex items-center justify-center gap-2 bg-black/40 hover:bg-black/60 backdrop-blur-sm text-white font-bold px-6 py-3 sm:py-3.5 rounded-full text-[10px] sm:text-xs uppercase tracking-wider transition border border-white/30 w-full sm:w-auto active:scale-95 whitespace-nowrap"
+          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 pt-3 sm:pt-4 w-full max-w-[340px] sm:max-w-none">
+            <a
+              href="#shop"
+              className="inline-flex items-center justify-center gap-2 bg-[#2B92E4] hover:bg-[#207fcc] text-white font-bold px-6 py-3.5 rounded-full text-xs uppercase tracking-wider transition shadow-lg shadow-sky-500/20 active:scale-95 whitespace-nowrap"
             >
-              <Play className="w-3.5 h-3.5 sm:w-3.5 sm:h-3.5 fill-white text-white" />
+              <ShoppingCart className="w-4 h-4" />
+              <span>Order Now</span>
+            </a>
+            
+            <button
+              onClick={() => {
+                const el = document.getElementById("watch-process") || document.getElementById("videos") || document.getElementById("real-videos");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth" });
+                } else {
+                  onPlayVideo("Sacred Bilona Churning", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4");
+                }
+              }}
+              className="inline-flex items-center justify-center gap-2 bg-black/40 hover:bg-black/60 backdrop-blur-sm text-white font-bold px-6 py-3.5 rounded-full text-xs uppercase tracking-wider transition border border-white/30 active:scale-95 whitespace-nowrap cursor-pointer"
+            >
+              <Play className="w-3.5 h-3.5 fill-white text-white" />
               <span>Watch Process</span>
+            </button>
+
+            <button
+              onClick={onWhatsAppOrder || (() => window.open("https://wa.me/9716003060?text=Hello%20Dairy%20Cool!%20I%20want%20to%20place%20a%20quick%20order.", "_blank"))}
+              className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-6 py-3.5 rounded-full text-xs uppercase tracking-wider transition shadow-lg shadow-green-500/20 active:scale-95 whitespace-nowrap cursor-pointer"
+            >
+              <WhatsAppIcon className="w-4 h-4 fill-white text-white" />
+              <span>WhatsApp Order</span>
             </button>
           </div>
         </div>

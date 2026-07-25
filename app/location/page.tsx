@@ -13,9 +13,6 @@ export default function LocationPage() {
       <Header
         isMobileMenuOpen={isMobileMenuOpen}
         setIsMobileMenuOpen={setIsMobileMenuOpen}
-        cartItemsCount={0}
-        setIsCartOpen={() => {}}
-        onWhatsAppOrder={() => window.open(`https://wa.me/9716003060?text=Hello`, "_blank")}
       />
       
       <div className="flex-1 pt-8">

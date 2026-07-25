@@ -119,7 +119,7 @@ export default function ProductGrid({ onAddToCart, onBuyNow }: ProductGridProps)
                     alt={product.name}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-10 p-2"
+                    className="object-cover scale-110 group-hover:scale-125 transition-transform duration-700 ease-out z-10"
                     priority
                   />
                   
@@ -193,19 +193,19 @@ export default function ProductGrid({ onAddToCart, onBuyNow }: ProductGridProps)
                       </span>
                     </div>
 
-                    <div className="flex flex-col xl:flex-row items-stretch xl:items-center gap-2">
+                    <div className="flex flex-row items-center gap-2">
                       <button
                         onClick={() => onAddToCart(product.id, product.name, product.image, product.sizeDesc, product.price, qty)}
-                        className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg border-2 border-slate-200 text-slate-600 hover:border-[#0284c7] hover:text-[#0284c7] hover:bg-[#f0f9ff] font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer"
+                        className="flex-1 flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-2.5 rounded-lg border-2 border-slate-200 text-slate-600 hover:border-[#0284c7] hover:text-[#0284c7] hover:bg-[#f0f9ff] font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer"
                       >
-                        <ShoppingCart className="w-3.5 h-3.5" />
+                        <ShoppingCart className="w-3.5 h-3.5 shrink-0" />
                         <span>Add</span>
                       </button>
                       <button
                         onClick={() => onBuyNow(product.id, product.name, product.image, product.sizeDesc, product.price, qty)}
-                        className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg bg-[#0284c7] hover:bg-[#0274b3] text-white font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer shadow-md shadow-[#0284c7]/20 hover:shadow-lg hover:-translate-y-px"
+                        className="flex-1 flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-2.5 rounded-lg bg-[#0284c7] hover:bg-[#0274b3] text-white font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer shadow-md shadow-[#0284c7]/20 hover:shadow-lg hover:-translate-y-px"
                       >
-                        <Zap className="w-3.5 h-3.5" />
+                        <Zap className="w-3.5 h-3.5 shrink-0" />
                         <span>Buy</span>
                       </button>
                     </div>

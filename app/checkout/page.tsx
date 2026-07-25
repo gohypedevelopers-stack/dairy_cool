@@ -76,7 +76,7 @@ Please confirm my order. Thank you!`;
             <form onSubmit={handleSubmit} className="px-8 py-8 space-y-5">
 
               {/* Name & Phone */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Full Name *</label>
                   <input
@@ -85,7 +85,7 @@ Please confirm my order. Thank you!`;
                     onChange={handleChange}
                     required
                     placeholder="Ramesh Kumar"
-                    className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078BE]/40 focus:border-[#0078BE] transition"
+                    className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#0078BE]/40 focus:border-[#0078BE] transition"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -97,7 +97,7 @@ Please confirm my order. Thank you!`;
                     required
                     placeholder="9876543210"
                     type="tel"
-                    className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078BE]/40 focus:border-[#0078BE] transition"
+                    className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#0078BE]/40 focus:border-[#0078BE] transition"
                   />
                 </div>
               </div>
@@ -111,7 +111,7 @@ Please confirm my order. Thank you!`;
                   onChange={handleChange}
                   placeholder="you@example.com"
                   type="email"
-                  className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078BE]/40 focus:border-[#0078BE] transition"
+                  className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#0078BE]/40 focus:border-[#0078BE] transition"
                 />
               </div>
 
@@ -124,12 +124,12 @@ Please confirm my order. Thank you!`;
                   onChange={handleChange}
                   required
                   placeholder="House No, Street, Area"
-                  className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078BE]/40 focus:border-[#0078BE] transition"
+                  className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#0078BE]/40 focus:border-[#0078BE] transition"
                 />
               </div>
 
               {/* City, Pincode, State */}
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">City *</label>
                   <input
@@ -138,7 +138,7 @@ Please confirm my order. Thank you!`;
                     onChange={handleChange}
                     required
                     placeholder="Delhi"
-                    className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078BE]/40 focus:border-[#0078BE] transition"
+                    className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#0078BE]/40 focus:border-[#0078BE] transition"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -149,7 +149,7 @@ Please confirm my order. Thank you!`;
                     onChange={handleChange}
                     required
                     placeholder="110001"
-                    className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078BE]/40 focus:border-[#0078BE] transition"
+                    className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#0078BE]/40 focus:border-[#0078BE] transition"
                   />
                 </div>
                 <div className="space-y-1.5">
@@ -160,7 +160,7 @@ Please confirm my order. Thank you!`;
                     onChange={handleChange}
                     required
                     placeholder="UP"
-                    className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#0078BE]/40 focus:border-[#0078BE] transition"
+                    className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-[#0078BE]/40 focus:border-[#0078BE] transition"
                   />
                 </div>
               </div>
@@ -174,7 +174,7 @@ Please confirm my order. Thank you!`;
                   onChange={handleChange}
                   placeholder="Any special instructions..."
                   rows={2}
-                  className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#0078BE]/40 focus:border-[#0078BE] transition"
+                  className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-base sm:text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#0078BE]/40 focus:border-[#0078BE] transition"
                 />
               </div>
 

@@ -11,31 +11,31 @@ const processVideos = [
   {
     title: "Happy A2 Cows",
     subtitle: "Free grazing on natural farms",
-    url: "https://dairycoolfarm.com/wp-content/uploads/2026/03/WhatsApp-Video-2026-03-13-at-4.11.43-PM.mp4",
+    url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
     poster: "/images/ingredients_cow_milk.png"
   },
   {
     title: "Wooden Bilona",
     subtitle: "Traditional hand-churning",
-    url: "https://dairycoolfarm.com/wp-content/uploads/2026/03/WhatsApp-Video-2026-03-11-at-11.39.52-AM-3.mp4",
+    url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
     poster: "/images/ingredients_bilona.png"
   },
   {
     title: "Mud Chulha",
     subtitle: "Slow-cooking for rich aroma",
-    url: "https://dairycoolfarm.com/wp-content/uploads/2026/02/videoplayback.mp4",
+    url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
     poster: "/images/ingredients_slow_cooked.png"
   },
   {
     title: "Dadi's Approval",
     subtitle: "Strict quality checks",
-    url: "https://dairycoolfarm.com/wp-content/uploads/2026/02/videoplayback-1.mp4",
-    poster: "/images/dadi_image.webp"
+    url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+    poster: "/images/dadi_image.jpg"
   },
   {
     title: "Pure Bottling",
     subtitle: "Hygienic glass packaging",
-    url: "https://dairycoolfarm.com/wp-content/uploads/2026/02/videoplayback.mp4",
+    url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
     poster: "/images/ghee_jar.png"
   }
 ];
@@ -73,7 +73,7 @@ export default function QualityChecks({ onPlayVideo }: QualityChecksProps) {
   }, []);
 
   return (
-    <section className="py-24 bg-white border-b border-slate-100">
+    <section id="watch-process" className="py-24 bg-white border-b border-slate-100">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Title */}
@@ -104,6 +104,7 @@ export default function QualityChecks({ onPlayVideo }: QualityChecksProps) {
                 }}
                 src={video.url}
                 poster={video.poster}
+                autoPlay
                 muted 
                 loop 
                 playsInline

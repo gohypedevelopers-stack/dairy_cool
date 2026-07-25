@@ -6,13 +6,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ShoppingCart, Menu, X, Search, User } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons";
+import { useCart } from "@/components/cart-provider";
 
 interface HeaderProps {
   isMobileMenuOpen: boolean;
   setIsMobileMenuOpen: (open: boolean) => void;
-  cartItemsCount: number;
-  setIsCartOpen: (open: boolean) => void;
-  onWhatsAppOrder: () => void;
+  cartItemsCount?: number;
+  setIsCartOpen?: (open: boolean) => void;
+  onWhatsAppOrder?: () => void;
 }
 
 export default function Header({
@@ -23,6 +24,14 @@ export default function Header({
   onWhatsAppOrder,
 }: HeaderProps) {
   const pathname = usePathname();
+  const cart = useCart();
+
+  const count = cartItemsCount !== undefined && cartItemsCount > 0 ? cartItemsCount : cart.totalCartCount;
+  const handleOpenCart = () => {
+    if (setIsCartOpen) setIsCartOpen(true);
+    cart.setIsCartOpen(true);
+  };
+  const handleWhatsApp = onWhatsAppOrder || (() => cart.handleWhatsAppOrder());
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -82,21 +91,21 @@ export default function Header({
 
           {/* Cart Icon Button */}
           <button
-            onClick={() => setIsCartOpen(true)}
+            onClick={handleOpenCart}
             className="relative p-2 text-slate-600 hover:text-[#0078BE] transition-colors cursor-pointer flex items-center justify-center mr-2"
             aria-label="Open Cart"
           >
             <ShoppingCart className="w-5 h-5" />
-            {cartItemsCount > 0 && (
+            {count > 0 && (
               <span className="absolute top-0 right-0 bg-[#0078BE] text-white font-bold text-[9px] w-4.5 h-4.5 flex items-center justify-center rounded-full">
-                {cartItemsCount}
+                {count}
               </span>
             )}
           </button>
 
           {/* WhatsApp Order Button */}
           <button
-            onClick={onWhatsAppOrder}
+            onClick={handleWhatsApp}
             className="flex items-center gap-2 bg-[#22c55e] hover:bg-[#1eb052] active:scale-95 text-white font-bold px-5 py-2.5 rounded-full text-xs uppercase tracking-wide shadow-sm transition-all duration-300 cursor-pointer whitespace-nowrap"
           >
             <WhatsAppIcon className="w-4 h-4" />
@@ -107,14 +116,14 @@ export default function Header({
         {/* Mobile Menu & Cart Trigger */}
         <div className="flex items-center gap-2 lg:hidden ml-auto">
           <button
-            onClick={() => setIsCartOpen(true)}
+            onClick={handleOpenCart}
             className="relative p-2 text-slate-700 flex items-center justify-center"
             aria-label="Open Cart Mobile"
           >
             <ShoppingCart className="w-5.5 h-5.5" />
-            {cartItemsCount > 0 && (
+            {count > 0 && (
               <span className="absolute top-0 right-0 bg-[#0078BE] text-white font-extrabold text-[9px] w-4.5 h-4.5 flex items-center justify-center rounded-full">
-                {cartItemsCount}
+                {count}
               </span>
             )}
           </button>
@@ -131,7 +140,7 @@ export default function Header({
 
       {/* Mobile Navigation Drawer */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden border-t border-sky-100 bg-white px-4 py-6 space-y-4 shadow-lg text-slate-800 font-bold text-sm tracking-wider uppercase">
+        <div className="lg:hidden border-t border-sky-100 bg-white px-4 py-6 space-y-4 shadow-lg text-slate-800 font-bold text-sm tracking-wider uppercase max-h-[calc(100vh-5rem)] overflow-y-auto">
           <div className="flex flex-col gap-3">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
@@ -153,7 +162,7 @@ export default function Header({
             <button
               onClick={() => {
                 setIsMobileMenuOpen(false);
-                onWhatsAppOrder();
+                handleWhatsApp();
               }}
               className="w-full flex items-center justify-center gap-2 bg-[#22c55e] hover:bg-[#1eb052] text-white font-extrabold py-3.5 rounded-full text-xs uppercase tracking-widest cursor-pointer whitespace-nowrap shadow-md transition"
             >
@@ -166,3 +175,4 @@ export default function Header({
     </header>
   );
 }
+

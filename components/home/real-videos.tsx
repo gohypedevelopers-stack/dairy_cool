@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import { Play } from "lucide-react";
 
 interface RealVideosProps {
@@ -9,27 +8,27 @@ interface RealVideosProps {
 const videoCategories = [
   {
     title: "Farm Videos",
-    videoId: "farm_video",
-    image: "/images/farm_video_thumb.jpg", // placeholder
+    videoId: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+    image: "/images/ingredients_cow_milk.png",
     desc: "See our happy cows in their natural habitat."
   },
   {
     title: "Dadi Videos",
-    videoId: "dadi_video",
-    image: "/images/dadi_video_thumb.jpg", // placeholder
+    videoId: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+    image: "/images/dadi_image.jpg",
     desc: "Watch Dadi crafting the perfect bilona ghee."
   },
   {
     title: "Bilona Process Videos",
-    videoId: "process_video",
-    image: "/images/process_video_thumb.jpg", // placeholder
+    videoId: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    image: "/images/ingredients_bilona.png",
     desc: "Experience the authentic wooden churning process."
   }
 ];
 
 export default function RealVideos({ onPlayVideo }: RealVideosProps) {
   return (
-    <section className="py-24 bg-sky-50/50 border-b border-sky-100">
+    <section id="real-videos" className="py-24 bg-sky-50/50 border-b border-sky-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
@@ -51,15 +50,20 @@ export default function RealVideos({ onPlayVideo }: RealVideosProps) {
             >
               {/* Thumbnail Container */}
               <div 
-                className="relative aspect-[16/10] bg-slate-200 cursor-pointer overflow-hidden"
+                className="relative aspect-[16/10] bg-slate-900 cursor-pointer overflow-hidden"
                 onClick={() => onPlayVideo(video.title, video.videoId)}
               >
-                {/* Fallback pattern if image is missing */}
-                <div className="absolute inset-0 bg-sky-900/10 flex items-center justify-center">
-                  <Play className="w-12 h-12 text-white/50" />
-                </div>
+                <video
+                  src={video.videoId}
+                  poster={video.image}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
+                />
                 
-                {/* Video Image (assuming placeholder paths might not exist, but adding next/image setup) */}
+                {/* Video Image Overlay */}
                 <div className="absolute inset-0 bg-sky-900/30 group-hover:bg-sky-900/10 transition-all duration-500 z-10" />
                 
                 {/* Play Button Overlay */}

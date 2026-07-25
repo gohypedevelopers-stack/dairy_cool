@@ -19,8 +19,6 @@ interface CartItem {
 
 export default function ContactPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   // Form Fields State
   const [name, setName] = useState("");
@@ -29,18 +27,6 @@ export default function ContactPage() {
   const [scheduleCall, setScheduleCall] = useState("");
   const [comment, setComment] = useState("");
   const [submitted, setSubmitted] = useState(false);
-
-  const updateQuantity = (id: string, delta: number) => {
-    setCartItems((prev) =>
-      prev
-        .map((item) => (item.id === id ? { ...item, quantity: item.quantity + delta } : item))
-        .filter((item) => item.quantity > 0)
-    );
-  };
-
-  const removeItem = (id: string) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
 
   const handleWhatsAppDirect = (message: string) => {
     const encoded = encodeURIComponent(message);
@@ -52,9 +38,12 @@ export default function ContactPage() {
     setSubmitted(true);
     const message = `*Dairy Cool - Contact Inquiry*\n\n*Name:* ${name}\n*Email:* ${email}\n*Phone:* ${phone}\n*Schedule:* ${scheduleCall}\n*Issue:* ${comment}`;
     handleWhatsAppDirect(message);
+    setName("");
+    setEmail("");
+    setPhone("");
+    setScheduleCall("");
+    setComment("");
   };
-
-  const totalCartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <div className="min-h-screen bg-[#FAF6F0] text-slate-800 antialiased font-sans relative overflow-hidden">
@@ -102,9 +91,6 @@ export default function ContactPage() {
           <Header
             isMobileMenuOpen={isMobileMenuOpen}
             setIsMobileMenuOpen={setIsMobileMenuOpen}
-            cartItemsCount={totalCartCount}
-            setIsCartOpen={setIsCartOpen}
-            onWhatsAppOrder={() => handleWhatsAppDirect("Hello Dairy Cool! I want to place a quick order.")}
           />
 
           <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
@@ -116,79 +102,99 @@ export default function ContactPage() {
                   Contact Us
                 </h1>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {/* Name Input */}
-                    <div className="relative">
-                      <input
-                        type="text"
-                        required
-                        placeholder="Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="w-full px-5 py-3.5 rounded-full border border-stone-200 bg-white/80 text-[#2E271E] placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#0078BE] transition text-sm"
-                      />
+                {submitted ? (
+                  <div className="bg-green-50/90 border border-green-200 rounded-3xl p-8 text-center space-y-4 animate-fadeIn">
+                    <div className="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto shadow-md">
+                      <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
                     </div>
-
-                    {/* Email Input */}
-                    <div className="relative">
-                      <input
-                        type="email"
-                        required
-                        placeholder="Email *"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-5 py-3.5 rounded-full border border-stone-200 bg-white/80 text-[#2E271E] placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#0078BE] transition text-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {/* Phone Input */}
-                    <div className="relative">
-                      <input
-                        type="tel"
-                        placeholder="Phone number"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        className="w-full px-5 py-3.5 rounded-full border border-stone-200 bg-white/80 text-[#2E271E] placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#0078BE] transition text-sm"
-                      />
-                    </div>
-
-                    {/* Schedule Call Input */}
-                    <div className="relative">
-                      <input
-                        type="text"
-                        placeholder="Schedule Your Call"
-                        value={scheduleCall}
-                        onChange={(e) => setScheduleCall(e.target.value)}
-                        className="w-full px-5 py-3.5 rounded-full border border-stone-200 bg-white/80 text-[#2E271E] placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#0078BE] transition text-sm"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Comment Textarea */}
-                  <div className="relative">
-                    <textarea
-                      required
-                      rows={7}
-                      placeholder="Comment or Mentioning Exact Issue *"
-                      value={comment}
-                      onChange={(e) => setComment(e.target.value)}
-                      className="w-full px-5 py-4 rounded-3xl border border-stone-200 bg-white/80 text-[#2E271E] placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#0078BE] transition text-sm resize-none"
-                    />
-                  </div>
-
-                  {/* Submit Button */}
-                  <div>
+                    <h3 className="text-2xl font-serif font-black text-green-900">Inquiry Received!</h3>
+                    <p className="text-sm text-green-800 leading-relaxed max-w-md mx-auto">
+                      Thank you for reaching out to Dairy Cool! Your message has been formatted and opened in WhatsApp for instant submission, and recorded in our farm support queue.
+                    </p>
                     <button
-                      type="submit"
-                      className="bg-[#0078BE] hover:bg-[#0067a5] active:scale-95 text-white font-extrabold px-10 py-3.5 rounded-full text-xs uppercase tracking-widest transition shadow-md cursor-pointer"
+                      onClick={() => setSubmitted(false)}
+                      className="inline-block bg-[#0078BE] hover:bg-[#0066a1] text-white font-extrabold px-8 py-3 rounded-full text-xs uppercase tracking-widest transition shadow-md mt-4 cursor-pointer"
                     >
-                      Send
+                      Send Another Message
                     </button>
                   </div>
-                </form>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* Name Input */}
+                      <div className="relative">
+                        <input
+                          type="text"
+                          required
+                          placeholder="Name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          className="w-full px-5 py-3.5 rounded-full border border-stone-200 bg-white/80 text-[#2E271E] placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#0078BE] transition text-base sm:text-sm"
+                        />
+                      </div>
+
+                      {/* Email Input */}
+                      <div className="relative">
+                        <input
+                          type="email"
+                          required
+                          placeholder="Email *"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="w-full px-5 py-3.5 rounded-full border border-stone-200 bg-white/80 text-[#2E271E] placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#0078BE] transition text-base sm:text-sm"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* Phone Input */}
+                      <div className="relative">
+                        <input
+                          type="tel"
+                          placeholder="Phone number"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          className="w-full px-5 py-3.5 rounded-full border border-stone-200 bg-white/80 text-[#2E271E] placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#0078BE] transition text-base sm:text-sm"
+                        />
+                      </div>
+
+                      {/* Schedule Call Input */}
+                      <div className="relative">
+                        <input
+                          type="text"
+                          placeholder="Schedule Your Call"
+                          value={scheduleCall}
+                          onChange={(e) => setScheduleCall(e.target.value)}
+                          className="w-full px-5 py-3.5 rounded-full border border-stone-200 bg-white/80 text-[#2E271E] placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#0078BE] transition text-base sm:text-sm"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Comment Textarea */}
+                    <div className="relative">
+                      <textarea
+                        required
+                        rows={7}
+                        placeholder="Comment or Mentioning Exact Issue *"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        className="w-full px-5 py-4 rounded-3xl border border-stone-200 bg-white/80 text-[#2E271E] placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#0078BE] transition text-base sm:text-sm resize-none"
+                      />
+                    </div>
+
+                    {/* Submit Button */}
+                    <div>
+                      <button
+                        type="submit"
+                        className="bg-[#0078BE] hover:bg-[#0067a5] active:scale-95 text-white font-extrabold px-10 py-3.5 rounded-full text-xs uppercase tracking-widest transition shadow-md cursor-pointer"
+                      >
+                        Send
+                      </button>
+                    </div>
+                  </form>
+                )}
               </div>
 
               {/* Right Column: Contact Details */}
@@ -307,15 +313,6 @@ export default function ContactPage() {
 
         <Footer />
       </div>
-
-      {/* Cart Drawer */}
-      <CartDrawer
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        items={cartItems}
-        onUpdateQuantity={updateQuantity}
-        onRemoveItem={removeItem}
-      />
     </div>
   );
 }

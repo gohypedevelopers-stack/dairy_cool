@@ -31,11 +31,11 @@ export default function Footer() {
               <input 
                 type="email" 
                 placeholder="Enter your email address" 
-                className="w-full bg-[#0A1A2F]/50 border border-slate-700 text-white text-sm rounded-full py-4 pl-6 pr-36 focus:outline-none focus:border-amber-500/50 transition-colors placeholder:text-slate-500 shadow-inner"
+                className="w-full bg-[#0A1A2F]/50 border border-slate-700 text-white text-base sm:text-sm rounded-full py-3.5 sm:py-4 pl-4 sm:pl-6 pr-28 sm:pr-36 focus:outline-none focus:border-amber-500/50 transition-colors placeholder:text-slate-500 shadow-inner"
               />
               <button 
                 type="button"
-                className="absolute right-1.5 top-1.5 bottom-1.5 bg-amber-500 hover:bg-amber-400 text-slate-900 px-8 rounded-full text-xs font-black uppercase tracking-widest transition-colors shadow-[0_0_15px_rgba(245,158,11,0.2)] hover:shadow-[0_0_25px_rgba(245,158,11,0.4)]"
+                className="absolute right-1.5 top-1.5 bottom-1.5 bg-amber-500 hover:bg-amber-400 text-slate-900 px-4 sm:px-8 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-widest transition-colors shadow-[0_0_15px_rgba(245,158,11,0.2)] hover:shadow-[0_0_25px_rgba(245,158,11,0.4)] cursor-pointer"
               >
                 Subscribe
               </button>

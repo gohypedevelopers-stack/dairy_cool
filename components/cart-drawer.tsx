@@ -55,7 +55,7 @@ export default function CartDrawer({
         onClick={onClose}
       />
 
-      <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+      <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-0 sm:pl-10">
         <div className="pointer-events-auto w-screen max-w-md transform bg-white dark:bg-zinc-900 shadow-2xl transition-all duration-300 ease-in-out border-l border-zinc-200/50 dark:border-zinc-800/50 flex flex-col h-full">
           {/* Header */}
           <div className="px-6 py-5 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between">

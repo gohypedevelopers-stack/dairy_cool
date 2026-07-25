@@ -7,7 +7,7 @@ import Header from "@/components/home/header";
 import Footer from "@/components/home/footer";
 import { ShieldCheck, RotateCw, Flame, Heart, ShoppingCart } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons";
-import CartDrawer from "@/components/cart-drawer";
+import { useCart } from "@/components/cart-provider";
 
 const stats = [
   { value: "30+", label: "Saalon Ka Anubhav" },
@@ -85,20 +85,9 @@ const principles = [
   },
 ];
 
-interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  size: string;
-  image: string;
-}
-
 export default function AboutDadiPage() {
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const timelineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -122,27 +111,11 @@ export default function AboutDadiPage() {
     window.open("https://wa.me/9716003060?text=Hello%20Dairy%20Cool!%20I%20want%20to%20place%20an%20order.", "_blank");
   };
 
-  const updateQuantity = (id: string, newQty: number) => {
-    if (newQty <= 0) return;
-    setCartItems((prevItems) =>
-      prevItems.map((item) => (item.id === id ? { ...item, quantity: newQty } : item))
-    );
-  };
-
-  const removeItem = (id: string) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
-
-  const totalCartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-
   return (
     <div className="min-h-screen bg-[#FAF6F0] text-[#2E271E] antialiased font-sans">
       <Header
         isMobileMenuOpen={isMobileMenuOpen}
         setIsMobileMenuOpen={setIsMobileMenuOpen}
-        cartItemsCount={totalCartCount}
-        setIsCartOpen={setIsCartOpen}
-        onWhatsAppOrder={handleWhatsApp}
       />
 
       {/* ── HERO ── */}
@@ -258,7 +231,7 @@ export default function AboutDadiPage() {
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-8 bg-amber-100/60 backdrop-blur-sm -rotate-1 border border-amber-200/30 shadow-sm z-10" />
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded border border-slate-100">
               <Image
-                src="/images/dadi_image.webp"
+                src="/images/dadi_image.jpg"
                 alt="Dadi making bilona ghee"
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -415,15 +388,6 @@ export default function AboutDadiPage() {
       </div>
 
       <Footer />
-      
-      {/* Cart Drawer Component */}
-      <CartDrawer
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        items={cartItems}
-        onUpdateQuantity={updateQuantity}
-        onRemoveItem={removeItem}
-      />
     </div>
   );
 }

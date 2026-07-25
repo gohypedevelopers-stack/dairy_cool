@@ -27,6 +27,8 @@ export const metadata: Metadata = {
   description: "Traditional Cow Bilona Ghee handcrafted by Dadi Kamlesh Gurjari",
 };
 
+import { CartProvider } from "@/components/cart-provider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -38,7 +40,10 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", "font-sans", roboto.variable, cormorant.variable, caveat.variable)}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col" suppressHydrationWarning>{children}</body>
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <CartProvider>{children}</CartProvider>
+      </body>
     </html>
   );
 }
+

@@ -7,7 +7,7 @@ import { Star, Plus, Minus, ChevronDown, ShoppingBag } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons";
 import Header from "@/components/home/header";
 import Footer from "@/components/home/footer";
-import CartDrawer from "@/components/cart-drawer";
+import { useCart } from "@/components/cart-provider";
 
 interface ProductOption {
   size: string;
@@ -70,70 +70,26 @@ const productsData: Record<string, ProductDetails> = {
   }
 };
 
-interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  size: string;
-  image: string;
-}
-
 export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const productId = resolvedParams.id;
   const product = productsData[productId] || productsData.bilona_ghee;
+  const { addToCart, buyNow } = useCart();
 
   // States
   const [selectedImage, setSelectedImage] = useState(product.thumbnails[0]);
   const [selectedOption, setSelectedOption] = useState(product.options[0]);
   const [quantity, setQuantity] = useState(1);
   const [activeAccordion, setActiveAccordion] = useState<string | null>("description");
-
-  // Cart State
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Cart Handlers
   const handleAddToCart = () => {
-    const cartItemId = `${product.id}-${selectedOption.size}`;
-    setCartItems((prevItems) => {
-      const existing = prevItems.find((item) => item.id === cartItemId);
-      if (existing) {
-        return prevItems.map((item) =>
-          item.id === cartItemId ? { ...item, quantity: item.quantity + quantity } : item
-        );
-      }
-      return [
-        ...prevItems,
-        {
-          id: cartItemId,
-          name: product.name,
-          price: selectedOption.price,
-          quantity: quantity,
-          size: selectedOption.size,
-          image: product.image,
-        },
-      ];
-    });
-    setIsCartOpen(true);
+    addToCart(product.id, product.name, product.image, selectedOption.size, selectedOption.price, quantity);
   };
 
   const handleBuyNow = () => {
-    handleAddToCart();
-    window.location.href = "/checkout";
-  };
-
-  const updateQuantity = (id: string, newQty: number) => {
-    if (newQty <= 0) return;
-    setCartItems((prevItems) =>
-      prevItems.map((item) => (item.id === id ? { ...item, quantity: newQty } : item))
-    );
-  };
-
-  const removeItem = (id: string) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    buyNow(product.id, product.name, product.image, selectedOption.size, selectedOption.price, quantity);
   };
 
   const handleWhatsAppOrder = () => {
@@ -145,17 +101,12 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
     setActiveAccordion(activeAccordion === section ? null : section);
   };
 
-  const totalCartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-800 antialiased selection:bg-sky-500 selection:text-white">
       {/* Header */}
       <Header
         isMobileMenuOpen={isMobileMenuOpen}
         setIsMobileMenuOpen={setIsMobileMenuOpen}
-        cartItemsCount={totalCartCount}
-        setIsCartOpen={setIsCartOpen}
-        onWhatsAppOrder={handleWhatsAppOrder}
       />
 
       {/* Main Container */}
@@ -170,14 +121,14 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
           {/* Left Column: Image Gallery */}
           <div className="lg:col-span-6 space-y-4 lg:sticky lg:top-24">
-            <div className="relative aspect-square w-full rounded-lg overflow-hidden bg-slate-50 border border-slate-150 shadow-inner">
+            <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#FAF6F0]/60 border border-amber-100/60 shadow-inner flex items-center justify-center">
               <Image
                 src={selectedImage}
                 alt={product.name}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 style={{ objectFit: "cover" }}
-                className="object-cover transition-all duration-300"
+                className="object-cover scale-125 md:scale-[1.35] transition-all duration-500"
                 priority
               />
             </div>
@@ -267,35 +218,35 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
             </div>
 
             {/* Quantity Selector & Action Buttons */}
-            <div className="space-y-4 pt-2 border-t border-slate-100">
-              <div className="flex flex-wrap items-center gap-4">
+            <div className="space-y-3 sm:space-y-4 pt-2 border-t border-slate-100">
+              <div className="flex flex-row items-center gap-2 sm:gap-4">
 
                 {/* Quantity */}
-                <div className="flex items-center border border-slate-200 rounded-lg bg-white overflow-hidden shadow-sm h-[42px]">
+                <div className="flex items-center border border-slate-200 rounded-lg bg-white overflow-hidden shadow-sm h-[42px] shrink-0">
                   <button
                     onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                    className="px-3 text-slate-650 hover:text-[#0284c7] active:bg-slate-50 transition cursor-pointer"
+                    className="px-2.5 sm:px-3 text-slate-650 hover:text-[#0284c7] active:bg-slate-50 transition cursor-pointer"
                   >
-                    <Minus className="w-4 h-4" />
+                    <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </button>
-                  <span className="px-3 font-extrabold text-slate-800 text-sm w-8 text-center select-none">
+                  <span className="px-2 sm:px-3 font-extrabold text-slate-800 text-sm w-7 sm:w-8 text-center select-none">
                     {quantity}
                   </span>
                   <button
                     onClick={() => setQuantity((q) => q + 1)}
-                    className="px-3 text-slate-650 hover:text-[#0284c7] active:bg-slate-50 transition cursor-pointer"
+                    className="px-2.5 sm:px-3 text-slate-650 hover:text-[#0284c7] active:bg-slate-50 transition cursor-pointer"
                   >
-                    <Plus className="w-4 h-4" />
+                    <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </button>
                 </div>
 
                 {/* Add to Cart (styled in sky blue color) */}
                 <button
                   onClick={handleAddToCart}
-                  className="flex-grow flex items-center justify-center gap-2 bg-[#0284c7] hover:bg-[#0274b3] text-white font-extrabold px-6 py-3 rounded-lg text-xs uppercase tracking-widest transition shadow-md h-[42px] cursor-pointer"
+                  className="flex-1 flex items-center justify-center gap-1.5 sm:gap-2 bg-[#0284c7] hover:bg-[#0274b3] text-white font-extrabold px-3 sm:px-6 py-3 rounded-lg text-xs uppercase tracking-widest transition shadow-md h-[42px] cursor-pointer whitespace-nowrap"
                 >
-                  <ShoppingBag className="w-4 h-4" />
-                  Add to cart
+                  <ShoppingBag className="w-4 h-4 shrink-0" />
+                  <span>Add to cart</span>
                 </button>
               </div>
 
@@ -385,15 +336,6 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
       {/* Footer */}
       <Footer />
-
-      {/* Cart Drawer Component */}
-      <CartDrawer
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        items={cartItems}
-        onUpdateQuantity={updateQuantity}
-        onRemoveItem={removeItem}
-      />
     </div>
   );
 }
