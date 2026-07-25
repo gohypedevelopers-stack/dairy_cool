@@ -122,20 +122,12 @@ export default function AboutDadiPage() {
       <section className="relative overflow-hidden bg-[#18130F] min-h-[500px] lg:min-h-[600px] flex flex-col justify-center text-white">
         <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-[#18130F]">
           <Image
-            src="/images/dadi_banner_images.png"
-            alt="Dadi making authentic bilona ghee"
+            src="/images/Dairy Cool banner 2.png"
+            alt="Dairy Cool Authentic Bilona Ghee"
             fill
             sizes="100vw"
             priority
-            className="object-cover object-center hidden md:block"
-          />
-          <Image
-            src="/images/dadi_banner_images_mobile.png"
-            alt="Dadi making authentic bilona ghee"
-            fill
-            sizes="100vw"
-            priority
-            className="object-cover object-center block md:hidden"
+            className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent w-[80%] hidden md:block" />
           <div className="absolute inset-0 bg-black/50 md:hidden" />
@@ -247,6 +239,28 @@ export default function AboutDadiPage() {
           </div>
         </div>
       </div>
+
+      {/* ── PROMOTIONAL BANNER V ── */}
+      <section className="py-12 md:py-16 bg-[#FAF6F0]">
+        <div className="w-full max-w-[1700px] mx-auto px-2 sm:px-4 md:px-6">
+          <Link 
+            href="/#shop"
+            className="block relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-amber-500/10 border border-amber-100/80 transition-all duration-500 group cursor-pointer bg-slate-900"
+          >
+            <div className="relative w-full overflow-hidden bg-slate-900">
+              <Image
+                src="/images/Dairy Cool banner v.png"
+                alt="Dairy Cool Authentic Bilona Ghee"
+                width={1920}
+                height={600}
+                sizes="100vw"
+                className="w-full h-auto object-contain group-hover:scale-[1.01] transition-transform duration-700 block"
+                priority
+              />
+            </div>
+          </Link>
+        </div>
+      </section>
 
       {/* ── PROCESS PRINCIPLES ── */}
       <div className="bg-white py-16 md:py-20 border-y border-slate-100">

@@ -20,6 +20,7 @@ import Testimonials from "@/components/home/testimonials";
 import Certifications from "@/components/home/certifications";
 import Locations from "@/components/home/locations";
 import FAQ from "@/components/home/faq";
+import AdsBanner from "@/components/home/ads-banner";
 import CtaBanner from "@/components/home/cta-banner";
 import Footer from "@/components/home/footer";
 
@@ -127,6 +128,8 @@ export default function Home() {
       <BilonaProcessSteps />
       
       <MeetDadi />
+
+      <AdsBanner />
 
       <QualityChecks
         onPlayVideo={playVideo}

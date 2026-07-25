@@ -13,23 +13,13 @@ export default function Hero({ onPlayVideo, onWhatsAppOrder }: HeroProps) {
     <section className="relative overflow-hidden bg-[#18130F] min-h-[550px] lg:min-h-[650px] flex flex-col justify-center text-white">
       {/* Background Image & Overlay */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-[#18130F]">
-        {/* Desktop Image */}
         <Image
-          src="/images/dadi_banner_images.png"
-          alt="Dadi making authentic bilona ghee"
+          src="/images/Dairy Cool banner 2.png"
+          alt="Dairy Cool Authentic Bilona Ghee"
           fill
           sizes="100vw"
           priority
-          className="object-cover object-center hidden md:block"
-        />
-        {/* Mobile Image */}
-        <Image
-          src="/images/dadi_banner_images_mobile.png"
-          alt="Dadi making authentic bilona ghee"
-          fill
-          sizes="100vw"
-          priority
-          className="object-cover object-center block md:hidden"
+          className="object-cover object-center"
         />
         
         {/* Gradient overlay for desktop to ensure text is highly readable */}
