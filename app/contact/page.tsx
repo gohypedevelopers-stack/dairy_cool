@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Header from "@/components/home/header";
 import Footer from "@/components/home/footer";
-import TopBanner from "@/components/home/top-banner";
 import CartDrawer from "@/components/cart-drawer";
 import { Phone, Mail, Clock, MapPin } from "lucide-react";
 
@@ -87,7 +86,6 @@ export default function ContactPage() {
       {/* Main Layout wrapper */}
       <div className="relative z-10 flex flex-col justify-between min-h-screen">
         <div>
-          <TopBanner />
           <Header
             isMobileMenuOpen={isMobileMenuOpen}
             setIsMobileMenuOpen={setIsMobileMenuOpen}
@@ -164,10 +162,12 @@ export default function ContactPage() {
                       <div className="relative">
                         <input
                           type="text"
-                          placeholder="Schedule Your Call"
+                          placeholder="Schedule Your Call 📅 (Date & Time)"
                           value={scheduleCall}
+                          onFocus={(e) => (e.target.type = "datetime-local")}
+                          onBlur={(e) => { if (!e.target.value) e.target.type = "text"; }}
                           onChange={(e) => setScheduleCall(e.target.value)}
-                          className="w-full px-5 py-3.5 rounded-full border border-stone-200 bg-white/80 text-[#2E271E] placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#0078BE] transition text-base sm:text-sm"
+                          className="w-full px-5 py-3.5 rounded-full border border-stone-200 bg-white/80 text-[#2E271E] placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-[#0078BE] transition text-base sm:text-sm cursor-pointer"
                         />
                       </div>
                     </div>
