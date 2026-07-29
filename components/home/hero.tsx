@@ -14,7 +14,7 @@ export default function Hero({ onPlayVideo, onWhatsAppOrder }: HeroProps) {
       {/* Background Image & Overlay */}
       <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-[#18130F]">
         <Image
-          src="/images/Dairy Cool banner 2.png"
+          src="/images/Dairy cool bannner.png"
           alt="Dairy Cool Authentic Bilona Ghee"
           fill
           sizes="100vw"
