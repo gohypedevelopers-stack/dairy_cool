@@ -19,7 +19,15 @@ export default function Hero({ onPlayVideo, onWhatsAppOrder }: HeroProps) {
           fill
           sizes="100vw"
           priority
-          className="object-cover object-center"
+          className="object-cover object-center hidden md:block"
+        />
+        <Image
+          src="/images/Dairy cool bannner mobile view.png"
+          alt="Dairy Cool Authentic Bilona Ghee Mobile"
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover object-center md:hidden"
         />
         
         {/* Gradient overlay for desktop to ensure text is highly readable */}
