@@ -25,6 +25,14 @@ const caveat = Caveat({
 export const metadata: Metadata = {
   title: "Dairy Cool Farm - Pure Bilona A2 Ghee",
   description: "Traditional Cow Bilona Ghee handcrafted by Dadi Kamlesh Gurjari",
+  icons: {
+    icon: [
+      { url: "/logo.png" },
+      { url: "/logo.png", type: "image/png" },
+    ],
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 import { CartProvider } from "@/components/cart-provider";

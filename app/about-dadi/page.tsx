@@ -173,7 +173,7 @@ export default function AboutDadiPage() {
       </section>
 
       {/* ── STATS ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-8 relative z-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10 sm:pt-20 sm:pb-12 relative z-20">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {stats.map((s, i) => (
             <div
