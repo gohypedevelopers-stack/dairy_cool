@@ -194,39 +194,39 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
       />
 
       {/* Main Container - 100% Full Width */}
-      <main className="flex-grow w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-6 md:py-10 relative z-10">
+      <main className="flex-grow w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-5 sm:py-6 md:py-10 relative z-10 pb-24 sm:pb-12">
         
         {/* Breadcrumbs & Navigation */}
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-6 md:mb-8 w-full">
-          <nav className="flex items-center space-x-2 text-xs font-medium text-stone-500">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-5 sm:mb-6 md:mb-8 w-full">
+          <nav className="flex items-center space-x-1.5 sm:space-x-2 text-[11px] sm:text-xs font-medium text-stone-500">
             <Link href="/" className="hover:text-[#2E271E] transition">Home</Link>
             <span>/</span>
             <Link href="/shop" className="hover:text-[#2E271E] transition">Shop</Link>
             <span>/</span>
-            <span className="text-[#2E271E] font-bold truncate max-w-[220px] sm:max-w-none">{product.name}</span>
+            <span className="text-[#2E271E] font-bold truncate max-w-[160px] sm:max-w-none">{product.name}</span>
           </nav>
-          <Link href="/shop" className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-700 hover:text-[#2E271E] bg-white px-4 py-2 rounded-full border border-stone-200 shadow-2xs transition">
+          <Link href="/shop" className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold text-stone-700 hover:text-[#2E271E] bg-white px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full border border-stone-200 shadow-2xs transition">
             ← Back to All Products
           </Link>
         </div>
 
-        {/* Hero Product Card */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 bg-white rounded-3xl border border-stone-200 p-6 md:p-12 shadow-xs items-start mb-16 relative w-full">
+        {/* Hero Product Card - Clean Streamlined Container */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-14 bg-transparent sm:bg-white rounded-none sm:rounded-3xl border-0 sm:border border-stone-200 p-0 sm:p-8 md:p-12 shadow-none sm:shadow-xs items-start mb-10 sm:mb-16 relative w-full">
           
           {/* Left Column: Image Gallery (6 Cols) */}
-          <div className="lg:col-span-6 space-y-6 lg:sticky lg:top-24">
+          <div className="lg:col-span-6 space-y-4 sm:space-y-6 lg:sticky lg:top-24">
             
             {/* Main Stage Image Container */}
-            <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-[#FAF6F0]/60 border border-stone-200/80 flex items-center justify-center group">
+            <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-white sm:bg-[#FAF6F0]/60 border border-stone-200/80 flex items-center justify-center group shadow-2xs sm:shadow-none">
               
               {/* Clean Discount Tag */}
-              <div className="absolute top-4 left-4 z-10 bg-[#2E271E] text-white font-bold text-xs px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+              <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 bg-[#2E271E] text-white font-bold text-[10px] sm:text-xs px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full uppercase tracking-wider">
                 <span>{discountPercent}% OFF</span>
               </div>
 
               {/* Clean Vedic Tag */}
-              <div className="absolute top-4 right-4 z-10 bg-white text-[#2E271E] border border-stone-200 font-bold text-[11px] px-3.5 py-1.5 rounded-full uppercase tracking-wider flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-stone-700" />
+              <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 bg-white text-[#2E271E] border border-stone-200 font-bold text-[10px] sm:text-[11px] px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full uppercase tracking-wider flex items-center gap-1 shadow-2xs">
+                <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-stone-700" />
                 <span>Vedic A2 Bilona</span>
               </div>
 
@@ -235,20 +235,20 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                 alt={product.name}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-contain p-6 sm:p-10 scale-105 group-hover:scale-108 transition-all duration-300"
+                className="object-contain p-4 sm:p-10 scale-105 group-hover:scale-108 transition-all duration-300"
                 priority
               />
             </div>
 
             {/* Thumbnail Selector Row */}
-            <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none justify-start">
+            <div className="flex gap-2.5 sm:gap-3 overflow-x-auto pb-1.5 scrollbar-none justify-start">
               {product.thumbnails.map((thumb, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(thumb)}
-                  className={`relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden border-2 transition cursor-pointer bg-[#FAF6F0]/40 ${
+                  className={`relative w-15 h-15 sm:w-24 sm:h-24 shrink-0 rounded-xl sm:rounded-2xl overflow-hidden border transition cursor-pointer bg-white sm:bg-[#FAF6F0]/40 ${
                     selectedImage === thumb 
-                      ? "border-[#2E271E] ring-1 ring-stone-400 scale-95" 
+                      ? "border-[#2E271E] ring-1 ring-[#2E271E] scale-95" 
                       : "border-stone-200 hover:border-stone-400 opacity-80 hover:opacity-100"
                   }`}
                 >
@@ -257,7 +257,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                     alt={`${product.name} View ${idx + 1}`}
                     fill
                     sizes="120px"
-                    className="object-contain p-2"
+                    className="object-contain p-1.5 sm:p-2"
                   />
                   {selectedImage === thumb && (
                     <div className="absolute top-1 right-1 bg-[#2E271E] text-white rounded-full p-0.5">
@@ -268,33 +268,33 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
               ))}
             </div>
 
-            {/* Trust Badges Under Gallery */}
-            <div className="grid grid-cols-3 gap-4 pt-2 border-t border-stone-100 text-center">
-              <div className="bg-[#FAF6F0]/60 p-3.5 rounded-2xl border border-stone-200/50">
-                <ShieldCheck className="w-5 h-5 text-stone-700 mx-auto mb-1" />
-                <span className="text-xs font-bold text-[#2E271E] block">FSSAI Certified</span>
-                <span className="text-[10px] text-stone-500">100% Lab Tested</span>
+            {/* Trust Badges Under Gallery - Compact Ticker Row on Mobile */}
+            <div className="grid grid-cols-3 gap-2.5 sm:gap-4 pt-3 border-t border-stone-200/60 text-center">
+              <div className="bg-white sm:bg-[#FAF6F0]/60 p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl border border-stone-200/60">
+                <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-stone-700 mx-auto mb-1" />
+                <span className="text-[10px] sm:text-xs font-bold text-[#2E271E] block leading-tight">FSSAI Certified</span>
+                <span className="text-[9px] sm:text-[10px] text-stone-500 hidden sm:block">100% Lab Tested</span>
               </div>
-              <div className="bg-[#FAF6F0]/60 p-3.5 rounded-2xl border border-stone-200/50">
-                <Award className="w-5 h-5 text-stone-700 mx-auto mb-1" />
-                <span className="text-xs font-bold text-[#2E271E] block">Dadi Approved</span>
-                <span className="text-[10px] text-stone-500">Traditional Recipe</span>
+              <div className="bg-white sm:bg-[#FAF6F0]/60 p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl border border-stone-200/60">
+                <Award className="w-4 h-4 sm:w-5 sm:h-5 text-stone-700 mx-auto mb-1" />
+                <span className="text-[10px] sm:text-xs font-bold text-[#2E271E] block leading-tight">Dadi Approved</span>
+                <span className="text-[9px] sm:text-[10px] text-stone-500 hidden sm:block">Traditional Recipe</span>
               </div>
-              <div className="bg-[#FAF6F0]/60 p-3.5 rounded-2xl border border-stone-200/50">
-                <Package className="w-5 h-5 text-stone-700 mx-auto mb-1" />
-                <span className="text-xs font-bold text-[#2E271E] block">Glass Packaging</span>
-                <span className="text-[10px] text-stone-500">Transit Safe Jar</span>
+              <div className="bg-white sm:bg-[#FAF6F0]/60 p-2.5 sm:p-3.5 rounded-xl sm:rounded-2xl border border-stone-200/60">
+                <Package className="w-4 h-4 sm:w-5 sm:h-5 text-stone-700 mx-auto mb-1" />
+                <span className="text-[10px] sm:text-xs font-bold text-[#2E271E] block leading-tight">Glass Packaging</span>
+                <span className="text-[9px] sm:text-[10px] text-stone-500 hidden sm:block">Transit Safe Jar</span>
               </div>
             </div>
 
           </div>
 
           {/* Right Column: Product Configuration & Details (6 Cols) */}
-          <div className="lg:col-span-6 space-y-6">
+          <div className="lg:col-span-6 space-y-4 sm:space-y-6 mt-3 lg:mt-0">
 
             {/* Category Tag & Delivered Count */}
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="bg-stone-100 text-stone-800 font-bold text-[10px] px-3.5 py-1 rounded-full uppercase tracking-wider border border-stone-200">
+              <span className="bg-stone-200/70 text-stone-800 font-bold text-[10px] px-3 py-1 rounded-full uppercase tracking-wider">
                 {product.id === "combo_packs" ? "Family Wellness Combo" : "Authentic Farm Pure"}
               </span>
               <div className="flex items-center gap-1.5 text-stone-600 text-xs font-semibold">
@@ -304,49 +304,50 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
             </div>
 
             {/* Product Title */}
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-serif font-black text-[#2E271E] leading-tight">
+            <h1 className="text-xl sm:text-3xl lg:text-4xl font-serif font-black text-[#2E271E] leading-snug">
               {product.title}
             </h1>
 
             {/* Rating Summary */}
-            <div className="flex flex-wrap items-center gap-3 pt-1">
-              <div className="flex items-center gap-1.5 bg-stone-50 px-3 py-1 rounded-md border border-stone-200">
+            <div className="flex flex-wrap items-center gap-2.5 pt-0.5">
+              <div className="flex items-center gap-1 bg-white sm:bg-stone-50 px-2.5 py-1 rounded-md border border-stone-200">
                 <div className="flex text-amber-500">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
                   ))}
                 </div>
-                <span className="text-xs font-bold text-[#2E271E] ml-1">{product.rating}</span>
+                <span className="text-xs font-bold text-[#2E271E] ml-0.5">{product.rating}</span>
               </div>
               <Link href="#reviews" className="text-xs font-semibold text-stone-500 hover:text-[#2E271E] underline transition">
                 See all {product.reviews} customer reviews
               </Link>
             </div>
 
-            {/* Stock Notice */}
-            <div className="bg-[#FAF6F0] border border-stone-200 rounded-xl p-3.5 flex items-center gap-3 text-xs text-stone-700">
-              <div className="w-2.5 h-2.5 rounded-full bg-amber-600 shrink-0" />
-              <p>
-                <span className="font-bold text-[#2E271E]">Fresh Batch Notice:</span> Only <span className="font-bold">{product.stockLeft} jars remaining</span> in today&apos;s wooden bilona churning.
-              </p>
-            </div>
-
-            {/* Clean Price Display Box */}
-            <div className="bg-stone-50/80 rounded-2xl p-6 border border-stone-200 space-y-2">
-              <div className="flex flex-wrap items-baseline gap-3">
-                <span className="text-3xl sm:text-4xl lg:text-5xl font-sans font-black text-[#2E271E] tracking-tight">
+            {/* Combined Streamlined Price Box */}
+            <div className="bg-white sm:bg-stone-50/80 rounded-2xl p-4 sm:p-6 border border-stone-200 space-y-3 shadow-2xs sm:shadow-none">
+              <div className="flex flex-wrap items-baseline gap-2.5 sm:gap-3">
+                <span className="text-2xl sm:text-4xl lg:text-5xl font-sans font-black text-[#2E271E] tracking-tight">
                   ₹{selectedOption.price * quantity}
                 </span>
-                <span className="text-lg sm:text-xl lg:text-2xl font-sans font-medium text-stone-400 line-through">
+                <span className="text-base sm:text-xl lg:text-2xl font-sans font-medium text-stone-400 line-through">
                   ₹{selectedOption.originalPrice * quantity}
                 </span>
-                <span className="bg-stone-200 text-[#2E271E] font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+                <span className="bg-[#2E271E] text-white font-bold text-[10px] sm:text-xs px-3 py-1 rounded-full uppercase tracking-wider ml-auto sm:ml-0">
                   Save ₹{savings} ({discountPercent}% OFF)
                 </span>
               </div>
-              <div className="flex flex-wrap items-center justify-between text-xs text-stone-500 pt-2 border-t border-stone-200 gap-2">
-                <span>Inclusive of all taxes &amp; duties.</span>
-                <span className="font-semibold text-stone-700">✔ Free Shipping across India</span>
+
+              {/* Compact Batch Notice inside Price box */}
+              <div className="flex items-center gap-2 text-xs text-amber-900 bg-amber-50/90 border border-amber-200/80 rounded-xl p-2.5">
+                <div className="w-2 h-2 rounded-full bg-amber-600 shrink-0 animate-pulse" />
+                <p className="text-xs leading-tight">
+                  <strong className="text-amber-950">Fresh Batch:</strong> Only <strong>{product.stockLeft} jars left</strong> in today&apos;s churning.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-between text-[11px] sm:text-xs text-stone-500 pt-2 border-t border-stone-200 gap-1">
+                <span>Inclusive of all taxes.</span>
+                <span className="font-semibold text-stone-700">✔ Free Express Shipping</span>
               </div>
             </div>
 
@@ -354,10 +355,10 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
             <div className="space-y-2.5">
               <div className="flex justify-between items-center">
                 <span className="text-xs font-bold text-[#2E271E] uppercase tracking-wider">Select Pack Size:</span>
-                <span className="text-[11px] font-medium text-stone-500">1L pack recommended for families</span>
+                <span className="text-[11px] font-medium text-stone-500 hidden sm:inline">1L pack recommended for families</span>
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 {product.options.map((opt) => {
                   const isSelected = selectedOption.size === opt.size;
                   return (
@@ -367,29 +368,29 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                         setSelectedOption(opt);
                         setQuantity(1);
                       }}
-                      className={`relative p-4 rounded-2xl text-left border transition cursor-pointer flex flex-col justify-between ${
+                      className={`relative p-3.5 sm:p-4 rounded-xl sm:rounded-2xl text-left border transition cursor-pointer flex flex-col justify-between ${
                         isSelected 
-                          ? "bg-white border-[#2E271E] text-[#2E271E] shadow-xs ring-1 ring-[#2E271E]" 
-                          : "bg-white/60 border-stone-200 text-stone-700 hover:border-stone-400"
+                          ? "bg-white border-[#2E271E] text-[#2E271E] shadow-2xs ring-1 ring-[#2E271E]" 
+                          : "bg-white/80 border-stone-200 text-stone-700 hover:border-stone-400"
                       }`}
                     >
                       {opt.badge && (
-                        <span className={`absolute -top-2.5 right-3 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                        <span className={`absolute -top-2.5 right-2 sm:right-3 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
                           isSelected ? "bg-[#2E271E] text-white" : "bg-stone-200 text-stone-800"
                         }`}>
                           {opt.badge}
                         </span>
                       )}
                       
-                      <span className="text-base font-black block">{opt.size} Pack</span>
+                      <span className="text-xs sm:text-base font-black block">{opt.size} Pack</span>
 
-                      <div className="flex items-baseline gap-2 mt-1">
-                        <span className="text-lg font-extrabold text-[#2E271E]">₹{opt.price}</span>
-                        <span className="text-xs text-stone-400 line-through font-medium">₹{opt.originalPrice}</span>
+                      <div className="flex items-baseline gap-1 mt-0.5">
+                        <span className="text-base sm:text-lg font-extrabold text-[#2E271E]">₹{opt.price}</span>
+                        <span className="text-[11px] text-stone-400 line-through font-medium">₹{opt.originalPrice}</span>
                       </div>
                       
                       {opt.perUnitText && (
-                        <span className="text-[11px] text-stone-500 mt-1 block font-medium">
+                        <span className="text-[10px] sm:text-[11px] text-stone-500 mt-0.5 block font-medium truncate">
                           {opt.perUnitText}
                         </span>
                       )}
@@ -399,64 +400,55 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
               </div>
             </div>
 
-            {/* Quantity Stepper & CTAs */}
-            <div className="space-y-4 pt-3 border-t border-stone-200">
+            {/* In-Page Quantity Stepper & Add to Cart Action */}
+            <div className="space-y-3.5 pt-3 border-t border-stone-200">
               
-              {/* Stepper + Add To Cart */}
-              <div className="flex flex-row items-center gap-4">
+              {/* Stepper + Add To Cart Button */}
+              <div className="flex flex-row items-center gap-3 sm:gap-4">
                 
                 {/* Quantity Counter */}
-                <div className="flex items-center border border-stone-300 rounded-xl bg-white overflow-hidden h-[52px] shrink-0">
+                <div className="flex items-center border border-stone-300 rounded-xl bg-white overflow-hidden h-[48px] sm:h-[52px] shrink-0">
                   <button
                     onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                    className="px-4 text-stone-600 hover:text-[#2E271E] hover:bg-stone-50 transition cursor-pointer h-full flex items-center"
+                    className="px-3 sm:px-4 text-stone-600 hover:text-[#2E271E] hover:bg-stone-50 transition cursor-pointer h-full flex items-center"
                     aria-label="Decrease Quantity"
                   >
-                    <Minus className="w-4 h-4" />
+                    <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </button>
-                  <span className="px-3 font-bold text-[#2E271E] text-base w-9 text-center select-none">
+                  <span className="px-2 sm:px-3 font-bold text-[#2E271E] text-sm sm:text-base w-8 sm:w-9 text-center select-none">
                     {quantity}
                   </span>
                   <button
                     onClick={() => setQuantity((q) => q + 1)}
-                    className="px-4 text-stone-600 hover:text-[#2E271E] hover:bg-stone-50 transition cursor-pointer h-full flex items-center"
+                    className="px-3 sm:px-4 text-stone-600 hover:text-[#2E271E] hover:bg-stone-50 transition cursor-pointer h-full flex items-center"
                     aria-label="Increase Quantity"
                   >
-                    <Plus className="w-4 h-4" />
+                    <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </button>
                 </div>
 
-                {/* Add to Cart Button */}
+                {/* Main Add to Cart Button */}
                 <button
                   onClick={handleAddToCart}
-                  className="flex-1 flex items-center justify-center gap-2 bg-[#0078BE] hover:bg-[#0066a1] active:scale-98 text-white font-bold px-6 py-3.5 rounded-xl text-sm sm:text-base uppercase tracking-wider transition shadow-2xs h-[52px] cursor-pointer"
+                  className="flex-1 flex items-center justify-center gap-2 bg-[#0078BE] hover:bg-[#0066a1] active:scale-98 text-white font-bold px-4 sm:px-6 py-3.5 sm:py-3.5 rounded-xl text-xs sm:text-base uppercase tracking-wider transition shadow-2xs h-[48px] sm:h-[52px] cursor-pointer whitespace-nowrap"
                 >
-                  <ShoppingBag className="w-5 h-5 shrink-0" />
+                  <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                   <span>Add To Cart</span>
                 </button>
               </div>
 
-              {/* Buy Now & WhatsApp Buttons */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-                <button
-                  onClick={handleBuyNow}
-                  className="w-full flex items-center justify-center gap-2 bg-[#2E271E] hover:bg-[#1a1611] active:scale-98 text-white font-bold py-4 px-4 rounded-xl text-xs sm:text-sm uppercase tracking-wider transition shadow-2xs cursor-pointer"
-                >
-                  <span>Instant Buy Now →</span>
-                </button>
-
-                <button
-                  onClick={handleWhatsAppOrder}
-                  className="w-full flex items-center justify-center gap-2 bg-white hover:bg-stone-50 active:scale-98 text-[#2E271E] font-bold py-4 px-4 rounded-xl text-xs sm:text-sm uppercase tracking-wider transition border border-stone-300 shadow-2xs cursor-pointer"
-                >
-                  <WhatsAppIcon className="w-4.5 h-4.5 shrink-0" />
-                  <span>WhatsApp Order</span>
-                </button>
-              </div>
+              {/* WhatsApp Quick Order Link */}
+              <button
+                onClick={handleWhatsAppOrder}
+                className="w-full flex items-center justify-center gap-2 bg-white hover:bg-stone-50 active:scale-98 text-[#2E271E] font-bold py-3 sm:py-3.5 px-4 rounded-xl text-xs uppercase tracking-wider transition border border-stone-300 shadow-2xs cursor-pointer"
+              >
+                <WhatsAppIcon className="w-4 h-4 shrink-0" />
+                <span>Order via WhatsApp</span>
+              </button>
             </div>
 
             {/* Delivery Estimator Bar */}
-            <div className="bg-stone-100/70 border border-stone-200 rounded-xl p-3.5 flex items-center gap-2.5 text-xs sm:text-sm text-stone-700">
+            <div className="bg-stone-100/70 border border-stone-200 rounded-xl p-4 flex items-center gap-3 text-xs sm:text-sm text-stone-700">
               <Clock className="w-4 h-4 text-stone-500 shrink-0" />
               <p>
                 <strong className="text-[#2E271E]">Dispatch within 24 Hours:</strong> Shipped in secure, non-reactive glass jars across India.
@@ -464,7 +456,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
             </div>
 
             {/* 4 Pillars Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-2">
               <div className="bg-white p-3 rounded-xl border border-stone-200 text-center">
                 <span className="text-lg block mb-0.5">🥛</span>
                 <span className="text-xs font-bold text-[#2E271E] block">30L Milk = 1L</span>
@@ -568,57 +560,57 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
         </div>
 
         {/* ── BELOW THE FOLD SECTION 1: THE 5-STEP VEDIC BILONA PROCESS GRID ── */}
-        <section className="bg-white rounded-3xl border border-stone-200 p-8 md:p-12 shadow-xs mb-16 w-full">
-          <div className="text-center w-full mb-10 space-y-2">
-            <span className="text-xs font-bold text-stone-400 uppercase tracking-widest block">Ancient Vedic Tradition</span>
-            <h2 className="text-2xl md:text-4xl font-serif font-black text-[#2E271E]">The 5-Step Bilona Process</h2>
+        <section className="bg-white rounded-3xl border border-stone-200 p-4 sm:p-8 md:p-12 shadow-xs mb-10 sm:mb-16 w-full">
+          <div className="text-center w-full mb-6 sm:mb-10 space-y-2">
+            <span className="text-[10px] sm:text-xs font-bold text-stone-400 uppercase tracking-widest block">Ancient Vedic Tradition</span>
+            <h2 className="text-xl sm:text-3xl md:text-4xl font-serif font-black text-[#2E271E]">The 5-Step Bilona Process</h2>
             <p className="text-xs sm:text-sm text-stone-500 leading-relaxed">
               It takes 30 Litres of pure fresh buffalo milk to craft just 1 Litre of Dairy Cool Bilona Ghee. Discover our age-old process:
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-6 w-full">
             
             {/* Step 1 */}
-            <div className="bg-[#FAF6F0]/60 p-6 rounded-2xl border border-stone-200/70 space-y-3">
-              <span className="w-8 h-8 rounded-full bg-[#2E271E] text-white font-bold text-xs flex items-center justify-center">01</span>
-              <h3 className="font-serif font-bold text-base text-[#2E271E]">Boiling Raw Milk</h3>
+            <div className="bg-[#FAF6F0]/60 p-4 sm:p-6 rounded-2xl border border-stone-200/70 space-y-2 sm:space-y-3">
+              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#2E271E] text-white font-bold text-xs flex items-center justify-center">01</span>
+              <h3 className="font-serif font-bold text-sm sm:text-base text-[#2E271E]">Boiling Raw Milk</h3>
               <p className="text-xs text-stone-600 leading-relaxed">
                 Fresh buffalo milk is boiled over traditional mud chulhas in earthen pots to purify and preserve natural nutrients.
               </p>
             </div>
 
             {/* Step 2 */}
-            <div className="bg-[#FAF6F0]/60 p-6 rounded-2xl border border-stone-200/70 space-y-3">
-              <span className="w-8 h-8 rounded-full bg-[#2E271E] text-white font-bold text-xs flex items-center justify-center">02</span>
-              <h3 className="font-serif font-bold text-base text-[#2E271E]">Curd Setting</h3>
+            <div className="bg-[#FAF6F0]/60 p-4 sm:p-6 rounded-2xl border border-stone-200/70 space-y-2 sm:space-y-3">
+              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#2E271E] text-white font-bold text-xs flex items-center justify-center">02</span>
+              <h3 className="font-serif font-bold text-sm sm:text-base text-[#2E271E]">Curd Setting</h3>
               <p className="text-xs text-stone-600 leading-relaxed">
                 The boiled milk is inoculated with natural culture and allowed to ferment overnight into thick, probiotic curd.
               </p>
             </div>
 
             {/* Step 3 */}
-            <div className="bg-[#FAF6F0]/60 p-6 rounded-2xl border border-stone-200/70 space-y-3">
-              <span className="w-8 h-8 rounded-full bg-[#2E271E] text-white font-bold text-xs flex items-center justify-center">03</span>
-              <h3 className="font-serif font-bold text-base text-[#2E271E]">Wooden Churning</h3>
+            <div className="bg-[#FAF6F0]/60 p-4 sm:p-6 rounded-2xl border border-stone-200/70 space-y-2 sm:space-y-3">
+              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#2E271E] text-white font-bold text-xs flex items-center justify-center">03</span>
+              <h3 className="font-serif font-bold text-sm sm:text-base text-[#2E271E]">Wooden Churning</h3>
               <p className="text-xs text-stone-600 leading-relaxed">
                 The curd is churned bi-directionally using traditional wooden bilonas in clay pots during early morning hours.
               </p>
             </div>
 
             {/* Step 4 */}
-            <div className="bg-[#FAF6F0]/60 p-6 rounded-2xl border border-stone-200/70 space-y-3">
-              <span className="w-8 h-8 rounded-full bg-[#2E271E] text-white font-bold text-xs flex items-center justify-center">04</span>
-              <h3 className="font-serif font-bold text-base text-[#2E271E]">Makhan Extraction</h3>
+            <div className="bg-[#FAF6F0]/60 p-4 sm:p-6 rounded-2xl border border-stone-200/70 space-y-2 sm:space-y-3">
+              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#2E271E] text-white font-bold text-xs flex items-center justify-center">04</span>
+              <h3 className="font-serif font-bold text-sm sm:text-base text-[#2E271E]">Makhan Extraction</h3>
               <p className="text-xs text-stone-600 leading-relaxed">
                 Fresh golden butter (makhan) is separated from buttermilk, ensuring maximum fat-soluble vitamins remain intact.
               </p>
             </div>
 
             {/* Step 5 */}
-            <div className="bg-[#FAF6F0]/60 p-6 rounded-2xl border border-stone-200/70 space-y-3">
-              <span className="w-8 h-8 rounded-full bg-[#2E271E] text-white font-bold text-xs flex items-center justify-center">05</span>
-              <h3 className="font-serif font-bold text-base text-[#2E271E]">Slow Heating</h3>
+            <div className="bg-[#FAF6F0]/60 p-4 sm:p-6 rounded-2xl border border-stone-200/70 space-y-2 sm:space-y-3">
+              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#2E271E] text-white font-bold text-xs flex items-center justify-center">05</span>
+              <h3 className="font-serif font-bold text-sm sm:text-base text-[#2E271E]">Slow Heating</h3>
               <p className="text-xs text-stone-600 leading-relaxed">
                 The butter is slow-cooked over low flame in brass pots until moisture evaporates into rich, granular Bilona Ghee.
               </p>
@@ -628,71 +620,76 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
         </section>
 
         {/* ── BELOW THE FOLD SECTION 2: COMPARISON TABLE ── */}
-        <section className="bg-white rounded-3xl border border-stone-200 p-8 md:p-12 shadow-xs mb-16 w-full">
-          <div className="text-center w-full mb-10 space-y-2">
-            <span className="text-xs font-bold text-stone-400 uppercase tracking-widest block">The Truth About Purity</span>
-            <h2 className="text-2xl md:text-4xl font-serif font-black text-[#2E271E]">Why Dairy Cool Bilona Ghee is Superior</h2>
+        <section className="bg-white rounded-3xl border border-stone-200 p-4 sm:p-8 md:p-12 shadow-xs mb-10 sm:mb-16 w-full">
+          <div className="text-center w-full mb-6 sm:mb-10 space-y-2">
+            <span className="text-[10px] sm:text-xs font-bold text-stone-400 uppercase tracking-widest block">The Truth About Purity</span>
+            <h2 className="text-xl sm:text-3xl md:text-4xl font-serif font-black text-[#2E271E]">Why Dairy Cool Bilona Ghee is Superior</h2>
             <p className="text-xs sm:text-sm text-stone-500 leading-relaxed">
               Most store-bought ghee is made commercially from leftover dairy cream at high temperatures. Here is how our traditional Vedic method compares:
             </p>
           </div>
 
-          <div className="overflow-x-auto w-full">
-            <table className="w-full text-left border-collapse min-w-[700px]">
+          {/* Swipe Hint on Mobile */}
+          <div className="sm:hidden text-[10px] font-bold text-[#0078BE] mb-2 flex items-center gap-1">
+            <span>← Swipe table to compare →</span>
+          </div>
+
+          <div className="overflow-x-auto w-full scrollbar-none border border-stone-200 rounded-2xl">
+            <table className="w-full text-left border-collapse min-w-[640px]">
               <thead>
                 <tr className="border-b-2 border-stone-200 bg-stone-50">
-                  <th className="py-4 px-6 font-serif font-bold text-stone-700 text-sm w-1/3">Quality Feature</th>
-                  <th className="py-4 px-6 font-serif font-black text-[#2E271E] text-base w-1/3 bg-[#FAF6F0] rounded-t-2xl border-x border-t border-stone-200">
+                  <th className="py-3 px-4 sm:px-6 font-serif font-bold text-stone-700 text-xs sm:text-sm w-1/3">Quality Feature</th>
+                  <th className="py-3 px-4 sm:px-6 font-serif font-black text-[#2E271E] text-xs sm:text-base w-1/3 bg-[#FAF6F0]">
                     Dairy Cool Vedic Bilona Ghee
                   </th>
-                  <th className="py-4 px-6 font-serif font-medium text-stone-500 text-sm w-1/3">
+                  <th className="py-3 px-4 sm:px-6 font-serif font-medium text-stone-500 text-xs sm:text-sm w-1/3">
                     Commercial Store-Bought Ghee
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-100 text-xs sm:text-sm">
                 <tr>
-                  <td className="py-4 px-6 font-bold text-stone-800">Preparation Method</td>
-                  <td className="py-4 px-6 font-bold text-[#2E271E] bg-[#FAF6F0] border-x border-stone-200">
+                  <td className="py-3 px-4 sm:px-6 font-bold text-stone-800">Preparation Method</td>
+                  <td className="py-3 px-4 sm:px-6 font-bold text-[#2E271E] bg-[#FAF6F0]">
                     ✔ Vedic Bilona (Milk → Curd → Churning → Ghee)
                   </td>
-                  <td className="py-4 px-6 text-stone-500">
+                  <td className="py-3 px-4 sm:px-6 text-stone-500">
                     Direct heating of leftover milk cream / malai
                   </td>
                 </tr>
                 <tr>
-                  <td className="py-4 px-6 font-bold text-stone-800">Grain Texture (Danedar)</td>
-                  <td className="py-4 px-6 font-bold text-[#2E271E] bg-[#FAF6F0] border-x border-stone-200">
+                  <td className="py-3 px-4 sm:px-6 font-bold text-stone-800">Grain Texture (Danedar)</td>
+                  <td className="py-3 px-4 sm:px-6 font-bold text-[#2E271E] bg-[#FAF6F0]">
                     ✔ Naturally Granular &amp; Highly Dense
                   </td>
-                  <td className="py-4 px-6 text-stone-500">
+                  <td className="py-3 px-4 sm:px-6 text-stone-500">
                     Flat, oily, or chemically emulsified texture
                   </td>
                 </tr>
                 <tr>
-                  <td className="py-4 px-6 font-bold text-stone-800">Aroma &amp; Taste</td>
-                  <td className="py-4 px-6 font-bold text-[#2E271E] bg-[#FAF6F0] border-x border-stone-200">
+                  <td className="py-3 px-4 sm:px-6 font-bold text-stone-800">Aroma &amp; Taste</td>
+                  <td className="py-3 px-4 sm:px-6 font-bold text-[#2E271E] bg-[#FAF6F0]">
                     ✔ Rich, nutty, authentic village aroma
                   </td>
-                  <td className="py-4 px-6 text-stone-500">
+                  <td className="py-3 px-4 sm:px-6 text-stone-500">
                     Artificial flavoring or flat grease odor
                   </td>
                 </tr>
                 <tr>
-                  <td className="py-4 px-6 font-bold text-stone-800">Digestibility &amp; Nutrition</td>
-                  <td className="py-4 px-6 font-bold text-[#2E271E] bg-[#FAF6F0] border-x border-stone-200">
+                  <td className="py-3 px-4 sm:px-6 font-bold text-stone-800">Digestibility &amp; Nutrition</td>
+                  <td className="py-3 px-4 sm:px-6 font-bold text-[#2E271E] bg-[#FAF6F0]">
                     ✔ Rich in A2 proteins, Butyric acid &amp; Vitamins
                   </td>
-                  <td className="py-4 px-6 text-stone-500">
+                  <td className="py-3 px-4 sm:px-6 text-stone-500">
                     Heavy on digestion, cholesterol risk
                   </td>
                 </tr>
                 <tr>
-                  <td className="py-4 px-6 font-bold text-stone-800">Packaging Material</td>
-                  <td className="py-4 px-6 font-bold text-[#2E271E] bg-[#FAF6F0] rounded-b-2xl border-x border-b border-stone-200">
+                  <td className="py-3 px-4 sm:px-6 font-bold text-stone-800">Packaging Material</td>
+                  <td className="py-3 px-4 sm:px-6 font-bold text-[#2E271E] bg-[#FAF6F0]">
                     ✔ Premium Glass Jar (Zero Chemical Leaching)
                   </td>
-                  <td className="py-4 px-6 text-stone-500">
+                  <td className="py-3 px-4 sm:px-6 text-stone-500">
                     Plastic pouches or cheap tins
                   </td>
                 </tr>
@@ -702,31 +699,31 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
         </section>
 
         {/* ── BELOW THE FOLD SECTION 3: VERIFIED REVIEWS ── */}
-        <section id="reviews" className="bg-white rounded-3xl border border-stone-200 p-8 md:p-12 shadow-xs mb-16 w-full">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 pb-8 border-b border-stone-100 w-full">
+        <section id="reviews" className="bg-white rounded-3xl border border-stone-200 p-4 sm:p-8 md:p-12 shadow-xs mb-10 sm:mb-16 w-full">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6 mb-6 sm:mb-10 pb-6 sm:pb-8 border-b border-stone-100 w-full">
             <div>
-              <span className="text-xs font-bold text-stone-400 uppercase tracking-widest block">Customer Testimonials</span>
-              <h2 className="text-2xl md:text-4xl font-serif font-black text-[#2E271E]">Verified Buyer Reviews</h2>
+              <span className="text-[10px] sm:text-xs font-bold text-stone-400 uppercase tracking-widest block">Customer Testimonials</span>
+              <h2 className="text-xl sm:text-3xl md:text-4xl font-serif font-black text-[#2E271E]">Verified Buyer Reviews</h2>
             </div>
             
-            <div className="flex items-center gap-4 bg-stone-50 px-6 py-4 rounded-2xl border border-stone-200">
-              <div className="text-3xl font-black text-[#2E271E]">4.9</div>
+            <div className="flex items-center gap-3 sm:gap-4 bg-stone-50 px-4 sm:px-6 py-3 sm:py-4 rounded-2xl border border-stone-200">
+              <div className="text-2xl sm:text-3xl font-black text-[#2E271E]">4.9</div>
               <div>
                 <div className="flex text-amber-500">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-500 text-amber-500" />
+                    <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-amber-500 text-amber-500" />
                   ))}
                 </div>
-                <p className="text-[11px] font-semibold text-stone-500 mt-0.5">Based on 422+ verified customer reviews</p>
+                <p className="text-[10px] sm:text-[11px] font-semibold text-stone-500 mt-0.5">Based on 422+ verified customer reviews</p>
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 w-full">
             
             {/* Review 1 */}
-            <div className="bg-[#FAF6F0]/60 p-6 rounded-2xl border border-stone-200 flex flex-col justify-between space-y-4">
-              <div className="space-y-3">
+            <div className="bg-[#FAF6F0]/60 p-4 sm:p-6 rounded-2xl border border-stone-200 flex flex-col justify-between space-y-3 sm:space-y-4">
+              <div className="space-y-2 sm:space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex text-amber-500">
                     {[...Array(5)].map((_, i) => (
@@ -735,13 +732,13 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                   </div>
                   <span className="text-[10px] text-stone-400 font-medium">2 days ago</span>
                 </div>
-                <h4 className="font-serif font-bold text-[#2E271E] text-base">&quot;Exact taste of my grandmother&apos;s ghee!&quot;</h4>
+                <h4 className="font-serif font-bold text-[#2E271E] text-sm sm:text-base">&quot;Exact taste of my grandmother&apos;s ghee!&quot;</h4>
                 <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
                   I have tried dozens of organic brands online, but Dairy Cool is the only one that has that genuine danedar texture and golden aroma. The moment you put one spoon in hot dal, the entire kitchen smells divine!
                 </p>
               </div>
               <div className="flex items-center gap-3 pt-3 border-t border-stone-200">
-                <div className="w-9 h-9 rounded-full bg-stone-200 text-stone-700 font-serif font-bold flex items-center justify-center text-xs">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-stone-200 text-stone-700 font-serif font-bold flex items-center justify-center text-xs">
                   R
                 </div>
                 <div>
@@ -754,8 +751,8 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
             </div>
 
             {/* Review 2 */}
-            <div className="bg-[#FAF6F0]/60 p-6 rounded-2xl border border-stone-200 flex flex-col justify-between space-y-4">
-              <div className="space-y-3">
+            <div className="bg-[#FAF6F0]/60 p-4 sm:p-6 rounded-2xl border border-stone-200 flex flex-col justify-between space-y-3 sm:space-y-4">
+              <div className="space-y-2 sm:space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex text-amber-500">
                     {[...Array(5)].map((_, i) => (
@@ -764,13 +761,13 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                   </div>
                   <span className="text-[10px] text-stone-400 font-medium">1 week ago</span>
                 </div>
-                <h4 className="font-serif font-bold text-[#2E271E] text-base">&quot;Best quality packaging &amp; purity!&quot;</h4>
+                <h4 className="font-serif font-bold text-[#2E271E] text-sm sm:text-base">&quot;Best quality packaging &amp; purity!&quot;</h4>
                 <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
                   I ordered the 1L family bottle. It came super securely packed in a heavy glass jar without any leakage. My kids love it on their morning parathas. Truly Dadi ke haathon ka swaad!
                 </p>
               </div>
               <div className="flex items-center gap-3 pt-3 border-t border-stone-200">
-                <div className="w-9 h-9 rounded-full bg-stone-200 text-stone-700 font-serif font-bold flex items-center justify-center text-xs">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-stone-200 text-stone-700 font-serif font-bold flex items-center justify-center text-xs">
                   S
                 </div>
                 <div>
@@ -783,8 +780,8 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
             </div>
 
             {/* Review 3 */}
-            <div className="bg-[#FAF6F0]/60 p-6 rounded-2xl border border-stone-200 flex flex-col justify-between space-y-4">
-              <div className="space-y-3">
+            <div className="bg-[#FAF6F0]/60 p-4 sm:p-6 rounded-2xl border border-stone-200 flex flex-col justify-between space-y-3 sm:space-y-4">
+              <div className="space-y-2 sm:space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex text-amber-500">
                     {[...Array(5)].map((_, i) => (
@@ -793,13 +790,13 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                   </div>
                   <span className="text-[10px] text-stone-400 font-medium">2 weeks ago</span>
                 </div>
-                <h4 className="font-serif font-bold text-[#2E271E] text-base">&quot;No heavy aftertaste, pure A2 milk&quot;</h4>
+                <h4 className="font-serif font-bold text-[#2E271E] text-sm sm:text-base">&quot;No heavy aftertaste, pure A2 milk&quot;</h4>
                 <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
                   You can immediately tell this is made from curd bilona and not malai cream. It feels extremely light on the stomach and promotes great digestion. Will definitely subscribe every month!
                 </p>
               </div>
               <div className="flex items-center gap-3 pt-3 border-t border-stone-200">
-                <div className="w-9 h-9 rounded-full bg-stone-200 text-stone-700 font-serif font-bold flex items-center justify-center text-xs">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-stone-200 text-stone-700 font-serif font-bold flex items-center justify-center text-xs">
                   A
                 </div>
                 <div>
@@ -815,10 +812,10 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
         </section>
 
         {/* ── BELOW THE FOLD SECTION 4: FREQUENTLY ASKED QUESTIONS ── */}
-        <section className="bg-white rounded-3xl border border-stone-200 p-8 md:p-12 shadow-xs mb-16 w-full">
-          <div className="text-center w-full mb-8 space-y-2">
-            <span className="text-xs font-bold text-stone-400 uppercase tracking-widest block">Got Questions?</span>
-            <h2 className="text-2xl md:text-4xl font-serif font-black text-[#2E271E]">Frequently Asked Questions</h2>
+        <section className="bg-white rounded-3xl border border-stone-200 p-4 sm:p-8 md:p-12 shadow-xs mb-10 sm:mb-16 w-full">
+          <div className="text-center w-full mb-6 sm:mb-8 space-y-2">
+            <span className="text-[10px] sm:text-xs font-bold text-stone-400 uppercase tracking-widest block">Got Questions?</span>
+            <h2 className="text-xl sm:text-3xl md:text-4xl font-serif font-black text-[#2E271E]">Frequently Asked Questions</h2>
           </div>
 
           <div className="w-full divide-y divide-stone-200 border border-stone-200 rounded-2xl overflow-hidden bg-[#FAF6F0]/40">
@@ -826,16 +823,16 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
               <div key={index} className="transition">
                 <button
                   onClick={() => toggleFaq(index)}
-                  className="w-full flex items-center justify-between p-5 sm:p-6 text-left font-serif font-bold text-[#2E271E] text-sm sm:text-base hover:bg-white transition cursor-pointer"
+                  className="w-full flex items-center justify-between p-4 sm:p-6 text-left font-serif font-bold text-[#2E271E] text-xs sm:text-base hover:bg-white transition cursor-pointer gap-2"
                 >
-                  <span className="flex items-center gap-2.5">
+                  <span className="flex items-center gap-2">
                     <HelpCircle className="w-4 h-4 text-stone-500 shrink-0" />
                     {faq.q}
                   </span>
                   <ChevronDown className={`w-4 h-4 text-stone-400 transition-transform duration-300 shrink-0 ${activeFaq === index ? "rotate-180 text-[#2E271E]" : ""}`} />
                 </button>
                 {activeFaq === index && (
-                  <div className="px-5 sm:px-6 pb-6 pt-1 text-xs sm:text-sm text-stone-600 leading-relaxed bg-white">
+                  <div className="px-4 sm:px-6 pb-5 pt-1 text-xs sm:text-sm text-stone-600 leading-relaxed bg-white">
                     {faq.a}
                   </div>
                 )}
@@ -845,29 +842,29 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
         </section>
 
         {/* ── BELOW THE FOLD SECTION 5: PURITY ASSURANCE BANNER ── */}
-        <section className="bg-white border-2 border-stone-300 rounded-3xl p-8 md:p-14 shadow-xs text-center relative w-full">
-          <div className="relative z-10 max-w-4xl mx-auto space-y-4">
-            <div className="w-16 h-16 rounded-full bg-stone-100 border border-stone-200 flex items-center justify-center mx-auto text-stone-700">
-              <Heart className="w-7 h-7 text-[#2E271E]" />
+        <section className="bg-white border-2 border-stone-300 rounded-3xl p-5 sm:p-8 md:p-14 shadow-xs text-center relative w-full mb-6 sm:mb-0">
+          <div className="relative z-10 max-w-4xl mx-auto space-y-3 sm:space-y-4">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-stone-100 border border-stone-200 flex items-center justify-center mx-auto text-stone-700">
+              <Heart className="w-5 h-5 sm:w-7 sm:h-7 text-[#2E271E]" />
             </div>
-            <h2 className="text-2xl md:text-4xl font-serif font-black text-[#2E271E] leading-tight">
+            <h2 className="text-xl sm:text-3xl md:text-4xl font-serif font-black text-[#2E271E] leading-tight">
               Dadi&apos;s 100% Purity Promise
             </h2>
             <p className="text-stone-600 text-xs sm:text-sm md:text-base leading-relaxed">
               We stand by the quality of every single drop. If you do not fall in love with the authentic aroma, granular texture, and traditional taste of our Bilona Ghee, simply reach out to us within 7 days for a full replacement or refund.
             </p>
-            <div className="pt-3 flex flex-wrap justify-center gap-4">
+            <div className="pt-2 sm:pt-3 flex flex-col sm:flex-row justify-center gap-2.5 sm:gap-4">
               <button
                 onClick={handleAddToCart}
-                className="bg-[#2E271E] hover:bg-[#1a1611] text-white font-bold px-9 py-4 rounded-full text-xs uppercase tracking-widest transition shadow-2xs cursor-pointer"
+                className="w-full sm:w-auto bg-[#2E271E] hover:bg-[#1a1611] text-white font-bold px-6 sm:px-9 py-3.5 sm:py-4 rounded-full text-xs uppercase tracking-widest transition shadow-2xs cursor-pointer"
               >
                 Order Pure Ghee Now
               </button>
               <button
                 onClick={handleWhatsAppOrder}
-                className="bg-white hover:bg-stone-50 text-[#2E271E] border border-stone-300 font-bold px-9 py-4 rounded-full text-xs uppercase tracking-widest transition shadow-2xs cursor-pointer inline-flex items-center gap-2"
+                className="w-full sm:w-auto bg-white hover:bg-stone-50 text-[#2E271E] border border-stone-300 font-bold px-6 sm:px-9 py-3.5 sm:py-4 rounded-full text-xs uppercase tracking-widest transition shadow-2xs cursor-pointer inline-flex items-center justify-center gap-2"
               >
-                <WhatsAppIcon className="w-4.5 h-4.5" />
+                <WhatsAppIcon className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
                 <span>Order on WhatsApp</span>
               </button>
             </div>
@@ -875,6 +872,29 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
         </section>
 
       </main>
+
+      {/* Floating Mobile Sticky CTA Bar */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-stone-200 p-3 sm:hidden shadow-2xl flex items-center justify-between gap-3">
+        <div>
+          <span className="text-[10px] text-stone-500 font-medium block">Total Price:</span>
+          <span className="text-lg font-black text-[#2E271E] font-sans">₹{selectedOption.price * quantity}</span>
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={handleAddToCart}
+            className="bg-[#0078BE] active:scale-95 text-white font-bold px-3.5 py-2.5 rounded-xl text-xs uppercase tracking-wider transition flex items-center gap-1.5 shadow-sm cursor-pointer"
+          >
+            <ShoppingBag className="w-3.5 h-3.5" />
+            <span>Add</span>
+          </button>
+          <button
+            onClick={handleBuyNow}
+            className="bg-[#2E271E] active:scale-95 text-white font-bold px-3.5 py-2.5 rounded-xl text-xs uppercase tracking-wider transition shadow-sm cursor-pointer"
+          >
+            Buy Now
+          </button>
+        </div>
+      </div>
 
       {/* Footer */}
       <Footer />
