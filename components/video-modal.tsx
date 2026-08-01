@@ -34,7 +34,7 @@ export default function VideoModal({ isOpen, onClose, videoTitle, videoUrl }: Vi
   if (!isOpen) return null;
 
   // Check if it is a youtube video or standard
-  const isYouTube = videoUrl && (videoUrl.includes("youtube.com") || videoUrl.includes("youtu.be") || !videoUrl.includes(".mp4") && videoUrl.length < 15);
+  const isYouTube = videoUrl && (videoUrl.includes("youtube.com") || videoUrl.includes("youtu.be"));
   const embedUrl = isYouTube 
     ? `https://www.youtube.com/embed/${videoUrl}?autoplay=1&mute=${isMuted ? 1 : 0}` 
     : null;
@@ -48,7 +48,7 @@ export default function VideoModal({ isOpen, onClose, videoTitle, videoUrl }: Vi
       />
 
       {/* Modal Container */}
-      <div className="relative w-full max-w-4xl bg-black rounded-2xl overflow-hidden shadow-2xl border border-zinc-800/80 aspect-video flex flex-col z-10">
+      <div className="relative w-full max-w-4xl max-h-[90vh] bg-black rounded-2xl overflow-hidden shadow-2xl border border-zinc-800/80 flex flex-col z-10">
         
         {/* Header Overlay */}
         <div className="absolute top-0 inset-x-0 bg-gradient-to-b from-black/80 to-transparent p-4 flex items-center justify-between z-20">
@@ -64,18 +64,23 @@ export default function VideoModal({ isOpen, onClose, videoTitle, videoUrl }: Vi
         </div>
 
         {/* Video Screen Area */}
-        <div className="flex-1 w-full h-full relative flex items-center justify-center bg-zinc-950">
+        <div className="flex-1 w-full max-h-[80vh] relative flex items-center justify-center bg-zinc-950 p-2 sm:p-4">
           {embedUrl ? (
             <iframe
-              className="w-full h-full"
+              className="w-full h-full min-h-[350px] sm:min-h-[500px]"
               src={embedUrl}
               title={videoTitle}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             />
-          ) : videoUrl && (videoUrl.startsWith("http") || videoUrl.includes(".mp4")) ? (
+          ) : videoUrl ? (
             <video
-              className="w-full h-full object-contain"
+              ref={(el) => {
+                if (el && isOpen) {
+                  el.play().catch(() => {});
+                }
+              }}
+              className="w-full max-h-[78vh] object-contain rounded-lg"
               src={videoUrl}
               autoPlay
               controls

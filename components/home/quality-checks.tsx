@@ -9,34 +9,34 @@ interface QualityChecksProps {
 
 const processVideos = [
   {
-    title: "Happy A2 Cows",
+    title: "Step 1: Happy A2 Buffaloes",
     subtitle: "Free grazing on natural farms",
-    url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+    url: "/videos/video1.MOV",
     poster: "/images/ingredients_cow_milk.png"
   },
   {
-    title: "Wooden Bilona",
-    subtitle: "Traditional hand-churning",
-    url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+    title: "Step 2: Slow Boiling Milk",
+    subtitle: "Boiled over mud chulhas",
+    url: "/videos/video2.MOV",
     poster: "/images/ingredients_bilona.png"
   },
   {
-    title: "Mud Chulha",
-    subtitle: "Slow-cooking for rich aroma",
-    url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-    poster: "/images/ingredients_slow_cooked.png"
+    title: "Step 3: Wooden Bilona Churning",
+    subtitle: "Traditional hand-churning",
+    url: "/videos/video3.MOV",
+    poster: "/images/ingredients_bilona.png"
   },
   {
-    title: "Dadi's Approval",
-    subtitle: "Strict quality checks",
-    url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+    title: "Step 4: Slow Cooking Ghee",
+    subtitle: "Low flame granular texture",
+    url: "/videos/video4.MOV",
+    poster: "/images/buffalo_ghee_single.png"
+  },
+  {
+    title: "Step 5: Dadi's Glass Packaging",
+    subtitle: "Hygienic eco-glass jars",
+    url: "/videos/video5.MOV",
     poster: "/images/dadi_image.jpg"
-  },
-  {
-    title: "Pure Bottling",
-    subtitle: "Hygienic glass packaging",
-    url: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
-    poster: "/images/ghee_jar.png"
   }
 ];
 
@@ -89,12 +89,12 @@ export default function QualityChecks({ onPlayVideo }: QualityChecksProps) {
           </p>
         </div>
 
-        {/* Video Reel: Horizontal scrollable story cards on mobile, grid on desktop */}
-        <div className="flex sm:grid sm:grid-cols-2 md:grid-cols-5 gap-3.5 md:gap-5 overflow-x-auto sm:overflow-visible snap-x snap-mandatory pb-4 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none">
+        {/* Large Prominent Video Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {processVideos.map((video, idx) => (
             <div 
               key={idx} 
-              className="group relative flex-none w-[68vw] sm:w-auto aspect-[9/14] sm:aspect-[4/5] lg:aspect-[9/16] rounded-2xl overflow-hidden bg-slate-900 shadow-md cursor-pointer hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#0284c7]/20 transition-all duration-500 border border-slate-200/50 snap-center"
+              className="group relative w-full aspect-[16/10] rounded-3xl overflow-hidden bg-stone-900 shadow-lg cursor-pointer hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#0078BE]/20 transition-all duration-500 border border-stone-200"
               onClick={() => onPlayVideo && onPlayVideo(video.title, video.url)}
             >
               {/* Video Tag (Auto plays on scroll) */}
@@ -108,7 +108,7 @@ export default function QualityChecks({ onPlayVideo }: QualityChecksProps) {
                 muted 
                 loop 
                 playsInline
-                className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-90 group-hover:opacity-100"
               />
               
               {/* Elegant Gradient Overlay */}

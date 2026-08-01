@@ -10,35 +10,35 @@ const steps = [
     num: "01",
     title: "Fresh Milk",
     hindi: "Hamari khush gaay ka taaza aur shuddh doodh",
-    videoUrl: "https://dairycoolfarm.com/wp-content/uploads/2026/03/WhatsApp-Video-2026-03-13-at-4.11.43-PM.mp4",
+    videoUrl: "/videos/video1.MOV",
     poster: "/images/ingredients_cow_milk.png"
   },
   {
     num: "02",
     title: "Dahi Jamana",
     hindi: "Doodh ko jamakar tayar kiya jata hai dahi",
-    videoUrl: "https://dairycoolfarm.com/wp-content/uploads/2026/03/WhatsApp-Video-2026-03-11-at-11.39.52-AM-3.mp4",
+    videoUrl: "/videos/video2.MOV",
     poster: "/images/ingredients_slow_cooked.png"
   },
   {
     num: "03",
     title: "Bilona Mathna",
     hindi: "Paramparik bilona se dahi ko matha jata hai",
-    videoUrl: "https://dairycoolfarm.com/wp-content/uploads/2026/02/videoplayback.mp4",
+    videoUrl: "/videos/video3.MOV",
     poster: "/images/ingredients_bilona.png"
   },
   {
     num: "04",
     title: "Makkhan Nikalna",
     hindi: "Mathne ke baad nikalte hai taaza makkhan",
-    videoUrl: "https://dairycoolfarm.com/wp-content/uploads/2026/02/videoplayback-1.mp4",
+    videoUrl: "/videos/video4.MOV",
     poster: "/images/ingredients_slow_cooked.png"
   },
   {
     num: "05",
     title: "Ghee Tayar",
     hindi: "Makkhan ko dheemi aanch par pakakar banta hai ghee",
-    videoUrl: "https://dairycoolfarm.com/wp-content/uploads/2026/02/videoplayback.mp4",
+    videoUrl: "/videos/video5.MOV",
     poster: "/images/ghee_jar.png"
   }
 ];

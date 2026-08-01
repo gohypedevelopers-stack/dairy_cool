@@ -133,12 +133,9 @@ export default function AboutDadiPage() {
           <div className="absolute inset-0 bg-black/50 md:hidden" />
         </div>
 
-        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10 pt-16 pb-12 sm:pt-24 sm:pb-20 flex-grow flex flex-col justify-center">
-          <div className="max-w-xl space-y-4 sm:space-y-6">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <div className="w-10 h-[1px] bg-amber-400/40 relative hidden sm:block">
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-amber-400 rounded-full" />
-              </div>
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10 pt-16 pb-12 sm:pt-24 sm:pb-20 flex-grow flex flex-col justify-center items-center">
+          <div className="max-w-2xl mx-auto text-center space-y-4 sm:space-y-6">
+            <div className="flex items-center justify-center gap-2 sm:gap-3">
               <span className="font-cursive text-xl sm:text-2xl md:text-3xl text-amber-400 block italic drop-shadow-md">
                 Our Story ♡
               </span>
@@ -149,21 +146,21 @@ export default function AboutDadiPage() {
               <span className="text-[#2B92E4] drop-shadow-md">Behind the Ghee</span>
             </h1>
 
-            <p className="text-sm md:text-base font-medium text-stone-200 tracking-wide leading-relaxed drop-shadow-md">
+            <p className="text-sm md:text-base font-medium text-stone-200 tracking-wide leading-relaxed drop-shadow-md max-w-xl mx-auto">
               Pichhle kai saalon se Kamlesh Khari ji ghee bana rahi hain — pehle sirf apne ghar aur parivaar ke liye. Aaj unki poti ki soch se yeh ghee aapke ghar tak pahunch raha hai.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-3 sm:pt-4 w-full max-w-[320px] sm:max-w-none">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-3 sm:pt-4 w-full mx-auto">
               <Link
-                href="/#shop"
-                className="inline-flex items-center justify-center gap-1.5 bg-[#2B92E4] hover:bg-[#207fcc] text-white font-bold px-6 py-3.5 rounded-full text-xs uppercase tracking-wider transition shadow-lg shadow-sky-500/20 active:scale-95 whitespace-nowrap"
+                href="/products/ghee_500ml"
+                className="inline-flex items-center justify-center gap-2 bg-[#0078BE] hover:bg-[#0066a1] text-white font-bold px-8 py-3.5 rounded-full text-xs uppercase tracking-wider transition shadow-lg shadow-sky-500/20 active:scale-95 whitespace-nowrap w-full sm:w-auto"
               >
                 <ShoppingCart className="w-4 h-4" />
                 <span>Shop Dadi's Ghee</span>
               </Link>
               <Link
                 href="/"
-                className="inline-flex items-center justify-center gap-2 bg-black/40 hover:bg-black/60 backdrop-blur-sm text-white font-bold px-6 py-3.5 rounded-full text-xs uppercase tracking-wider transition border border-white/30 active:scale-95 whitespace-nowrap"
+                className="inline-flex items-center justify-center gap-2 bg-black/40 hover:bg-black/60 backdrop-blur-sm text-white font-bold px-8 py-3.5 rounded-full text-xs uppercase tracking-wider transition border border-white/30 active:scale-95 whitespace-nowrap w-full sm:w-auto"
               >
                 <span>Back to Home</span>
               </Link>
@@ -210,7 +207,7 @@ export default function AboutDadiPage() {
             </p>
           </div>
           <Link
-            href="/#shop"
+            href="/products/ghee_500ml"
             className="inline-flex items-center gap-3 bg-[#0284c7] hover:bg-[#0274b3] text-white font-extrabold px-8 py-4 rounded-full text-sm uppercase tracking-widest transition shadow-lg shadow-sky-500/20"
           >
             Shop Our Ghee →
@@ -244,7 +241,7 @@ export default function AboutDadiPage() {
       <section className="py-12 md:py-16 bg-[#FAF6F0]">
         <div className="w-full max-w-[1700px] mx-auto px-2 sm:px-4 md:px-6">
           <Link 
-            href="/#shop"
+            href="/products/ghee_500ml"
             className="block relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-amber-500/10 border border-amber-100/80 transition-all duration-500 group cursor-pointer bg-slate-900"
           >
             <div className="relative w-full overflow-hidden bg-slate-900">
@@ -384,7 +381,7 @@ export default function AboutDadiPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              href="/#shop"
+              href="/products/ghee_500ml"
               className="inline-flex items-center gap-2 bg-[#2B92E4] hover:bg-[#207fcc] text-white font-bold px-8 py-4 rounded-full text-sm uppercase tracking-wider transition shadow-xl"
             >
               <ShoppingCart className="w-5 h-5" />

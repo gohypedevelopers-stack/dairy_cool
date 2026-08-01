@@ -107,7 +107,7 @@ export default function Hero({ onPlayVideo, onWhatsAppOrder }: HeroProps) {
                 if (el) {
                   el.scrollIntoView({ behavior: "smooth" });
                 } else {
-                  onPlayVideo("Sacred Bilona Churning", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4");
+                  onPlayVideo("Sacred Bilona Churning", "/videos/video3.MOV");
                 }
               }}
               className="inline-flex items-center justify-center gap-2 bg-stone-900/60 hover:bg-stone-900/80 md:bg-black/40 md:hover:bg-black/60 backdrop-blur-md text-stone-200 hover:text-white font-semibold px-4 sm:px-6 py-2 sm:py-3.5 rounded-xl sm:rounded-full text-[11px] sm:text-xs uppercase tracking-wider transition border border-amber-500/20 md:border-white/20 active:scale-95 whitespace-nowrap cursor-pointer w-full sm:w-auto"
