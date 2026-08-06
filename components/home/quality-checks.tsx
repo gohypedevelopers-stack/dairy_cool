@@ -89,44 +89,46 @@ export default function QualityChecks({ onPlayVideo }: QualityChecksProps) {
           </p>
         </div>
 
-        {/* Large Prominent Video Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {/* Single Row 5-Column Video Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-5">
           {processVideos.map((video, idx) => (
             <div 
               key={idx} 
-              className="group relative w-full aspect-[16/10] rounded-3xl overflow-hidden bg-stone-900 shadow-lg cursor-pointer hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#0078BE]/20 transition-all duration-500 border border-stone-200"
+              className="group relative w-full aspect-[9/16] rounded-2xl overflow-hidden bg-stone-900 shadow-md cursor-pointer hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#0078BE]/20 transition-all duration-500 border border-stone-200"
               onClick={() => onPlayVideo && onPlayVideo(video.title, video.url)}
             >
-              {/* Video Tag (Auto plays on scroll) */}
-              <video 
-                ref={(el) => {
-                  if (el) videoRefs.current[idx] = el;
-                }}
-                src={video.url}
-                poster={video.poster}
-                autoPlay
-                muted 
-                loop 
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-90 group-hover:opacity-100"
-              />
+              {/* Rotated Inner Wrapper to fit 100% of video height with zero cropping and zero black bars */}
+              <div className="absolute top-1/2 left-1/2 w-[177.78%] h-[56.25%] -translate-x-1/2 -translate-y-1/2 -rotate-90 pointer-events-none">
+                <video 
+                  ref={(el) => {
+                    if (el) videoRefs.current[idx] = el;
+                  }}
+                  src={video.url}
+                  poster={video.poster}
+                  autoPlay
+                  muted 
+                  loop 
+                  playsInline
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-95 group-hover:opacity-100"
+                />
+              </div>
               
               {/* Elegant Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-90 sm:opacity-80 sm:group-hover:opacity-100 transition-opacity duration-500" />
 
               {/* Text Info */}
-              <div className="absolute bottom-4 left-3.5 right-3.5 sm:bottom-5 sm:left-4 sm:right-4 text-left z-10">
-                 <h3 className="text-sm md:text-base font-serif font-bold text-white mb-0.5 sm:mb-1 drop-shadow-md">
+              <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 text-left z-10">
+                 <h3 className="text-xs sm:text-sm md:text-base font-serif font-bold text-white mb-0.5 drop-shadow-md leading-snug">
                    {video.title}
                  </h3>
-                 <p className="text-[11px] md:text-xs text-white/80 font-medium tracking-wide drop-shadow-md opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500">
+                 <p className="text-[10px] sm:text-xs text-white/80 font-medium tracking-wide drop-shadow-md opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 line-clamp-1">
                    {video.subtitle}
                  </p>
               </div>
 
-              {/* Glass Play Icon Container - Always visible subtle play ring on mobile, hover effect on desktop */}
+              {/* Glass Play Icon Container */}
               <div className="absolute inset-0 flex items-center justify-center opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/30 sm:bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
+                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-black/30 sm:bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
                   <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current ml-0.5" />
                 </div>
               </div>

@@ -74,18 +74,39 @@ export default function VideoModal({ isOpen, onClose, videoTitle, videoUrl }: Vi
               allowFullScreen
             />
           ) : videoUrl ? (
-            <video
-              ref={(el) => {
-                if (el && isOpen) {
-                  el.play().catch(() => {});
-                }
-              }}
-              className="w-full max-h-[78vh] object-contain rounded-lg"
-              src={videoUrl}
-              autoPlay
-              controls
-              playsInline
-            />
+            <div className={`relative flex items-center justify-center overflow-hidden rounded-lg ${
+              videoUrl.toUpperCase().endsWith(".MOV") ? "h-[75vh] aspect-[9/16]" : "w-full max-h-[78vh]"
+            }`}>
+              {videoUrl.toUpperCase().endsWith(".MOV") ? (
+                <div className="absolute top-1/2 left-1/2 w-[177.78%] h-[56.25%] -translate-x-1/2 -translate-y-1/2 -rotate-90">
+                  <video
+                    ref={(el) => {
+                      if (el && isOpen) {
+                        el.play().catch(() => {});
+                      }
+                    }}
+                    className="w-full h-full object-cover rounded-lg"
+                    src={videoUrl}
+                    autoPlay
+                    controls
+                    playsInline
+                  />
+                </div>
+              ) : (
+                <video
+                  ref={(el) => {
+                    if (el && isOpen) {
+                      el.play().catch(() => {});
+                    }
+                  }}
+                  className="w-full max-h-[78vh] object-contain rounded-lg"
+                  src={videoUrl}
+                  autoPlay
+                  controls
+                  playsInline
+                />
+              )}
+            </div>
           ) : (
             // Simulated Player Screen
             <div className="w-full h-full flex flex-col items-center justify-center relative p-8">
