@@ -38,13 +38,13 @@ export default function GalleryGrid() {
     ...imageFiles.map((file, idx) => ({
       id: `img-${idx}`,
       type: "image" as const,
-      src: `/gallery/Images/${file}`,
+      src: `/Gallery/Images/${file}`,
       title: `Dairy Cool Photo ${idx + 1}`,
     })),
     ...videoFiles.map((file, idx) => ({
       id: `vid-${idx}`,
       type: "video" as const,
-      src: `/gallery/Video/${file}`,
+      src: `/Gallery/Video/${file}`,
       title: `Dairy Cool Video Clip ${idx + 1}`,
     })),
   ];
