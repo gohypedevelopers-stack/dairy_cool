@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "@/components/home/header";
 import Footer from "@/components/home/footer";
 import HealthBenefits from "@/components/home/health-benefits";
@@ -9,16 +9,36 @@ import { BookOpen, ArrowRight, Calendar, Sparkles, Clock, User, Flame } from "lu
 import Link from "next/link";
 import Image from "next/image";
 import { blogPosts } from "@/lib/blog-data";
+import { getWPPosts } from "@/lib/woocommerce";
 
 export default function BlogPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [postsList, setPostsList] = useState(blogPosts);
+
+  useEffect(() => {
+    getWPPosts().then((wpPosts) => {
+      if (wpPosts && wpPosts.length > 0) {
+        const mapped = wpPosts.map((wp: any) => ({
+          slug: wp.slug,
+          title: wp.title,
+          summary: wp.excerpt ? wp.excerpt.replace(/<[^>]*>?/gm, "").trim() : "",
+          heroImage: wp.featuredImage?.node?.sourceUrl || "/images/buffalo_ghee_single.png",
+          date: new Date(wp.date).toLocaleDateString("en-IN", { month: "short", day: "numeric", year: "numeric" }),
+          readTime: "4 min read",
+          tag: wp.categories?.nodes[0]?.name || "Wellness",
+          content: wp.excerpt
+        }));
+        setPostsList(mapped);
+      }
+    }).catch(console.error);
+  }, []);
 
   const categories = ["All", "Ayurvedic Science", "Traditional Craft", "Daily Wellness"];
 
   const filteredPosts = selectedCategory === "All"
-    ? blogPosts
-    : blogPosts.filter(p => p.tag === selectedCategory);
+    ? postsList
+    : postsList.filter(p => p.tag === selectedCategory);
 
   return (
     <div className="min-h-screen bg-[#FAF6F0] text-slate-800 antialiased font-sans">

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, use } from "react";
+import React, { useState, useEffect, use } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { 
@@ -13,6 +13,7 @@ import { WhatsAppIcon } from "@/components/icons";
 import Header from "@/components/home/header";
 import Footer from "@/components/home/footer";
 import { useCart } from "@/components/cart-provider";
+import { getSingleProduct } from "@/lib/woocommerce";
 
 interface ProductOption {
   size: string;
@@ -145,11 +146,66 @@ const faqs = [
   }
 ];
 
+function decodeHTMLEntities(str: string): string {
+  if (!str) return "";
+  return str
+    .replace(/&#8217;/g, "'")
+    .replace(/&#8216;/g, "'")
+    .replace(/&#8220;/g, '"')
+    .replace(/&#8221;/g, '"')
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/<[^>]*>?/gm, "");
+}
+
 export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const productId = resolvedParams.id;
-  const product = productsData[productId] || productsData.bilona_ghee;
   const { addToCart, buyNow } = useCart();
+
+  const [wpProduct, setWpProduct] = useState<any>(null);
+
+  useEffect(() => {
+    if (productId) {
+      getSingleProduct(productId).then((data) => {
+        if (data) {
+          setWpProduct(data);
+        }
+      }).catch(console.error);
+    }
+  }, [productId]);
+
+  const baseProduct = productsData[productId] || productsData.bilona_ghee;
+
+  const product: ProductDetails = wpProduct ? {
+    id: wpProduct.slug || String(wpProduct.databaseId || wpProduct.id),
+    name: decodeHTMLEntities(wpProduct.name),
+    title: decodeHTMLEntities(wpProduct.name) + " – Vedic Bilona Method | Traditional Handcrafted",
+    desc: wpProduct.shortDescription 
+      ? decodeHTMLEntities(wpProduct.shortDescription)
+      : (wpProduct.description ? decodeHTMLEntities(wpProduct.description) : baseProduct.desc),
+    image: wpProduct.image?.sourceUrl || baseProduct.image,
+    thumbnails: Array.from(new Set([
+      wpProduct.image?.sourceUrl || baseProduct.image,
+      ...(wpProduct.galleryImages?.nodes?.map((g: any) => g.sourceUrl) || [])
+    ])).filter(Boolean) as string[],
+    options: [
+      {
+        size: "1 Pack",
+        price: wpProduct.price ? parseFloat(wpProduct.price.replace(/[^0-9.]/g, "")) || 749 : 749,
+        originalPrice: (wpProduct.price ? parseFloat(wpProduct.price.replace(/[^0-9.]/g, "")) || 749 : 749) * 2,
+        badge: wpProduct.onSale ? "On Sale" : "Popular",
+        perUnitText: "Direct from Farm"
+      }
+    ],
+    ordersDelivered: "5,00,000+ Orders delivered",
+    rating: "4.9",
+    reviews: "422",
+    stockLeft: 12
+  } : baseProduct;
 
   // States
   const [selectedImage, setSelectedImage] = useState(product.thumbnails[0]);
@@ -158,6 +214,15 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
   const [activeAccordion, setActiveAccordion] = useState<string | null>("description");
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (product.thumbnails && product.thumbnails.length > 0) {
+      setSelectedImage(product.thumbnails[0]);
+    }
+    if (product.options && product.options.length > 0) {
+      setSelectedOption(product.options[0]);
+    }
+  }, [wpProduct]);
 
   // Cart Handlers
   const handleAddToCart = () => {

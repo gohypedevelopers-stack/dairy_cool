@@ -17,6 +17,7 @@ interface Product {
 interface ProductGridProps {
   onAddToCart: (productId: string, name: string, image: string, size: string, price: number, quantity: number) => void;
   onBuyNow: (productId: string, name: string, image: string, size: string, price: number, quantity: number) => void;
+  wpProducts?: any[];
 }
 
 const products: Product[] = [
@@ -62,13 +63,70 @@ const products: Product[] = [
   }
 ];
 
-export default function ProductGrid({ onAddToCart, onBuyNow }: ProductGridProps) {
-  const [productQuantities, setProductQuantities] = useState<Record<string, number>>({
-    ghee_500ml: 1,
-    ghee_1l: 1,
-    ghee_twin_500ml: 1,
-    ghee_twin_1l: 1,
+function decodeHTMLEntities(str: string): string {
+  if (!str) return "";
+  return str
+    .replace(/&#8217;/g, "'")
+    .replace(/&#8216;/g, "'")
+    .replace(/&#8220;/g, '"')
+    .replace(/&#8221;/g, '"')
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/<[^>]*>?/gm, "");
+}
+
+function parseWpProduct(wp: any): { sizeDesc: string; desc: string } {
+  let cleanShort = decodeHTMLEntities(wp.shortDescription || "");
+  let cleanFull = decodeHTMLEntities(wp.description || "");
+
+  const sizeMatch = wp.name.match(/\b(\d+\s*(?:kg|g|ml|l|litre|liter|pack|jars?))\b/i) 
+    || cleanShort.match(/\b(\d+\s*(?:kg|g|ml|l|litre|liter|pack|jars?))\b/i);
+
+  let sizeDesc = sizeMatch ? `${sizeMatch[1]} Jar` : "1 Litre Jar";
+
+  if (cleanShort && cleanShort.length <= 35) {
+    sizeDesc = cleanShort;
+  }
+
+  let desc = cleanFull;
+  if (!desc || desc === cleanShort) {
+    desc = "Handcrafted using traditional wooden churning on fresh curd. Hand-poured under Dadi's guidance.";
+  }
+  // Remove leading size text if description accidentally starts with size (e.g. "500ml Handcrafted...")
+  desc = desc.replace(/^\s*\d+\s*(?:kg|g|ml|l|litre|liter|pack|jars?)\s*/i, "");
+
+  return { sizeDesc, desc };
+}
+
+export default function ProductGrid({ onAddToCart, onBuyNow, wpProducts }: ProductGridProps) {
+  const wpMapped: Product[] = (wpProducts || []).map((wp: any) => {
+    const rawPrice = wp.price ? parseFloat(wp.price.replace(/[^0-9.]/g, "")) : 0;
+    const { sizeDesc, desc } = parseWpProduct(wp);
+
+    return {
+      id: wp.slug || String(wp.databaseId || wp.id),
+      name: wp.name,
+      sizeDesc,
+      desc: desc.slice(0, 100).trim() + "...",
+      image: wp.image?.sourceUrl || "/images/buffalo_ghee_single.png",
+      price: rawPrice || 749,
+      badge: wp.onSale ? "On Sale" : "Bestseller",
+      rating: "4.9"
+    };
   });
+
+  // Always fill up to 4 cards so the 4-column design is never broken
+  const displayProducts: Product[] = [...wpMapped];
+  if (displayProducts.length < 4) {
+    const remainingNeeded = 4 - displayProducts.length;
+    const extraDefaults = products.filter(p => !displayProducts.some(m => m.id === p.id)).slice(0, remainingNeeded);
+    displayProducts.push(...extraDefaults);
+  }
+
+  const [productQuantities, setProductQuantities] = useState<Record<string, number>>({});
 
   const handleQuantityChange = (productId: string, delta: number) => {
     setProductQuantities((prev) => ({
@@ -99,7 +157,7 @@ export default function ProductGrid({ onAddToCart, onBuyNow }: ProductGridProps)
 
         {/* Product Grid (4 columns on lg screens) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {products.map((product) => {
+          {displayProducts.map((product) => {
             const qty = productQuantities[product.id] || 1;
 
             return (

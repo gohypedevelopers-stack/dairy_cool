@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getWooProducts } from "@/lib/woocommerce";
 
 import CartDrawer from "@/components/cart-drawer";
 import VideoModal from "@/components/video-modal";
@@ -36,6 +37,15 @@ interface CartItem {
 export default function Home() {
   // Mobile Nav State
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [wpProducts, setWpProducts] = useState<any[]>([]);
+
+  useEffect(() => {
+    getWooProducts().then((data) => {
+      if (data && data.length > 0) {
+        setWpProducts(data);
+      }
+    }).catch(console.error);
+  }, []);
 
   // Cart State
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -140,6 +150,7 @@ export default function Home() {
       <ProductGrid
         onAddToCart={addToCart}
         onBuyNow={buyNow}
+        wpProducts={wpProducts}
       />
 
       <WhyChooseUs />
