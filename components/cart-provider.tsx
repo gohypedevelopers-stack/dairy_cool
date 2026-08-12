@@ -20,7 +20,9 @@ interface CartContextType {
   buyNow: (productId: string, name: string, image: string, size: string, price: number, quantity: number) => void;
   updateQuantity: (id: string, newQty: number) => void;
   removeItem: (id: string) => void;
+  clearCart: () => void;
   totalCartCount: number;
+  getCartTotal: () => number;
   handleWhatsAppOrder: (customMsg?: string) => void;
 }
 
@@ -95,12 +97,18 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
   const handleWhatsAppOrder = (customMsg?: string) => {
     const message = customMsg || "Hello Dairy Cool! I want to place an order from my cart.";
     window.open(`https://wa.me/9716003060?text=${encodeURIComponent(message)}`, "_blank");
   };
 
   const totalCartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
+  const getCartTotal = () => cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
     <CartContext.Provider
@@ -112,7 +120,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         buyNow,
         updateQuantity,
         removeItem,
+        clearCart,
         totalCartCount,
+        getCartTotal,
         handleWhatsAppOrder,
       }}
     >

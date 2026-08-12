@@ -182,10 +182,10 @@ export default function CartDrawer({
                   Order via WhatsApp (Instant)
                 </button>
                 <button
-                  onClick={() => alert("Checkout flow is simulated! You can checkout using the green WhatsApp button above to contact the store directly.")}
+                  onClick={() => { window.location.href = "/checkout"; }}
                   className="w-full bg-sky-500 hover:bg-sky-600 active:scale-[0.98] transition-all text-white font-semibold py-3 px-4 rounded-xl text-sm shadow-lg shadow-sky-500/10"
                 >
-                  Pay Online (Official Store)
+                  Pay Online (Secure Checkout)
                 </button>
               </div>
             </div>

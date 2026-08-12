@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from "react";
 import { getWooProducts } from "@/lib/woocommerce";
 
-import CartDrawer from "@/components/cart-drawer";
 import VideoModal from "@/components/video-modal";
+import { useCart } from "@/components/cart-provider";
 
 // Home Page Section Components
 import TopBanner from "@/components/home/top-banner";
@@ -25,19 +25,12 @@ import AdsBanner from "@/components/home/ads-banner";
 import CtaBanner from "@/components/home/cta-banner";
 import Footer from "@/components/home/footer";
 
-interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  size: string;
-  image: string;
-}
-
 export default function Home() {
   // Mobile Nav State
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [wpProducts, setWpProducts] = useState<any[]>([]);
+
+  const { addToCart, buyNow, totalCartCount, setIsCartOpen } = useCart();
 
   useEffect(() => {
     getWooProducts().then((data) => {
@@ -47,60 +40,12 @@ export default function Home() {
     }).catch(console.error);
   }, []);
 
-  // Cart State
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-
   // Video Modal State
   const [videoModal, setVideoModal] = useState<{ isOpen: boolean; title: string; url: string }>({
     isOpen: false,
     title: "",
     url: "",
   });
-
-  // Cart Operations
-  const addToCart = (productId: string, name: string, image: string, size: string, price: number, quantity: number) => {
-    const cartItemId = `${productId}-${size}`;
-
-    setCartItems((prevItems) => {
-      const existing = prevItems.find((item) => item.id === cartItemId);
-      if (existing) {
-        return prevItems.map((item) =>
-          item.id === cartItemId ? { ...item, quantity: item.quantity + quantity } : item
-        );
-      }
-      return [
-        ...prevItems,
-        {
-          id: cartItemId,
-          name,
-          price,
-          quantity,
-          size,
-          image,
-        },
-      ];
-    });
-
-    setIsCartOpen(true);
-  };
-
-  const buyNow = (productId: string, name: string, image: string, size: string, price: number, quantity: number) => {
-    addToCart(productId, name, image, size, price, quantity);
-    // Redirect to checkout page
-    window.location.href = "/checkout";
-  };
-
-  const updateQuantity = (id: string, newQty: number) => {
-    if (newQty <= 0) return;
-    setCartItems((prevItems) =>
-      prevItems.map((item) => (item.id === id ? { ...item, quantity: newQty } : item))
-    );
-  };
-
-  const removeItem = (id: string) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
 
   // Pre-filled WhatsApp direct chat
   const handleWhatsAppDirect = (message: string) => {
@@ -112,13 +57,9 @@ export default function Home() {
     setVideoModal({ isOpen: true, title, url });
   };
 
-  const totalCartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-
   return (
     <div className="min-h-screen bg-white text-slate-800 selection:bg-sky-500 selection:text-white antialiased font-sans">
       
-
-
       {/* Page Sections */}
       <TopBanner />
       
@@ -139,6 +80,12 @@ export default function Home() {
       
       <MeetDadi />
 
+      <ProductGrid
+        onAddToCart={addToCart}
+        onBuyNow={buyNow}
+        wpProducts={wpProducts}
+      />
+
       <AdsBanner />
 
       <QualityChecks
@@ -146,12 +93,6 @@ export default function Home() {
       />
 
       <Categories />
-
-      <ProductGrid
-        onAddToCart={addToCart}
-        onBuyNow={buyNow}
-        wpProducts={wpProducts}
-      />
 
       <WhyChooseUs />
 
@@ -163,15 +104,6 @@ export default function Home() {
       <FAQ />
       <CtaBanner onWhatsAppDirect={handleWhatsAppDirect} />
       <Footer />
-
-      {/* Cart Drawer Component */}
-      <CartDrawer
-        isOpen={isCartOpen}
-        onClose={() => setIsCartOpen(false)}
-        items={cartItems}
-        onUpdateQuantity={updateQuantity}
-        onRemoveItem={removeItem}
-      />
 
       {/* Video Modal Component */}
       <VideoModal
