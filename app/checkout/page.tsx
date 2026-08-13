@@ -23,6 +23,7 @@ import {
 import { useCart } from "@/components/cart-provider";
 import { useRazorpay } from "@/components/razorpay-loader";
 import { WhatsAppIcon } from "@/components/icons";
+import { useAuth } from "@/lib/auth-context";
 
 type PaymentMethod = "online" | "cod" | "whatsapp";
 
@@ -30,6 +31,7 @@ export default function CheckoutPage() {
   const router = useRouter();
   const { cartItems, updateQuantity, removeItem, clearCart, getCartTotal, totalCartCount } = useCart();
   const { isLoaded: razorpayLoaded, openPayment } = useRazorpay();
+  const { user, addOrderRecord } = useAuth();
 
   const [form, setForm] = useState({
     name: "",
@@ -41,6 +43,22 @@ export default function CheckoutPage() {
     state: "",
     notes: "",
   });
+
+  // Auto-fill customer details from profile if user is logged in
+  useEffect(() => {
+    if (user) {
+      setForm((prev) => ({
+        ...prev,
+        name: user.name || prev.name,
+        email: user.email || prev.email,
+        phone: user.phone || prev.phone,
+        address: user.address || prev.address,
+        city: user.city || prev.city,
+        pincode: user.pincode || prev.pincode,
+        state: user.state || prev.state,
+      }));
+    }
+  }, [user]);
 
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("online");
   const [isProcessing, setIsProcessing] = useState(false);
@@ -191,6 +209,24 @@ export default function CheckoutPage() {
                 })
               );
 
+              // Record in User Order History
+              addOrderRecord({
+                id: response.razorpay_order_id,
+                orderNumber: `DC-${response.razorpay_order_id.slice(-6).toUpperCase()}`,
+                date: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }),
+                status: "Processing",
+                total: grandTotal,
+                paymentMethod: "Online Payment (Razorpay)",
+                shippingAddress: `${form.address}, ${form.city} - ${form.pincode}`,
+                items: cartItems.map((item) => ({
+                  id: String(item.id),
+                  name: item.name,
+                  quantity: item.quantity,
+                  price: item.price,
+                  image: item.image,
+                })),
+              });
+
               clearCart();
               router.push(
                 `/checkout/confirmation?orderId=${response.razorpay_order_id}&paymentId=${response.razorpay_payment_id}&method=online`
@@ -235,6 +271,24 @@ export default function CheckoutPage() {
       })
     );
 
+    // Record in User Order History
+    addOrderRecord({
+      id: orderId,
+      orderNumber: `DC-${orderId.slice(-6)}`,
+      date: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }),
+      status: "Processing",
+      total: grandTotal,
+      paymentMethod: "Cash on Delivery",
+      shippingAddress: `${form.address}, ${form.city} - ${form.pincode}`,
+      items: cartItems.map((item) => ({
+        id: String(item.id),
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
+        image: item.image,
+      })),
+    });
+
     clearCart();
     router.push(`/checkout/confirmation?orderId=${orderId}&method=cod`);
   };
@@ -243,6 +297,7 @@ export default function CheckoutPage() {
   const handleWhatsApp = () => {
     if (!validateForm()) return;
     const message = buildWhatsAppMessage();
+    const orderId = `WA_${Date.now()}`;
     window.open(`https://wa.me/9716003060?text=${encodeURIComponent(message)}`, "_blank");
 
     // Save order snapshot
@@ -253,13 +308,31 @@ export default function CheckoutPage() {
         total: grandTotal,
         address: form,
         paymentMethod: "whatsapp",
-        orderId: `WA_${Date.now()}`,
+        orderId,
         timestamp: new Date().toISOString(),
       })
     );
 
+    // Record in User Order History
+    addOrderRecord({
+      id: orderId,
+      orderNumber: `DC-${orderId.slice(-6)}`,
+      date: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }),
+      status: "Pending",
+      total: grandTotal,
+      paymentMethod: "WhatsApp Order",
+      shippingAddress: `${form.address}, ${form.city} - ${form.pincode}`,
+      items: cartItems.map((item) => ({
+        id: String(item.id),
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
+        image: item.image,
+      })),
+    });
+
     clearCart();
-    router.push(`/checkout/confirmation?orderId=WA_${Date.now()}&method=whatsapp`);
+    router.push(`/checkout/confirmation?orderId=${orderId}&method=whatsapp`);
   };
 
   const handleSubmit = (e: React.FormEvent) => {

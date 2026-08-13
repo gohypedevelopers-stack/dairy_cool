@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { ShoppingCart, Menu, X, Search, User } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons";
 import { useCart } from "@/components/cart-provider";
+import { useAuth } from "@/lib/auth-context";
 
 interface HeaderProps {
   isMobileMenuOpen: boolean;
@@ -25,6 +26,7 @@ export default function Header({
 }: HeaderProps) {
   const pathname = usePathname();
   const cart = useCart();
+  const { user, isAuthenticated } = useAuth();
 
   const count = cartItemsCount !== undefined && cartItemsCount > 0 ? cartItemsCount : cart.totalCartCount;
   const handleOpenCart = () => {
@@ -92,7 +94,7 @@ export default function Header({
           {/* Cart Icon Button */}
           <button
             onClick={handleOpenCart}
-            className="relative p-2 text-slate-600 hover:text-[#0078BE] transition-colors cursor-pointer flex items-center justify-center mr-2"
+            className="relative p-2 text-slate-600 hover:text-[#0078BE] transition-colors cursor-pointer flex items-center justify-center"
             aria-label="Open Cart"
           >
             <ShoppingCart className="w-5 h-5" />
@@ -102,6 +104,25 @@ export default function Header({
               </span>
             )}
           </button>
+
+          {/* User Account / Profile Button */}
+          {isAuthenticated ? (
+            <Link
+              href="/profile"
+              className="flex items-center gap-2 text-slate-700 hover:text-[#0078BE] bg-sky-50 hover:bg-sky-100 px-3 py-1.5 rounded-full border border-sky-200 transition-colors font-medium text-xs"
+            >
+              <User className="w-4 h-4 text-[#0078BE]" />
+              <span className="max-w-[100px] truncate">{user?.name || "Profile"}</span>
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className="flex items-center gap-1.5 text-slate-700 hover:text-[#0078BE] font-semibold text-xs px-3 py-1.5 rounded-full hover:bg-sky-50 transition-colors"
+            >
+              <User className="w-4 h-4" />
+              <span>Sign In</span>
+            </Link>
+          )}
 
           {/* WhatsApp Order Button */}
           <button
@@ -159,6 +180,26 @@ export default function Header({
             })}
           </div>
           <div className="pt-4 border-t border-sky-100 flex flex-col gap-3">
+            {isAuthenticated ? (
+              <Link
+                href="/profile"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-full flex items-center justify-center gap-2 bg-sky-50 border border-sky-200 text-[#0078BE] font-bold py-3 rounded-xl text-xs uppercase tracking-wider"
+              >
+                <User className="w-4 h-4" />
+                <span>My Profile ({user?.name})</span>
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-full flex items-center justify-center gap-2 bg-sky-600 text-white font-bold py-3 rounded-xl text-xs uppercase tracking-wider shadow-sm hover:bg-sky-700 transition"
+              >
+                <User className="w-4 h-4" />
+                <span>Sign In / Create Account</span>
+              </Link>
+            )}
+
             <button
               onClick={() => {
                 setIsMobileMenuOpen(false);

@@ -27,8 +27,12 @@ export async function fetchWooGraphQL(
 
     const json = await res.json();
 
-    if (json.errors) {
-      console.error("WooGraphQL Errors:", json.errors);
+    if (json.errors && process.env.NODE_ENV === "development") {
+      // Quietly log only non-schema errors
+      const isSchemaError = json.errors.some((e: any) => e.message?.includes("Cannot query field"));
+      if (!isSchemaError) {
+        console.warn("WooGraphQL Info:", json.errors);
+      }
     }
 
     return json.data;
