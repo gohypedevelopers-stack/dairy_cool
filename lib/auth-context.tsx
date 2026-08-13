@@ -60,50 +60,53 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const LOCAL_STORAGE_USER_KEY = "dairycool_user_profile";
 const LOCAL_STORAGE_ORDERS_KEY = "dairycool_user_orders";
 
-import { getAllOrders } from "./order-store";
+import { getAllOrders, syncWpOrdersToStore } from "./order-store";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [orders, setOrders] = useState<OrderRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load persistent auth state from localStorage on initial render
+  const loadAndMapOrders = (masterOrders = getAllOrders()) => {
+    if (masterOrders && masterOrders.length > 0) {
+      const mappedOrders: OrderRecord[] = masterOrders.map((o) => ({
+        id: o.id,
+        orderNumber: o.orderNumber || o.id,
+        date: o.date,
+        status: o.status === "Delivered" ? "Delivered" : o.status === "Cancelled" ? "Cancelled" : "Processing",
+        total: o.totalAmount,
+        paymentMethod: o.paymentMethod,
+        shippingAddress: `${o.shippingAddress}, ${o.city} - ${o.pincode}`,
+        items: o.items.map((i) => ({
+          id: String(i.id),
+          name: i.name,
+          quantity: i.quantity,
+          price: i.price,
+          image: i.image,
+        })),
+      }));
+      setOrders(mappedOrders);
+    }
+  };
+
+  // Load persistent auth state & sync live WP database orders
   useEffect(() => {
     try {
       const storedUser = localStorage.getItem(LOCAL_STORAGE_USER_KEY);
-      const storedOrders = localStorage.getItem(LOCAL_STORAGE_ORDERS_KEY);
-
       if (storedUser) {
         setUser(JSON.parse(storedUser));
       }
 
-      const masterOrders = getAllOrders();
-      if (masterOrders && masterOrders.length > 0) {
-        const mappedOrders: OrderRecord[] = masterOrders.map((o) => ({
-          id: o.id,
-          orderNumber: o.orderNumber || o.id,
-          date: o.date,
-          status: o.status === "Delivered" ? "Delivered" : o.status === "Cancelled" ? "Cancelled" : "Processing",
-          total: o.totalAmount,
-          paymentMethod: o.paymentMethod,
-          shippingAddress: `${o.shippingAddress}, ${o.city} - ${o.pincode}`,
-          items: o.items.map((i) => ({
-            id: String(i.id),
-            name: i.name,
-            quantity: i.quantity,
-            price: i.price,
-            image: i.image,
-          })),
-        }));
+      // Initial load
+      loadAndMapOrders();
 
-        setOrders(mappedOrders);
-      } else if (storedOrders) {
-        setOrders(JSON.parse(storedOrders));
-      } else {
-        setOrders([]);
-      }
+      // Live WP GraphQL Database sync
+      syncWpOrdersToStore().then((synced) => {
+        loadAndMapOrders(synced);
+      }).catch(console.error);
+
     } catch (err) {
-      console.error("Error loading user context:", err);
+      console.error("Auth init error:", err);
     } finally {
       setIsLoading(false);
     }

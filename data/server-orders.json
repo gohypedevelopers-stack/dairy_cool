@@ -1,0 +1,32 @@
+[
+  {
+    "id": "DC-YJWQYP",
+    "orderNumber": "DC-YJWQYP",
+    "customerName": "ravindranathjha  ",
+    "customerPhone": "9354156323",
+    "customerEmail": "ravindranathjha76@gmail.com",
+    "shippingAddress": "House No. 42, Green Avenue, Scheme 78",
+    "city": "Indore",
+    "pincode": "452010",
+    "state": "Madhya Pradesh",
+    "items": [
+      {
+        "id": "bilona_ghee-500ml",
+        "name": "Pure Buffalo Bilona Ghee",
+        "quantity": 1,
+        "price": 749,
+        "image": "/images/buffalo_ghee_single.png"
+      }
+    ],
+    "totalAmount": 749,
+    "paymentMethod": "Razorpay Online",
+    "status": "Order Placed",
+    "date": "13 Aug 2026",
+    "step": 1,
+    "carrier": "Express BlueDart",
+    "awbNumber": "AWB-47805407",
+    "expectedDate": "Within 2-4 business days",
+    "locationNote": "Order confirmed & queued for churning",
+    "timestamp": "2026-08-13T12:02:59.938Z"
+  }
+]

@@ -205,6 +205,55 @@ export const GET_POSTS_QUERY = `
   }
 `;
 
+export const GET_ALL_ORDERS_QUERY = `
+  query GetAllWooOrders {
+    orders(first: 50) {
+      nodes {
+        id
+        databaseId
+        orderNumber
+        date
+        status
+        total
+        paymentMethodTitle
+        billing {
+          firstName
+          lastName
+          email
+          phone
+          address1
+          city
+          state
+          postcode
+        }
+        shipping {
+          firstName
+          lastName
+          address1
+          city
+          state
+          postcode
+        }
+        lineItems {
+          nodes {
+            product {
+              node {
+                id
+                name
+                image {
+                  sourceUrl
+                }
+              }
+            }
+            quantity
+            total
+          }
+        }
+      }
+    }
+  }
+`;
+
 export async function getWooProducts() {
   const data = await fetchWooGraphQL(GET_PRODUCTS_QUERY);
   return data?.products?.nodes || [];
@@ -231,5 +280,15 @@ export async function fetchWpOrderById(numericId: string) {
   } catch (err) {
     console.error("WP Order fetch error:", err);
     return null;
+  }
+}
+
+export async function fetchAllWpOrders() {
+  try {
+    const data = await fetchWooGraphQL(GET_ALL_ORDERS_QUERY);
+    return data?.orders?.nodes || [];
+  } catch (err) {
+    console.error("Failed to fetch all WP orders:", err);
+    return [];
   }
 }

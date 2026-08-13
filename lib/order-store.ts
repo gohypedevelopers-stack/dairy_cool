@@ -1,7 +1,7 @@
 /**
  * Shared Order Store for Real-Time Tracking & Admin Order Management
  */
-import { fetchWpOrderById } from "./woocommerce";
+import { fetchWpOrderById, fetchAllWpOrders } from "./woocommerce";
 
 export interface OrderItem {
   id: string;
@@ -77,6 +77,16 @@ export function getOrderByIdSync(queryId: string): StoredOrder | null {
 }
 
 export async function getOrderByIdAsync(queryId: string): Promise<StoredOrder | null> {
+  // Sync server backend orders first
+  const serverOrders = await fetchServerOrdersAsync();
+  const foundInServer = serverOrders.find(
+    (o) =>
+      o.id.toUpperCase() === queryId.trim().toUpperCase() ||
+      o.orderNumber.toUpperCase() === queryId.trim().toUpperCase() ||
+      o.customerPhone.includes(queryId.trim())
+  );
+  if (foundInServer) return foundInServer;
+
   const local = getOrderByIdSync(queryId);
   if (local) return local;
 
@@ -151,6 +161,13 @@ export function saveNewOrder(orderData: Omit<StoredOrder, "step" | "carrier" | "
   if (typeof window !== "undefined") {
     localStorage.setItem(LOCAL_STORAGE_ORDERS_KEY, JSON.stringify(updated));
     window.dispatchEvent(new Event("dairycool_orders_updated"));
+
+    // Save permanently to server database via POST /api/orders
+    fetch("/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newOrder),
+    }).catch(console.error);
   }
   return newOrder;
 }
@@ -187,9 +204,46 @@ export function updateOrderStatus(
   if (typeof window !== "undefined") {
     localStorage.setItem(LOCAL_STORAGE_ORDERS_KEY, JSON.stringify(all));
     window.dispatchEvent(new Event("dairycool_orders_updated"));
+
+    // Sync status change to server API backend via PATCH /api/orders
+    fetch("/api/orders", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        orderId,
+        newStatus,
+        locationNote: updatedOrder.locationNote,
+      }),
+    }).catch(console.error);
   }
 
   return updatedOrder;
+}
+
+export async function fetchServerOrdersAsync(): Promise<StoredOrder[]> {
+  try {
+    const res = await fetch("/api/orders");
+    const data = await res.json();
+    if (data.success && Array.isArray(data.orders)) {
+      const serverOrders: StoredOrder[] = data.orders;
+      if (typeof window !== "undefined") {
+        const local = getAllOrders();
+        const map = new Map<string, StoredOrder>();
+        serverOrders.forEach((o) => map.set(o.id.toUpperCase(), o));
+        local.forEach((o) => {
+          if (!map.has(o.id.toUpperCase())) map.set(o.id.toUpperCase(), o);
+        });
+        const merged = Array.from(map.values());
+        localStorage.setItem(LOCAL_STORAGE_ORDERS_KEY, JSON.stringify(merged));
+        window.dispatchEvent(new Event("dairycool_orders_updated"));
+        return merged;
+      }
+      return serverOrders;
+    }
+  } catch (err) {
+    console.error("Failed to fetch server orders:", err);
+  }
+  return getAllOrders();
 }
 
 function getDefaultLocationNote(status: OrderStatus): string {
@@ -224,4 +278,65 @@ function mapWpStatusToStoreStatus(wpStatus: string): { status: OrderStatus; step
     return { status: "Cancelled", step: 0 };
   }
   return { status: "Order Placed", step: 1 };
+}
+
+export async function syncWpOrdersToStore(): Promise<StoredOrder[]> {
+  try {
+    const wpOrders = await fetchAllWpOrders();
+    if (!wpOrders || wpOrders.length === 0) return getAllOrders();
+
+    const existing = getAllOrders();
+
+    const mappedWpOrders: StoredOrder[] = wpOrders.map((wpOrder: any) => {
+      const mappedStatus = mapWpStatusToStoreStatus(wpOrder.status);
+      const orderIdStr = `DC-${wpOrder.databaseId || wpOrder.orderNumber}`;
+
+      return {
+        id: orderIdStr,
+        orderNumber: orderIdStr,
+        customerName: `${wpOrder.billing?.firstName || "Customer"} ${wpOrder.billing?.lastName || ""}`.trim(),
+        customerPhone: wpOrder.billing?.phone || "N/A",
+        customerEmail: wpOrder.billing?.email || "N/A",
+        shippingAddress: wpOrder.shipping?.address1 || wpOrder.billing?.address1 || "Delivery address provided",
+        city: wpOrder.shipping?.city || wpOrder.billing?.city || "India",
+        pincode: wpOrder.shipping?.postcode || wpOrder.billing?.postcode || "",
+        state: wpOrder.shipping?.state || wpOrder.billing?.state || "",
+        items: (wpOrder.lineItems?.nodes || []).map((li: any, idx: number) => ({
+          id: String(idx),
+          name: li.product?.node?.name || "Pure Bilona Ghee",
+          quantity: li.quantity || 1,
+          price: parseFloat(li.total) || 749,
+          image: li.product?.node?.image?.sourceUrl || "/images/buffalo_ghee_single.png",
+        })),
+        totalAmount: parseFloat(wpOrder.total) || 749,
+        paymentMethod: wpOrder.paymentMethodTitle || "Online Payment",
+        status: mappedStatus.status,
+        step: mappedStatus.step,
+        carrier: "Express BlueDart",
+        awbNumber: `AWB-${wpOrder.databaseId || "10492"}`,
+        date: wpOrder.date ? new Date(wpOrder.date).toLocaleDateString("en-IN") : "Recent",
+        expectedDate: "2-4 Business Days",
+        locationNote: `WooCommerce status: ${wpOrder.status || "Processing"}`,
+        timestamp: wpOrder.date || new Date().toISOString(),
+      };
+    });
+
+    const combinedMap = new Map<string, StoredOrder>();
+    mappedWpOrders.forEach((o) => combinedMap.set(o.id.toUpperCase(), o));
+    existing.forEach((o) => {
+      if (!combinedMap.has(o.id.toUpperCase())) {
+        combinedMap.set(o.id.toUpperCase(), o);
+      }
+    });
+
+    const merged = Array.from(combinedMap.values());
+    if (typeof window !== "undefined") {
+      localStorage.setItem(LOCAL_STORAGE_ORDERS_KEY, JSON.stringify(merged));
+      window.dispatchEvent(new Event("dairycool_orders_updated"));
+    }
+    return merged;
+  } catch (err) {
+    console.error("Failed to sync WP orders:", err);
+    return getAllOrders();
+  }
 }
