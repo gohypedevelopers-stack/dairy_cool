@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { X, ShoppingBag, Plus, Minus, Trash2 } from "lucide-react";
 import { WhatsAppIcon } from "./icons";
 
@@ -89,12 +90,13 @@ export default function CartDrawer({
                     Add our pure Bilona Ghee to experience dadi ke haathon ka pyaar.
                   </p>
                 </div>
-                <button
+                <Link
+                  href="/shop"
                   onClick={onClose}
                   className="px-6 py-2.5 bg-sky-500 hover:bg-sky-600 text-white rounded-full font-medium text-sm transition shadow-sm shadow-sky-500/10"
                 >
                   Shop Ghee Now
-                </button>
+                </Link>
               </div>
             ) : (
               items.map((item) => (
