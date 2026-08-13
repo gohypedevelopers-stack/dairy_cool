@@ -370,17 +370,14 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
             {/* Rating Summary */}
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1 bg-amber-50 border border-amber-200 px-3 py-1 rounded-lg">
+              <div className="flex items-center gap-1.5 bg-amber-50 border border-amber-200 px-3 py-1 rounded-lg">
                 <div className="flex text-amber-500">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-4 h-4 fill-amber-500 text-amber-500" />
                   ))}
                 </div>
-                <span className="text-xs font-bold text-slate-900 ml-1">{product.rating}</span>
+                <span className="text-xs font-bold text-slate-900">{product.rating}</span>
               </div>
-              <Link href="#reviews" className="text-xs font-semibold text-slate-500 hover:text-[#0078BE] underline transition">
-                See all {product.reviews} customer reviews
-              </Link>
             </div>
 
             {/* Pricing Box */}

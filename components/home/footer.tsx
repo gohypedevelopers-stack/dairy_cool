@@ -1,8 +1,48 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim() || !email.includes("@")) {
+      setStatus("error");
+      setMessage("Please enter a valid email address.");
+      return;
+    }
+
+    setStatus("loading");
+    setMessage("");
+
+    try {
+      const res = await fetch("/api/newsletter/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setStatus("success");
+        setMessage(data.message || "Thank you for subscribing!");
+        setEmail("");
+      } else {
+        setStatus("error");
+        setMessage(data.error || "Failed to subscribe. Please try again.");
+      }
+    } catch {
+      setStatus("error");
+      setMessage("Something went wrong. Please try again.");
+    }
+  };
+
   return (
     <footer className="relative bg-[#040E1B] text-slate-300 pt-24 pb-8 overflow-hidden border-t-4 border-amber-500">
       
@@ -26,20 +66,46 @@ export default function Footer() {
             </p>
           </div>
           
-          <div className="w-full max-w-md lg:ml-auto">
-            <form className="relative flex items-center group" onSubmit={(e) => e.preventDefault()}>
+          <div className="w-full max-w-md lg:ml-auto space-y-3">
+            <form className="relative flex items-center group" onSubmit={handleSubscribe}>
               <input 
-                type="email" 
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email address" 
                 className="w-full bg-[#0A1A2F]/50 border border-slate-700 text-white text-base sm:text-sm rounded-full py-3.5 sm:py-4 pl-4 sm:pl-6 pr-28 sm:pr-36 focus:outline-none focus:border-amber-500/50 transition-colors placeholder:text-slate-500 shadow-inner"
               />
               <button 
-                type="button"
-                className="absolute right-1.5 top-1.5 bottom-1.5 bg-amber-500 hover:bg-amber-400 text-slate-900 px-4 sm:px-8 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-widest transition-colors shadow-[0_0_15px_rgba(245,158,11,0.2)] hover:shadow-[0_0_25px_rgba(245,158,11,0.4)] cursor-pointer"
+                type="submit"
+                onClick={handleSubscribe}
+                disabled={status === "loading"}
+                className="absolute right-1.5 top-1.5 bottom-1.5 bg-amber-500 hover:bg-amber-400 text-slate-900 px-4 sm:px-8 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-widest transition-colors shadow-[0_0_15px_rgba(245,158,11,0.2)] hover:shadow-[0_0_25px_rgba(245,158,11,0.4)] cursor-pointer disabled:opacity-60 flex items-center gap-1.5"
               >
-                Subscribe
+                {status === "loading" ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <span>Sending</span>
+                  </>
+                ) : (
+                  <span>Subscribe</span>
+                )}
               </button>
             </form>
+
+            {status === "success" && (
+              <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 text-xs font-bold flex items-center gap-2 animate-fade-in">
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
+                <span>{message}</span>
+              </div>
+            )}
+
+            {status === "error" && (
+              <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-xs font-bold flex items-center gap-2 animate-fade-in">
+                <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+                <span>{message}</span>
+              </div>
+            )}
           </div>
         </div>
 
