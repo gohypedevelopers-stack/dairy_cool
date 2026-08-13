@@ -23,7 +23,7 @@ import { getAllOrders, updateOrderStatus, StoredOrder, OrderStatus } from "@/lib
 import Header from "@/components/home/header";
 import Footer from "@/components/home/footer";
 
-const DEFAULT_ADMIN_PIN = "1234";
+const DEFAULT_ADMIN_PIN = "789456123";
 
 export default function AdminDashboardPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -70,7 +70,7 @@ export default function AdminDashboardPage() {
       setIsAuthenticated(true);
       localStorage.setItem("dairy_cool_admin_auth", "true");
     } else {
-      setPinError("Incorrect Admin PIN. Try 1234");
+      setPinError("Incorrect Admin Passcode. Please try again.");
     }
   };
 
@@ -122,7 +122,7 @@ export default function AdminDashboardPage() {
               </div>
               <h1 className="text-2xl font-black text-slate-900">Admin Control Panel</h1>
               <p className="text-xs text-slate-500">
-                Enter Admin PIN code to manage live customer orders & delivery status
+                Enter Admin Passcode to manage live customer orders & delivery status
               </p>
             </div>
 
@@ -146,11 +146,10 @@ export default function AdminDashboardPage() {
                     required
                     value={pinInput}
                     onChange={(e) => setPinInput(e.target.value)}
-                    placeholder="Enter PIN (Default: 1234)"
+                    placeholder="Enter Passcode (789456123)"
                     className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0078BE]"
                   />
                 </div>
-                <span className="text-[11px] text-slate-400 mt-1 block">Default Passcode: <strong>1234</strong></span>
               </div>
 
               <button

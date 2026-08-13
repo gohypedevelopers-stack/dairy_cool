@@ -22,10 +22,12 @@ import {
 } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons";
 import { getOrderByIdAsync, getAllOrders, StoredOrder } from "@/lib/order-store";
+import { useAuth } from "@/lib/auth-context";
 
 function TrackOrderContent() {
   const searchParams = useSearchParams();
   const initialOrderId = searchParams.get("orderId") || "";
+  const { user, isAuthenticated } = useAuth();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [inputQuery, setInputQuery] = useState(initialOrderId);
@@ -71,7 +73,14 @@ function TrackOrderContent() {
     };
   }, [inputQuery]);
 
-  const allAvailableOrders = getAllOrders();
+  // Strictly filter recent orders ONLY for the logged-in user (never for guests or other users)
+  const userRecentOrders = (isAuthenticated && user)
+    ? getAllOrders().filter(
+        (o) =>
+          (user.email && o.customerEmail.toLowerCase() === user.email.toLowerCase()) ||
+          (user.phone && o.customerPhone && o.customerPhone === user.phone)
+      )
+    : [];
 
   return (
     <div className="min-h-screen bg-slate-50/60 flex flex-col font-sans text-slate-800 antialiased selection:bg-[#0078BE] selection:text-white">
@@ -87,9 +96,6 @@ function TrackOrderContent() {
           <Link href="/shop" className="inline-flex items-center gap-2 text-xs font-semibold text-[#0078BE] hover:underline">
             <ArrowLeft className="w-4 h-4" /> Return to Shop
           </Link>
-          <Link href="/admin" className="text-xs font-bold text-slate-500 hover:text-[#0078BE] bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-2xs">
-            Admin Panel Login →
-          </Link>
         </div>
 
         {/* Page Title Header */}
@@ -98,7 +104,7 @@ function TrackOrderContent() {
             Track Your Order
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto">
-            Enter your Order ID (e.g. <strong className="text-slate-800">DC-M4JMF7</strong>) or mobile number to view real-time shipment status
+            Enter your Order ID (e.g. <strong className="text-slate-800">DC-10492</strong>) or mobile number to view real-time shipment status
           </p>
         </div>
 
@@ -131,10 +137,11 @@ function TrackOrderContent() {
             </button>
           </form>
 
-          {allAvailableOrders.length > 0 && (
+          {/* Show recent order pills ONLY if user is logged in and has their own orders */}
+          {isAuthenticated && userRecentOrders.length > 0 && (
             <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-xs text-slate-500">
               <span className="font-semibold text-slate-700">Your Recent Orders:</span>
-              {allAvailableOrders.slice(0, 3).map((o) => (
+              {userRecentOrders.slice(0, 3).map((o) => (
                 <button
                   key={o.id}
                   onClick={() => {
