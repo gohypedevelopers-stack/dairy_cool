@@ -24,6 +24,7 @@ import { useCart } from "@/components/cart-provider";
 import { useRazorpay } from "@/components/razorpay-loader";
 import { WhatsAppIcon } from "@/components/icons";
 import { useAuth } from "@/lib/auth-context";
+import { saveNewOrder } from "@/lib/order-store";
 
 type PaymentMethod = "online" | "cod" | "whatsapp";
 
@@ -209,10 +210,36 @@ export default function CheckoutPage() {
                 })
               );
 
+              const formattedId = `DC-${response.razorpay_order_id.slice(-6).toUpperCase()}`;
+
+              // Save in Master Order Store for /admin & /track-order
+              saveNewOrder({
+                id: formattedId,
+                orderNumber: formattedId,
+                customerName: form.name,
+                customerPhone: form.phone,
+                customerEmail: form.email || "customer@example.com",
+                shippingAddress: form.address,
+                city: form.city,
+                pincode: form.pincode,
+                state: form.state,
+                items: cartItems.map((item) => ({
+                  id: String(item.id),
+                  name: item.name,
+                  quantity: item.quantity,
+                  price: item.price,
+                  image: item.image,
+                })),
+                totalAmount: grandTotal,
+                paymentMethod: "Razorpay Online",
+                status: "Order Placed",
+                date: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }),
+              });
+
               // Record in User Order History
               addOrderRecord({
-                id: response.razorpay_order_id,
-                orderNumber: `DC-${response.razorpay_order_id.slice(-6).toUpperCase()}`,
+                id: formattedId,
+                orderNumber: formattedId,
                 date: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }),
                 status: "Processing",
                 total: grandTotal,
@@ -257,8 +284,10 @@ export default function CheckoutPage() {
     if (!validateForm()) return;
     setIsProcessing(true);
 
-    // Save order snapshot
     const orderId = `COD_${Date.now()}`;
+    const formattedId = `DC-${orderId.slice(-6)}`;
+
+    // Save order snapshot
     localStorage.setItem(
       "dairy_cool_last_order",
       JSON.stringify({
@@ -266,15 +295,39 @@ export default function CheckoutPage() {
         total: grandTotal,
         address: form,
         paymentMethod: "cod",
-        orderId,
+        orderId: formattedId,
         timestamp: new Date().toISOString(),
       })
     );
 
+    // Save in Master Order Store for /admin & /track-order
+    saveNewOrder({
+      id: formattedId,
+      orderNumber: formattedId,
+      customerName: form.name,
+      customerPhone: form.phone,
+      customerEmail: form.email || "customer@example.com",
+      shippingAddress: form.address,
+      city: form.city,
+      pincode: form.pincode,
+      state: form.state,
+      items: cartItems.map((item) => ({
+        id: String(item.id),
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
+        image: item.image,
+      })),
+      totalAmount: grandTotal,
+      paymentMethod: "Cash on Delivery",
+      status: "Order Placed",
+      date: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }),
+    });
+
     // Record in User Order History
     addOrderRecord({
-      id: orderId,
-      orderNumber: `DC-${orderId.slice(-6)}`,
+      id: formattedId,
+      orderNumber: formattedId,
       date: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }),
       status: "Processing",
       total: grandTotal,
@@ -290,7 +343,7 @@ export default function CheckoutPage() {
     });
 
     clearCart();
-    router.push(`/checkout/confirmation?orderId=${orderId}&method=cod`);
+    router.push(`/checkout/confirmation?orderId=${formattedId}&method=cod`);
   };
 
   // Handle WhatsApp
@@ -298,6 +351,8 @@ export default function CheckoutPage() {
     if (!validateForm()) return;
     const message = buildWhatsAppMessage();
     const orderId = `WA_${Date.now()}`;
+    const formattedId = `DC-${orderId.slice(-6)}`;
+
     window.open(`https://wa.me/9716003060?text=${encodeURIComponent(message)}`, "_blank");
 
     // Save order snapshot
@@ -308,15 +363,39 @@ export default function CheckoutPage() {
         total: grandTotal,
         address: form,
         paymentMethod: "whatsapp",
-        orderId,
+        orderId: formattedId,
         timestamp: new Date().toISOString(),
       })
     );
 
+    // Save in Master Order Store for /admin & /track-order
+    saveNewOrder({
+      id: formattedId,
+      orderNumber: formattedId,
+      customerName: form.name,
+      customerPhone: form.phone,
+      customerEmail: form.email || "customer@example.com",
+      shippingAddress: form.address,
+      city: form.city,
+      pincode: form.pincode,
+      state: form.state,
+      items: cartItems.map((item) => ({
+        id: String(item.id),
+        name: item.name,
+        quantity: item.quantity,
+        price: item.price,
+        image: item.image,
+      })),
+      totalAmount: grandTotal,
+      paymentMethod: "WhatsApp Order",
+      status: "Order Placed",
+      date: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }),
+    });
+
     // Record in User Order History
     addOrderRecord({
-      id: orderId,
-      orderNumber: `DC-${orderId.slice(-6)}`,
+      id: formattedId,
+      orderNumber: formattedId,
       date: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }),
       status: "Pending",
       total: grandTotal,
@@ -332,7 +411,7 @@ export default function CheckoutPage() {
     });
 
     clearCart();
-    router.push(`/checkout/confirmation?orderId=${orderId}&method=whatsapp`);
+    router.push(`/checkout/confirmation?orderId=${formattedId}&method=whatsapp`);
   };
 
   const handleSubmit = (e: React.FormEvent) => {

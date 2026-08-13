@@ -60,6 +60,8 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const LOCAL_STORAGE_USER_KEY = "dairycool_user_profile";
 const LOCAL_STORAGE_ORDERS_KEY = "dairycool_user_orders";
 
+import { getAllOrders } from "./order-store";
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [orders, setOrders] = useState<OrderRecord[]>([]);
@@ -74,10 +76,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (storedUser) {
         setUser(JSON.parse(storedUser));
       }
-      if (storedOrders) {
+
+      const masterOrders = getAllOrders();
+      if (masterOrders && masterOrders.length > 0) {
+        const mappedOrders: OrderRecord[] = masterOrders.map((o) => ({
+          id: o.id,
+          orderNumber: o.orderNumber || o.id,
+          date: o.date,
+          status: o.status === "Delivered" ? "Delivered" : o.status === "Cancelled" ? "Cancelled" : "Processing",
+          total: o.totalAmount,
+          paymentMethod: o.paymentMethod,
+          shippingAddress: `${o.shippingAddress}, ${o.city} - ${o.pincode}`,
+          items: o.items.map((i) => ({
+            id: String(i.id),
+            name: i.name,
+            quantity: i.quantity,
+            price: i.price,
+            image: i.image,
+          })),
+        }));
+
+        setOrders(mappedOrders);
+      } else if (storedOrders) {
         setOrders(JSON.parse(storedOrders));
       } else {
-        // Initial sample orders for demonstrated experience if new user
         setOrders([]);
       }
     } catch (err) {

@@ -22,13 +22,12 @@ export async function fetchWooGraphQL(
       method: "POST",
       headers,
       body: JSON.stringify({ query, variables }),
-      next: { revalidate: 60 }, // Revalidate cache every 60 seconds
+      next: { revalidate: 30 },
     });
 
     const json = await res.json();
 
     if (json.errors && process.env.NODE_ENV === "development") {
-      // Quietly log only non-schema errors
       const isSchemaError = json.errors.some((e: any) => e.message?.includes("Cannot query field"));
       if (!isSchemaError) {
         console.warn("WooGraphQL Info:", json.errors);
@@ -41,8 +40,6 @@ export async function fetchWooGraphQL(
     return null;
   }
 }
-
-// GraphQL Queries for Products & Categories
 
 export const GET_PRODUCTS_QUERY = `
   query GetProducts {
@@ -134,6 +131,52 @@ export const GET_SINGLE_PRODUCT_QUERY = `
   }
 `;
 
+export const GET_ORDER_BY_ID_QUERY = `
+  query GetOrderById($id: ID!) {
+    order(id: $id, idType: DATABASE_ID) {
+      id
+      databaseId
+      orderNumber
+      status
+      date
+      total
+      paymentMethodTitle
+      billing {
+        firstName
+        lastName
+        email
+        phone
+        address1
+        city
+        state
+        postcode
+      }
+      shipping {
+        firstName
+        lastName
+        address1
+        city
+        state
+        postcode
+      }
+      lineItems {
+        nodes {
+          product {
+            node {
+              name
+              image {
+                sourceUrl
+              }
+            }
+          }
+          quantity
+          total
+        }
+      }
+    }
+  }
+`;
+
 export const GET_POSTS_QUERY = `
   query GetPosts {
     posts(first: 10) {
@@ -159,8 +202,6 @@ export const GET_POSTS_QUERY = `
   }
 `;
 
-// Helper functions for easy consumption in Server / Client components
-
 export async function getWooProducts() {
   const data = await fetchWooGraphQL(GET_PRODUCTS_QUERY);
   return data?.products?.nodes || [];
@@ -174,4 +215,18 @@ export async function getSingleProduct(slug: string) {
 export async function getWPPosts() {
   const data = await fetchWooGraphQL(GET_POSTS_QUERY);
   return data?.posts?.nodes || [];
+}
+
+export async function fetchWpOrderById(numericId: string) {
+  if (!numericId) return null;
+  const cleanId = numericId.replace(/[^0-9]/g, "");
+  if (!cleanId) return null;
+
+  try {
+    const data = await fetchWooGraphQL(GET_ORDER_BY_ID_QUERY, { id: cleanId });
+    return data?.order || null;
+  } catch (err) {
+    console.error("WP Order fetch error:", err);
+    return null;
+  }
 }
