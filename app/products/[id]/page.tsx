@@ -13,6 +13,7 @@ import Header from "@/components/home/header";
 import Footer from "@/components/home/footer";
 import { useCart } from "@/components/cart-provider";
 import { getSingleProduct } from "@/lib/woocommerce";
+import { getProductStockInfo } from "@/lib/inventory";
 
 interface ProductOption {
   size: string;
@@ -161,9 +162,11 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
   const productId = resolvedParams.id;
   const { addToCart, buyNow } = useCart();
 
+  const [isMounted, setIsMounted] = useState(false);
   const [wpProduct, setWpProduct] = useState<any>(null);
 
   useEffect(() => {
+    setIsMounted(true);
     if (productId) {
       getSingleProduct(productId).then((data) => {
         if (data) {
@@ -174,6 +177,10 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
   }, [productId]);
 
   const baseProduct = productsData[productId] || productsData.bilona_ghee;
+  const stockInfo = isMounted
+    ? getProductStockInfo(productId, 15)
+    : { stock: 15, isOutOfStock: false, statusLabel: "In Stock" as const };
+  const isOutOfStock = stockInfo.isOutOfStock;
 
   const product: ProductDetails = wpProduct ? {
     id: wpProduct.slug || String(wpProduct.databaseId || wpProduct.id),
@@ -199,7 +206,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
     ordersDelivered: "5,00,000+ Orders delivered",
     rating: "4.9",
     reviews: "422",
-    stockLeft: 12
+    stockLeft: stockInfo.stock
   } : baseProduct;
 
   // States
@@ -221,16 +228,19 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
   // Cart Handlers
   const handleAddToCart = () => {
-    addToCart(product.id, product.name, product.image, selectedOption.size, selectedOption.price, quantity);
+    if (isOutOfStock) return;
+    addToCart(product.id, product.name, selectedImage, selectedOption.size, selectedOption.price, quantity);
   };
 
   const handleBuyNow = () => {
+    if (isOutOfStock) return;
     buyNow(product.id, product.name, product.image, selectedOption.size, selectedOption.price, quantity);
   };
 
   const handleWhatsAppOrder = () => {
-    const message = `Hello Dairy Cool! I want to order ${product.name} (${selectedOption.size}) - Qty: ${quantity}. Total: ₹${selectedOption.price * quantity}. Please confirm my order!`;
-    window.open(`https://wa.me/919716003060?text=${encodeURIComponent(message)}`, "_blank");
+    if (isOutOfStock) return;
+    const message = `Hello Dairy Cool Farm! I want to order ${quantity}x ${product.name} (${selectedOption.size}) at ₹${selectedOption.price * quantity}.`;
+    window.open(`https://wa.me/9716003060?text=${encodeURIComponent(message)}`, "_blank");
   };
 
   const toggleAccordion = (section: string) => {
@@ -447,47 +457,62 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
             {/* Quantity Stepper & Add to Cart Action */}
             <div className="space-y-3.5 pt-3 border-t border-slate-200">
-              
-              <div className="flex items-center gap-3">
-                {/* Quantity Counter */}
-                <div className="flex items-center border border-slate-300 rounded-2xl bg-white overflow-hidden h-[50px] shrink-0">
+              {isOutOfStock ? (
+                <div className="space-y-3">
                   <button
-                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                    className="px-3.5 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition cursor-pointer h-full flex items-center"
-                    aria-label="Decrease Quantity"
+                    disabled
+                    className="w-full flex items-center justify-center py-4 bg-slate-200 text-slate-500 font-bold text-xs uppercase tracking-widest rounded-2xl cursor-not-allowed border border-slate-300"
                   >
-                    <Minus className="w-4 h-4" />
+                    Out of Stock &bull; Currently Unavailable
                   </button>
-                  <span className="px-3 font-bold text-slate-900 text-sm w-9 text-center select-none">
-                    {quantity}
-                  </span>
-                  <button
-                    onClick={() => setQuantity((q) => q + 1)}
-                    className="px-3.5 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition cursor-pointer h-full flex items-center"
-                    aria-label="Increase Quantity"
-                  >
-                    <Plus className="w-4 h-4" />
-                  </button>
+                  <p className="text-center text-xs text-amber-700 font-semibold bg-amber-50 p-2.5 rounded-xl border border-amber-200">
+                    Fresh batch churning in progress under Dadi&apos;s guidance. Check back soon!
+                  </p>
                 </div>
+              ) : (
+                <>
+                  <div className="flex items-center gap-3">
+                    {/* Quantity Counter */}
+                    <div className="flex items-center border border-slate-300 rounded-2xl bg-white overflow-hidden h-[50px] shrink-0">
+                      <button
+                        onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                        className="px-3.5 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition cursor-pointer h-full flex items-center"
+                        aria-label="Decrease Quantity"
+                      >
+                        <Minus className="w-4 h-4" />
+                      </button>
+                      <span className="px-3 font-bold text-slate-900 text-sm w-9 text-center select-none">
+                        {quantity}
+                      </span>
+                      <button
+                        onClick={() => setQuantity((q) => q + 1)}
+                        className="px-3.5 text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition cursor-pointer h-full flex items-center"
+                        aria-label="Increase Quantity"
+                      >
+                        <Plus className="w-4 h-4" />
+                      </button>
+                    </div>
 
-                {/* Add to Cart Button */}
-                <button
-                  onClick={handleAddToCart}
-                  className="flex-1 flex items-center justify-center gap-2 bg-[#0078BE] hover:bg-[#00629c] active:scale-98 text-white font-bold px-6 py-3.5 rounded-2xl text-sm uppercase tracking-wider transition shadow-md h-[50px] cursor-pointer"
-                >
-                  <ShoppingBag className="w-5 h-5 shrink-0" />
-                  <span>Add To Cart</span>
-                </button>
-              </div>
+                    {/* Add to Cart Button */}
+                    <button
+                      onClick={handleAddToCart}
+                      className="flex-1 flex items-center justify-center gap-2 bg-[#0078BE] hover:bg-[#00629c] active:scale-98 text-white font-bold px-6 py-3.5 rounded-2xl text-sm uppercase tracking-wider transition shadow-md h-[50px] cursor-pointer"
+                    >
+                      <ShoppingBag className="w-5 h-5 shrink-0" />
+                      <span>Add To Cart</span>
+                    </button>
+                  </div>
 
-              {/* WhatsApp Quick Order Button */}
-              <button
-                onClick={handleWhatsAppOrder}
-                className="w-full flex items-center justify-center gap-2 bg-[#22c55e] hover:bg-[#1eb052] active:scale-98 text-white font-bold py-3.5 px-4 rounded-2xl text-xs uppercase tracking-wider transition shadow-sm cursor-pointer"
-              >
-                <WhatsAppIcon className="w-4 h-4 shrink-0" />
-                <span>Order via WhatsApp</span>
-              </button>
+                  {/* WhatsApp Quick Order Button */}
+                  <button
+                    onClick={handleWhatsAppOrder}
+                    className="w-full flex items-center justify-center gap-2 bg-[#22c55e] hover:bg-[#1eb052] active:scale-98 text-white font-bold py-3.5 px-4 rounded-2xl text-xs uppercase tracking-wider transition shadow-sm cursor-pointer"
+                  >
+                    <WhatsAppIcon className="w-4 h-4 shrink-0" />
+                    <span>Order via WhatsApp</span>
+                  </button>
+                </>
+              )}
             </div>
 
             {/* Delivery Estimator Bar */}

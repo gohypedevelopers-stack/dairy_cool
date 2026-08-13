@@ -61,6 +61,7 @@ export const GET_PRODUCTS_QUERY = `
           salePrice
           onSale
           stockStatus
+          stockQuantity
         }
         ... on VariableProduct {
           price
@@ -68,6 +69,7 @@ export const GET_PRODUCTS_QUERY = `
           salePrice
           onSale
           stockStatus
+          stockQuantity
           variations {
             nodes {
               id
@@ -76,6 +78,7 @@ export const GET_PRODUCTS_QUERY = `
               price
               regularPrice
               stockStatus
+              stockQuantity
             }
           }
         }

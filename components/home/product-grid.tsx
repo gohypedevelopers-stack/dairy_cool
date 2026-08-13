@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Star, Plus, Minus, ShoppingCart, Zap } from "lucide-react";
+import { getProductStockInfo } from "@/lib/inventory";
 
 interface Product {
   id: string;
@@ -95,13 +98,18 @@ function parseWpProduct(wp: any): { sizeDesc: string; desc: string } {
   if (!desc || desc === cleanShort) {
     desc = "Handcrafted using traditional wooden churning on fresh curd. Hand-poured under Dadi's guidance.";
   }
-  // Remove leading size text if description accidentally starts with size (e.g. "500ml Handcrafted...")
   desc = desc.replace(/^\s*\d+\s*(?:kg|g|ml|l|litre|liter|pack|jars?)\s*/i, "");
 
   return { sizeDesc, desc };
 }
 
 export default function ProductGrid({ onAddToCart, onBuyNow, wpProducts }: ProductGridProps) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const wpMapped: Product[] = (wpProducts || []).map((wp: any) => {
     const rawPrice = wp.price ? parseFloat(wp.price.replace(/[^0-9.]/g, "")) : 0;
     const { sizeDesc, desc } = parseWpProduct(wp);
@@ -118,7 +126,6 @@ export default function ProductGrid({ onAddToCart, onBuyNow, wpProducts }: Produ
     };
   });
 
-  // Always fill up to 4 cards so the 4-column design is never broken
   const displayProducts: Product[] = [...wpMapped];
   if (displayProducts.length < 4) {
     const remainingNeeded = 4 - displayProducts.length;
@@ -159,11 +166,15 @@ export default function ProductGrid({ onAddToCart, onBuyNow, wpProducts }: Produ
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {displayProducts.map((product) => {
             const qty = productQuantities[product.id] || 1;
+            const stockInfo = isMounted
+              ? getProductStockInfo(product.id, 15)
+              : { stock: 15, isOutOfStock: false, statusLabel: "In Stock" as const };
+            const isOutOfStock = stockInfo.isOutOfStock;
 
             return (
               <div
                 key={product.id}
-                className="group bg-white rounded-2xl border border-slate-100/80 shadow-lg hover:shadow-2xl hover:shadow-[#0284c7]/10 transition-all duration-500 flex flex-col overflow-hidden"
+                className="group bg-white rounded-2xl border border-slate-100/80 shadow-lg hover:shadow-2xl hover:shadow-[#0284c7]/10 transition-all duration-500 flex flex-col overflow-hidden relative"
               >
                 {/* Image Section */}
                 <Link 
@@ -177,24 +188,34 @@ export default function ProductGrid({ onAddToCart, onBuyNow, wpProducts }: Produ
                     alt={product.name}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover scale-110 group-hover:scale-125 transition-transform duration-700 ease-out z-10"
+                    className={`object-cover scale-110 group-hover:scale-125 transition-transform duration-700 ease-out z-10 ${
+                      isOutOfStock ? "grayscale opacity-60" : ""
+                    }`}
                     priority
                   />
                   
                   {/* Badge */}
                   <div className="absolute top-3 left-3 z-20">
-                    <span className="bg-white/95 backdrop-blur-sm text-slate-800 font-bold text-[9px] px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
-                      {product.badge}
-                    </span>
+                    {isOutOfStock ? (
+                      <span className="bg-red-600 text-white font-black text-[10px] px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                        OUT OF STOCK
+                      </span>
+                    ) : (
+                      <span className="bg-white/95 backdrop-blur-sm text-slate-800 font-bold text-[9px] px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                        {product.badge}
+                      </span>
+                    )}
                   </div>
 
                   {/* Rating Badge */}
-                  <div className="absolute bottom-3 right-3 z-20">
-                    <div className="bg-white/95 backdrop-blur-sm px-2 py-1 rounded-full flex items-center gap-1 shadow-sm">
-                      <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                      <span className="text-[10px] font-bold text-slate-700">{product.rating}</span>
+                  {!isOutOfStock && (
+                    <div className="absolute bottom-3 right-3 z-20">
+                      <div className="bg-white/95 backdrop-blur-sm px-2 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                        <span className="text-[10px] font-bold text-slate-700">{product.rating}</span>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </Link>
 
                 {/* Content Section */}
@@ -219,7 +240,8 @@ export default function ProductGrid({ onAddToCart, onBuyNow, wpProducts }: Produ
                     <div className="w-full h-px bg-slate-100 my-3" />
 
                     {/* Quantity Row */}
-                    <div className="flex items-center justify-between">
+                    {!isOutOfStock && (
+                      <div className="flex items-center justify-between">
                         <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Qty</span>
                         <div className="flex items-center border border-slate-200 rounded-lg bg-white overflow-hidden shadow-sm">
                           <button
@@ -238,7 +260,8 @@ export default function ProductGrid({ onAddToCart, onBuyNow, wpProducts }: Produ
                             <Plus className="w-3 h-3" />
                           </button>
                         </div>
-                    </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Price & Actions Row */}
@@ -251,22 +274,31 @@ export default function ProductGrid({ onAddToCart, onBuyNow, wpProducts }: Produ
                       </span>
                     </div>
 
-                    <div className="flex flex-row items-center gap-2">
+                    {isOutOfStock ? (
                       <button
-                        onClick={() => onAddToCart(product.id, product.name, product.image, product.sizeDesc, product.price, qty)}
-                        className="flex-1 flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-2.5 rounded-lg border-2 border-slate-200 text-slate-600 hover:border-[#0284c7] hover:text-[#0284c7] hover:bg-[#f0f9ff] font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer"
+                        disabled
+                        className="w-full flex items-center justify-center py-2.5 rounded-lg bg-slate-200 text-slate-500 font-bold text-[10px] uppercase tracking-widest cursor-not-allowed border border-slate-300"
                       >
-                        <ShoppingCart className="w-3.5 h-3.5 shrink-0" />
-                        <span>Add</span>
+                        Out of Stock
                       </button>
-                      <button
-                        onClick={() => onBuyNow(product.id, product.name, product.image, product.sizeDesc, product.price, qty)}
-                        className="flex-1 flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-2.5 rounded-lg bg-[#0284c7] hover:bg-[#0274b3] text-white font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer shadow-md shadow-[#0284c7]/20 hover:shadow-lg hover:-translate-y-px"
-                      >
-                        <Zap className="w-3.5 h-3.5 shrink-0" />
-                        <span>Buy</span>
-                      </button>
-                    </div>
+                    ) : (
+                      <div className="flex flex-row items-center gap-2">
+                        <button
+                          onClick={() => onAddToCart(product.id, product.name, product.image, product.sizeDesc, product.price, qty)}
+                          className="flex-1 flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-2.5 rounded-lg border-2 border-slate-200 text-slate-600 hover:border-[#0284c7] hover:text-[#0284c7] hover:bg-[#f0f9ff] font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer"
+                        >
+                          <ShoppingCart className="w-3.5 h-3.5 shrink-0" />
+                          <span>Add</span>
+                        </button>
+                        <button
+                          onClick={() => onBuyNow(product.id, product.name, product.image, product.sizeDesc, product.price, qty)}
+                          className="flex-1 flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-2.5 rounded-lg bg-[#0284c7] hover:bg-[#0274b3] text-white font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer shadow-md shadow-[#0284c7]/20 hover:shadow-lg hover:-translate-y-px"
+                        >
+                          <Zap className="w-3.5 h-3.5 shrink-0" />
+                          <span>Buy</span>
+                        </button>
+                      </div>
+                    )}
 
                   </div>
                 </div>
