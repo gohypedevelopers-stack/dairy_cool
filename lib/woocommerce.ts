@@ -13,9 +13,13 @@ function getWcAuthHeader() {
   return `Basic ${token}`;
 }
 
-export async function fetchWooRestOrders() {
+export async function fetchWooRestOrders(email?: string) {
   try {
-    const res = await fetch(`${WC_REST_ENDPOINT}/orders?per_page=50`, {
+    const url = email 
+      ? `${WC_REST_ENDPOINT}/orders?search=${encodeURIComponent(email)}&per_page=50`
+      : `${WC_REST_ENDPOINT}/orders?per_page=50`;
+      
+    const res = await fetch(url, {
       headers: {
         Authorization: getWcAuthHeader(),
         "Content-Type": "application/json",

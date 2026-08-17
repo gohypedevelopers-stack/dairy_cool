@@ -60,7 +60,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const LOCAL_STORAGE_USER_KEY = "dairycool_user_profile";
 const LOCAL_STORAGE_ORDERS_KEY = "dairycool_user_orders";
 
-import { getAllOrders, syncWpOrdersToStore } from "./order-store";
+import { getAllOrders } from "./order-store";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserProfile | null>(null);
@@ -89,22 +89,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const fetchLiveOrders = async (email: string) => {
+    try {
+      const res = await fetch(`/api/orders?email=${encodeURIComponent(email)}`);
+      const data = await res.json();
+      if (data.success && data.orders) {
+        loadAndMapOrders(data.orders);
+      }
+    } catch (err) {
+      console.error("Failed to fetch live orders:", err);
+    }
+  };
+
   // Load persistent auth state & sync live WP database orders
   useEffect(() => {
     try {
       const storedUser = localStorage.getItem(LOCAL_STORAGE_USER_KEY);
       if (storedUser) {
-        setUser(JSON.parse(storedUser));
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+        if (parsedUser.email) {
+          fetchLiveOrders(parsedUser.email);
+        }
       }
-
-      // Initial load
-      loadAndMapOrders();
-
-      // Live WP GraphQL Database sync
-      syncWpOrdersToStore().then((synced) => {
-        loadAndMapOrders(synced);
-      }).catch(console.error);
-
     } catch (err) {
       console.error("Auth init error:", err);
     } finally {
@@ -142,6 +149,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           phone: "",
         };
         saveUserToStorage(profile);
+        await fetchLiveOrders(profile.email);
         setIsLoading(false);
         return { success: true };
       }
@@ -152,6 +160,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const parsed = JSON.parse(storedUser);
         if (parsed.email.toLowerCase() === email.toLowerCase()) {
           saveUserToStorage(parsed);
+          await fetchLiveOrders(parsed.email);
           setIsLoading(false);
           return { success: true };
         }
@@ -168,6 +177,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         state: "Madhya Pradesh",
       };
       saveUserToStorage(newProfile);
+      await fetchLiveOrders(newProfile.email);
       setIsLoading(false);
       return { success: true };
     } catch (err: any) {
@@ -213,6 +223,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       };
 
       saveUserToStorage(profile);
+      await fetchLiveOrders(profile.email);
       setIsLoading(false);
       return { success: true };
     } catch (err: any) {
@@ -227,6 +238,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         state: data.state || "",
       };
       saveUserToStorage(profile);
+      await fetchLiveOrders(profile.email);
       setIsLoading(false);
       return { success: true };
     }
@@ -234,6 +246,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = () => {
     saveUserToStorage(null);
+    setOrders([]);
   };
 
   const updateProfile = (updatedData: Partial<UserProfile>) => {

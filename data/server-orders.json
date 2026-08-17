@@ -1,5 +1,35 @@
 [
   {
+    "id": "DC-T9NRLG",
+    "orderNumber": "DC-T9NRLG",
+    "customerName": "ravindranathjha  ",
+    "customerPhone": "9354156323",
+    "customerEmail": "ravindranathjha76@gmail.com",
+    "shippingAddress": "House No. 42, Green Avenue, Scheme 78",
+    "city": "Indore",
+    "pincode": "452010",
+    "state": "Madhya Pradesh",
+    "items": [
+      {
+        "id": "henectus-tincidunt-500ml\n",
+        "name": "Pure Buffalo Bilona Ghee - 500ml",
+        "quantity": 1,
+        "price": 839,
+        "image": "https://dairycoolfarm.com/wp-content/uploads/2021/08/DSC_5447-scaled.jpg"
+      }
+    ],
+    "totalAmount": 839,
+    "paymentMethod": "Razorpay Online",
+    "status": "Order Placed",
+    "date": "17 Aug 2026",
+    "step": 1,
+    "carrier": "Express BlueDart",
+    "awbNumber": "AWB-46631900",
+    "expectedDate": "Within 2-4 business days",
+    "locationNote": "Order confirmed & queued for churning",
+    "timestamp": "2026-08-17T09:43:03.299Z"
+  },
+  {
     "id": "DC-YJWQYP",
     "orderNumber": "DC-YJWQYP",
     "customerName": "ravindranathjha  ",

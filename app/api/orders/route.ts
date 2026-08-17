@@ -54,11 +54,17 @@ function mapWpStatus(st: string): { status: string; step: number } {
   return { status: "Order Placed", step: 1 };
 }
 
-export async function GET() {
-  const localOrders = readServerOrders();
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const email = searchParams.get("email");
+
+  let localOrders = readServerOrders();
+  if (email) {
+    localOrders = localOrders.filter((o: any) => o.customerEmail?.toLowerCase() === email.toLowerCase());
+  }
 
   try {
-    const wcRawOrders = await fetchWooRestOrders();
+    const wcRawOrders = await fetchWooRestOrders(email || undefined);
     if (Array.isArray(wcRawOrders) && wcRawOrders.length > 0) {
       const mappedWcOrders = wcRawOrders.map((o: any) => {
         const stInfo = mapWpStatus(o.status);
@@ -103,15 +109,25 @@ export async function GET() {
         }
       });
 
-      const combined = Array.from(map.values());
+      let combined = Array.from(map.values());
+      // Extra safety filter to ensure we don't leak orders if WP search was fuzzy
+      if (email) {
+        combined = combined.filter(o => o.customerEmail?.toLowerCase() === email.toLowerCase());
+      }
+      
+      // Sort by newest first
+      combined.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+
       return NextResponse.json({ success: true, orders: combined });
     }
   } catch (err) {
     console.error("Failed to fetch WooCommerce orders:", err);
   }
-
+  
+  localOrders.sort((a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
   return NextResponse.json({ success: true, orders: localOrders });
 }
+
 
 export async function POST(req: Request) {
   try {
