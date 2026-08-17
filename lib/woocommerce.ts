@@ -4,6 +4,49 @@
 
 const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT || "https://dairycoolfarm.com/graphql";
 
+export const WC_CONSUMER_KEY = process.env.WC_CONSUMER_KEY;
+export const WC_CONSUMER_SECRET = process.env.WC_CONSUMER_SECRET;
+export const WC_REST_ENDPOINT = "https://dairycoolfarm.com/wp-json/wc/v3";
+
+function getWcAuthHeader() {
+  const token = Buffer.from(`${WC_CONSUMER_KEY}:${WC_CONSUMER_SECRET}`).toString("base64");
+  return `Basic ${token}`;
+}
+
+export async function fetchWooRestOrders() {
+  try {
+    const res = await fetch(`${WC_REST_ENDPOINT}/orders?per_page=50`, {
+      headers: {
+        Authorization: getWcAuthHeader(),
+        "Content-Type": "application/json",
+      },
+      next: { revalidate: 10 },
+    });
+    if (!res.ok) return [];
+    return await res.json();
+  } catch (err) {
+    console.error("Failed to fetch Woo REST orders:", err);
+    return [];
+  }
+}
+
+export async function createWooRestOrder(orderPayload: any) {
+  try {
+    const res = await fetch(`${WC_REST_ENDPOINT}/orders`, {
+      method: "POST",
+      headers: {
+        Authorization: getWcAuthHeader(),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderPayload),
+    });
+    return await res.json();
+  } catch (err) {
+    console.error("Failed to create Woo REST order:", err);
+    return null;
+  }
+}
+
 export async function fetchWooGraphQL(
   query: string,
   variables: Record<string, any> = {},
