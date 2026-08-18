@@ -24,17 +24,17 @@ const coreBenefits = [
 const healthBenefits = [
   {
     title: "Rich in Good Fats",
-    desc: "Essential healthy fatty acids",
+    desc: "Essential healthy fatty acids for nourishment",
     icon: Droplet
   },
   {
-    title: "Boosts Immunity",
-    desc: "Loaded with natural antioxidants",
+    title: "Pure Energy Source",
+    desc: "Provides natural, sustained daily energy",
     icon: ShieldAlert
   },
   {
-    title: "Good for Heart",
-    desc: "Supports active cardiovascular health",
+    title: "Aromatic Goodness",
+    desc: "Supports traditional balanced lifestyle",
     icon: HeartPulse
   }
 ];
@@ -52,7 +52,7 @@ export default function WhyChooseUs() {
         {/* Header */}
         <div className="text-center space-y-3 mb-20 max-w-2xl mx-auto">
           <span className="font-cursive text-2xl text-amber-600 font-bold block">
-            Why Daily Cool Ghee
+            Why DAIRY COOL Ghee
           </span>
           <h2 className="text-4xl md:text-5xl font-serif font-black text-[#2E271E] leading-tight">
             Kyun Hai <span className="text-[#0284c7]">Hum Alag?</span>
@@ -97,7 +97,7 @@ export default function WhyChooseUs() {
             <div className="relative w-[260px] h-[260px] sm:w-[300px] sm:h-[300px] lg:w-[380px] lg:h-[380px] rounded-[2.5rem] sm:rounded-[3rem] overflow-hidden border-6 sm:border-8 border-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] transform group-hover:scale-105 transition-transform duration-700">
               <Image 
                 src="/images/buffalo_ghee_single.png"
-                alt="Daily Cool Pure Bilona Ghee"
+                alt="DAIRY COOL Pure Bilona Ghee"
                 fill
                 className="object-cover hover:scale-110 transition-transform duration-1000 ease-out"
                 priority

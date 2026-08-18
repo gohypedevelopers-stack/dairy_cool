@@ -25,7 +25,7 @@ export default function MeetDadi() {
               <div className="relative aspect-square w-full overflow-hidden rounded border border-slate-100">
                 <Image
                   src="/images/dadi_image.jpg"
-                  alt="Kamlesh Khari - Chief Ghee Maker"
+                  alt="Kamlesh Gurjari (Dadi) - Master Ghee Maker"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
@@ -33,7 +33,7 @@ export default function MeetDadi() {
 
               {/* Polaroid Label */}
               <div className="mt-4 text-center">
-                <p className="font-cursive text-2xl text-amber-700 font-bold">Dadi making bilona ghee</p>
+                <p className="font-cursive text-2xl text-amber-700 font-bold">Kamlesh Gurjari (Dadi) making Bilona Ghee</p>
               </div>
 
               {/* Decorative Leaf Overlay */}
@@ -47,7 +47,7 @@ export default function MeetDadi() {
           <div className="lg:col-span-7 space-y-6 text-[#2E271E]">
             <div className="space-y-2">
               <span className="font-cursive text-2xl text-amber-600 font-bold flex items-center gap-1">
-                Meet Our Dadi <span className="text-sm">♡</span>
+                Meet Kamlesh Gurjari (Dadi) <span className="text-sm">♡</span>
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-black leading-tight">
                 Shuddhta Aur Swad, <br />
@@ -59,7 +59,7 @@ export default function MeetDadi() {
 
             <div className="space-y-4 text-[#5A4F43] text-sm md:text-base leading-relaxed">
               <p>
-                Daily Cool Ghee ki shurusaat hoti hai Dadi ke paramparik Bilona process se. Unka maanna hai ki ghee sirf ek khaadya padarth nahi, balki sehat aur sanskaron ka prateek hai, isi liye har batch pyaar, dhairya aur parampara ke saath tayar kiya jaata hai.
+                DAIRY COOL Ghee ki shuruaat hoti hai Kamlesh Gurjari (Dadi) ke paramparik Bilona process se. Unka maanna hai ki ghee sirf ek khaadya padarth nahi, balki sehat aur sanskaron ka prateek hai, isi liye har batch pyaar, dhairya aur parampara ke saath tayar kiya jaata hai.
               </p>
               <p>
                 Hum aaj bhi bilona vidhi se, bina milawat, dheere-dheere pakaya hua ghee banate hain — bilkul waise hi jaise ghar ke liye banaya jaata hai. Farq sirf itna hai ki aaj yeh ghee zyada logon ke ghar tak pahunch raha hai.

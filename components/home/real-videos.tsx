@@ -34,7 +34,7 @@ const videoCategories = [
     title: "Video 5: Dadi's Purity Check & Glass Jar Packaging",
     videoId: "/videos/video5.MOV",
     image: "/images/dadi_image.jpg",
-    desc: "Inspected by Kamlesh Khari ji & packed in transit-safe, non-reactive glass jars."
+    desc: "Inspected by Kamlesh Gurjari (Dadi) & packed in transit-safe, non-reactive glass jars."
   }
 ];
 

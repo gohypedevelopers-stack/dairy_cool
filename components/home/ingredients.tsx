@@ -57,7 +57,7 @@ export default function Ingredients({ onPlayVideo }: IngredientsProps) {
             Bilona Method – Step by Step
           </h2>
           <p className="text-sm font-semibold text-amber-700/80 tracking-wider uppercase">
-            Dekhiye kaise banta hai hamara Daily Cool Bilona Ghee
+            Dekhiye kaise banta hai hamara DAIRY COOL Bilona Ghee
           </p>
         </div>
 

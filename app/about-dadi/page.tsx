@@ -20,7 +20,7 @@ const timeline = [
   {
     year: "Shuruaat",
     title: "Sirf Ghar ke Liye",
-    desc: "Kamlesh Khari ji ne ghee banana shuru kiya tha — apne ghar aur parivaar ke liye. Bilona vidhi, usi tarah jaise unki maa ne sikhaya tha. Koi maqsad nahi tha, bas ghar ki zaroorat thi.",
+    desc: "Kamlesh Gurjari (Dadi) ne ghee banana shuru kiya tha — apne ghar aur parivaar ke liye. Bilona vidhi, usi tarah jaise unki maa ne sikhaya tha. Koi maqsad nahi tha, bas ghar ki zaroorat thi.",
   },
   {
     year: "Pehchaan",
@@ -147,7 +147,7 @@ export default function AboutDadiPage() {
             </h1>
 
             <p className="text-sm md:text-base font-medium text-stone-200 tracking-wide leading-relaxed drop-shadow-md max-w-xl mx-auto">
-              Pichhle kai saalon se Kamlesh Khari ji ghee bana rahi hain — pehle sirf apne ghar aur parivaar ke liye. Aaj unki poti ki soch se yeh ghee aapke ghar tak pahunch raha hai.
+              Pichhle kai saalon se Kamlesh Gurjari (Dadi) ghee bana rahi hain — pehle sirf apne ghar aur parivaar ke liye. Aaj unki poti ki soch se yeh ghee aapke ghar tak pahunch raha hai.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-3 sm:pt-4 w-full mx-auto">
@@ -193,7 +193,7 @@ export default function AboutDadiPage() {
               The Dairy Cool Story <span className="text-sm">♡</span>
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-black leading-tight text-slate-900">
-              Namaste, Main Kamlesh Khari hoon, <br />
+              Namaste, Main Kamlesh Gurjari (Dadi) hoon, <br />
               <span className="text-[#0284c7]">Jaanchh Wala gaon se.</span>
             </h2>
           </div>

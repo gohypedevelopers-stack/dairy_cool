@@ -17,6 +17,8 @@ import WhyChooseUs from "@/components/home/why-choose-us";
 
 import QualityChecks from "@/components/home/quality-checks";
 import BilonaProcessSteps from "@/components/home/bilona-process-steps";
+import HealthBenefits from "@/components/home/health-benefits";
+import AvailableOn from "@/components/home/available-on";
 import Testimonials from "@/components/home/testimonials";
 import Certifications from "@/components/home/certifications";
 import Locations from "@/components/home/locations";
@@ -94,7 +96,11 @@ export default function Home() {
 
       <Categories />
 
+      <AvailableOn />
+
       <WhyChooseUs />
+
+      <HealthBenefits />
 
       <Testimonials />
       <Certifications />
