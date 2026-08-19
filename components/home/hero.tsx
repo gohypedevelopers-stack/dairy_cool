@@ -41,19 +41,19 @@ export default function Hero({ onPlayVideo, onWhatsAppOrder }: HeroProps) {
         <div className="max-w-xl space-y-3 sm:space-y-6 bg-black/10 md:bg-transparent backdrop-blur-xs md:backdrop-blur-none border border-white/10 md:border-none rounded-2xl md:rounded-none p-3 sm:p-6 md:p-0 shadow-lg md:shadow-none">
           
           {/* Trust Badge on Mobile */}
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-[10px] sm:text-xs font-medium">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/20 border border-sky-400/40 text-sky-300 text-[10px] sm:text-xs font-medium">
             <span>⭐⭐⭐⭐⭐</span>
-            <span className="font-bold text-amber-300">4.9/5</span>
+            <span className="font-bold text-sky-300">4.9/5</span>
             <span className="text-stone-300 hidden sm:inline">•</span>
             <span className="text-stone-300 text-[10px] sm:text-xs">10,000+ Happy Families</span>
           </div>
 
           {/* Cursive subtitle with line decoration */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="w-8 sm:w-10 h-[1px] bg-amber-400/40 relative hidden sm:block">
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-amber-400 rounded-full" />
+            <div className="w-8 sm:w-10 h-[1px] bg-sky-400/50 relative hidden sm:block">
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-sky-400 rounded-full" />
             </div>
-            <span className="font-cursive text-base sm:text-2xl md:text-3xl text-amber-400 block italic drop-shadow-md">
+            <span className="font-cursive text-base sm:text-2xl md:text-3xl text-sky-300 block italic drop-shadow-md">
               Experience true purity ♡
             </span>
           </div>
@@ -66,15 +66,15 @@ export default function Hero({ onPlayVideo, onWhatsAppOrder }: HeroProps) {
 
           {/* Product Highlights / Badges */}
           <div className="flex flex-wrap gap-1.5 sm:gap-2.5 items-center text-[10px] sm:text-xs md:text-sm font-medium text-stone-200 tracking-wide pt-0.5 sm:pt-0">
-            <span className="bg-amber-500/10 md:bg-transparent backdrop-blur-xs md:backdrop-blur-none px-2.5 py-0.5 md:p-0 rounded-full border border-amber-500/20 md:border-none text-stone-200">
+            <span className="bg-sky-500/15 md:bg-transparent backdrop-blur-xs md:backdrop-blur-none px-2.5 py-0.5 md:p-0 rounded-full border border-sky-400/30 md:border-none text-stone-200">
               Traditional Bilona Method
             </span>
-            <span className="text-amber-400/80 hidden sm:inline">•</span>
-            <span className="bg-amber-500/10 md:bg-transparent backdrop-blur-xs md:backdrop-blur-none px-2.5 py-0.5 md:p-0 rounded-full border border-amber-500/20 md:border-none text-stone-200">
+            <span className="text-sky-300/80 hidden sm:inline">•</span>
+            <span className="bg-sky-500/15 md:bg-transparent backdrop-blur-xs md:backdrop-blur-none px-2.5 py-0.5 md:p-0 rounded-full border border-sky-400/30 md:border-none text-stone-200">
               Small Batches
             </span>
-            <span className="text-amber-400/80 hidden sm:inline">•</span>
-            <span className="bg-amber-500/10 md:bg-transparent backdrop-blur-xs md:backdrop-blur-none px-2.5 py-0.5 md:p-0 rounded-full border border-amber-500/20 md:border-none text-stone-200">
+            <span className="text-sky-300/80 hidden sm:inline">•</span>
+            <span className="bg-sky-500/15 md:bg-transparent backdrop-blur-xs md:backdrop-blur-none px-2.5 py-0.5 md:p-0 rounded-full border border-sky-400/30 md:border-none text-stone-200">
               Pure & Natural
             </span>
           </div>

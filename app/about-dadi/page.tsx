@@ -136,7 +136,7 @@ export default function AboutDadiPage() {
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10 pt-16 pb-12 sm:pt-24 sm:pb-20 flex-grow flex flex-col justify-center items-center">
           <div className="max-w-2xl mx-auto text-center space-y-4 sm:space-y-6">
             <div className="flex items-center justify-center gap-2 sm:gap-3">
-              <span className="font-cursive text-xl sm:text-2xl md:text-3xl text-amber-400 block italic drop-shadow-md">
+              <span className="font-cursive text-xl sm:text-2xl md:text-3xl text-sky-300 block italic drop-shadow-md">
                 Our Story ♡
               </span>
             </div>
@@ -189,7 +189,7 @@ export default function AboutDadiPage() {
         {/* Story text */}
         <div className="space-y-6">
           <div className="space-y-2">
-            <span className="font-cursive text-2xl text-amber-600 font-bold flex items-center gap-1">
+            <span className="font-cursive text-2xl text-[#0078BE] font-bold flex items-center gap-1">
               The Dairy Cool Story <span className="text-sm">♡</span>
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-black leading-tight text-slate-900">
@@ -197,7 +197,7 @@ export default function AboutDadiPage() {
               <span className="text-[#0284c7]">Jaanchh Wala gaon se.</span>
             </h2>
           </div>
-          <div className="w-20 h-1 bg-amber-500/80 rounded" />
+          <div className="w-20 h-1 bg-[#0078BE] rounded" />
           <div className="space-y-4 text-slate-600 leading-relaxed">
             <p>
               Pichhle kai saalon se main ghee bana rahi hoon — pehle sirf apne ghar aur parivaar ke liye. Meri poti (granddaughter) ki soch se yeh ghee aaj aur logon tak pahunch raha hai, wahi shuddhta aur pyaar ke saath.
@@ -216,8 +216,8 @@ export default function AboutDadiPage() {
 
         {/* Image side - Polaroid Style */}
         <div className="flex justify-center lg:justify-end">
-          <div className="relative bg-white p-4 pb-12 rounded-lg shadow-2xl border border-amber-100/40 rotate-2 max-w-md w-full group hover:rotate-0 transition-transform duration-500">
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-8 bg-amber-100/60 backdrop-blur-sm -rotate-1 border border-amber-200/30 shadow-sm z-10" />
+          <div className="relative bg-white p-4 pb-12 rounded-lg shadow-2xl border border-sky-100/60 rotate-2 max-w-md w-full group hover:rotate-0 transition-transform duration-500">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-8 bg-sky-100/60 backdrop-blur-sm -rotate-1 border border-sky-200/30 shadow-sm z-10" />
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded border border-slate-100">
               <Image
                 src="/images/dadi_image.jpg"
@@ -228,9 +228,9 @@ export default function AboutDadiPage() {
               />
             </div>
             <div className="mt-4 text-center">
-              <p className="font-cursive text-2xl text-amber-700 font-bold">Hamari Pehchaan ♡</p>
+              <p className="font-cursive text-2xl text-[#0078BE] font-bold">Hamari Pehchaan ♡</p>
             </div>
-            <div className="absolute -bottom-4 -right-4 w-12 h-12 text-amber-600/20 pointer-events-none">
+            <div className="absolute -bottom-4 -right-4 w-12 h-12 text-sky-600/20 pointer-events-none">
               🌿
             </div>
           </div>
@@ -242,7 +242,7 @@ export default function AboutDadiPage() {
         <div className="w-full max-w-[1700px] mx-auto px-2 sm:px-4 md:px-6">
           <Link 
             href="/products/ghee_500ml"
-            className="block relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-amber-500/10 border border-amber-100/80 transition-all duration-500 group cursor-pointer bg-slate-900"
+            className="block relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-sky-500/10 border border-sky-100/80 transition-all duration-500 group cursor-pointer bg-slate-900"
           >
             <div className="relative w-full overflow-hidden bg-slate-900">
               <Image
@@ -263,7 +263,7 @@ export default function AboutDadiPage() {
       <div className="bg-white py-16 md:py-20 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14 space-y-3">
-            <span className="font-cursive text-2xl text-amber-600 font-bold block">How We Make It</span>
+            <span className="font-cursive text-2xl text-[#0078BE] font-bold block">How We Make It</span>
             <h2 className="text-3xl sm:text-4xl font-serif font-black text-slate-900">The Four Pillars of Purity</h2>
             <p className="text-slate-500 mt-3 max-w-xl mx-auto text-sm leading-relaxed">
               Every step of our process is deliberate and non-negotiable. This is what makes Dairy Cool ghee different from everything else in the market.
@@ -273,7 +273,7 @@ export default function AboutDadiPage() {
             {principles.map((p, i) => (
               <div
                 key={i}
-                className="group flex gap-6 bg-[#FAF6F0] border border-amber-100/50 rounded-2xl p-7 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                className="group flex gap-6 bg-[#FAF6F0] border border-sky-100/50 rounded-2xl p-7 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
                 <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-[#0284c7] text-white flex items-center justify-center font-black text-xl group-hover:scale-110 transition-transform shadow-md">
                   {p.num}
@@ -292,7 +292,7 @@ export default function AboutDadiPage() {
       <div className="bg-[#FAF6F0] py-16 md:py-20 relative overflow-hidden">
         {/* Subtle background SVG */}
         <div className="absolute right-0 top-0 opacity-5 pointer-events-none hidden md:block">
-          <svg viewBox="0 0 200 200" className="w-96 h-96 fill-none stroke-amber-900" strokeWidth="0.5">
+          <svg viewBox="0 0 200 200" className="w-96 h-96 fill-none stroke-sky-900" strokeWidth="0.5">
             <circle cx="100" cy="100" r="80" />
             <circle cx="100" cy="100" r="60" />
             <circle cx="100" cy="100" r="40" />
@@ -301,12 +301,12 @@ export default function AboutDadiPage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-14 space-y-3">
-            <span className="font-cursive text-2xl text-amber-600 font-bold block">Our Journey</span>
+            <span className="font-cursive text-2xl text-[#0078BE] font-bold block">Our Journey</span>
             <h2 className="text-3xl sm:text-4xl font-serif font-black text-slate-900">A Legacy Built Over Decades</h2>
           </div>
 
           <div ref={timelineRef} className="relative">
-            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-sky-200 via-amber-300 to-sky-200 -translate-x-1/2" />
+            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-sky-200 via-sky-300 to-sky-200 -translate-x-1/2" />
             <div className="space-y-12">
               {timeline.map((item, i) => {
                 const isLeft = i % 2 === 0;
@@ -320,7 +320,7 @@ export default function AboutDadiPage() {
                     } ${isLeft ? "md:flex-row" : "md:flex-row-reverse"}`}
                   >
                     <div className={`w-full md:w-5/12 ${isLeft ? "md:text-right" : "md:text-left"}`}>
-                      <div className="bg-white border border-amber-100/50 rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow">
+                      <div className="bg-white border border-sky-100/50 rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow">
                         <span className="inline-block bg-[#0284c7] text-white text-xs font-extrabold px-3 py-1 rounded-full mb-3 uppercase tracking-wider">
                           {item.year}
                         </span>
@@ -341,10 +341,10 @@ export default function AboutDadiPage() {
       </div>
 
       {/* ── VALUES ── */}
-      <div className="bg-[#f0f9f0] py-16 md:py-20 border-t border-sky-100/50">
+      <div className="bg-[#FAF6F0] py-16 md:py-20 border-t border-sky-100/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 space-y-3">
-            <span className="font-cursive text-2xl text-amber-600 font-bold block">What We Stand For</span>
+            <span className="font-cursive text-2xl text-[#0078BE] font-bold block">What We Stand For</span>
             <h2 className="text-3xl sm:text-4xl font-serif font-black text-slate-900">Our Unbreakable Promises</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -369,7 +369,7 @@ export default function AboutDadiPage() {
       {/* ── BOTTOM CTA ── */}
       <div className="relative bg-[#0284c7] overflow-hidden">
         <svg className="absolute top-0 left-0 w-full" viewBox="0 0 1440 70" preserveAspectRatio="none">
-          <path d="M0,0 C480,70 960,70 1440,0 L1440,0 L0,0 Z" fill="#f0f9f0" />
+          <path d="M0,0 C480,70 960,70 1440,0 L1440,0 L0,0 Z" fill="#FAF6F0" />
         </svg>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-20 text-center relative z-10">
           <p className="text-sky-200 text-xs font-extrabold tracking-[0.35em] uppercase mb-4">Pure. Traditional. Honest.</p>

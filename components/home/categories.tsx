@@ -52,14 +52,14 @@ export default function Categories() {
   return (
     <section className="relative py-24 bg-white overflow-hidden">
       {/* Decorative background element */}
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-[#f9f8f6] -skew-x-12 opacity-40 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-[#FAF6F0] -skew-x-12 opacity-60 pointer-events-none" />
 
       <div className="w-full max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 relative z-10">
         
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div className="space-y-3 max-w-2xl">
-            <span className="font-cursive text-2xl text-amber-600 font-bold block tracking-wide">
+            <span className="font-cursive text-2xl text-[#0078BE] font-bold block tracking-wide">
               Farm Fresh
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-black text-slate-900 leading-[1.1]">

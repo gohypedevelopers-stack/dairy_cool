@@ -31,7 +31,7 @@ export default function BilonaProcessPage() {
       <main className="pt-8 pb-16">
         {/* Page Hero Header */}
         <div className="max-w-4xl mx-auto px-4 text-center mb-8 sm:mb-14 space-y-3">
-          <span className="bg-white text-amber-800 font-bold text-xs px-3.5 py-1 rounded-full uppercase tracking-wider border border-amber-200 shadow-2xs inline-block">
+          <span className="bg-white text-[#0078BE] font-bold text-xs px-3.5 py-1 rounded-full uppercase tracking-wider border border-sky-200 shadow-2xs inline-block">
             Vedic Tradition Unveiled
           </span>
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-serif font-black text-[#2E271E] leading-tight">

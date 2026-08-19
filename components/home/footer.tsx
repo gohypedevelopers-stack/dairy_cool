@@ -44,7 +44,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-[#040E1B] text-slate-300 pt-24 pb-8 overflow-hidden border-t-4 border-amber-500">
+    <footer className="relative bg-[#040E1B] text-slate-300 pt-24 pb-8 overflow-hidden border-t-4 border-[#0078BE]">
       
       {/* Subtle Premium Background Glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#0A2440] to-[#040E1B] opacity-80 pointer-events-none" />
@@ -54,7 +54,7 @@ export default function Footer() {
         {/* Top Section: Newsletter & Brand Message */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20 pb-16 border-b border-slate-800/80">
           <div className="space-y-4">
-            <span className="font-sans text-xs font-bold text-amber-500 uppercase tracking-[0.2em]">
+            <span className="font-sans text-xs font-bold text-[#0078BE] uppercase tracking-[0.2em]">
               Join The Family
             </span>
             <h3 className="font-serif font-black text-3xl sm:text-4xl text-white leading-tight">

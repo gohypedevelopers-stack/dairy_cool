@@ -50,14 +50,14 @@ export default function BilonaProcessSteps() {
     <section id="bilona-process" className="py-24 bg-[#FAF6F0] relative overflow-hidden">
       
       {/* Decorative background styling */}
-      <div className="absolute top-0 right-0 w-1/3 h-[600px] bg-gradient-to-bl from-amber-100/50 to-transparent opacity-70 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-1/3 h-[600px] bg-gradient-to-bl from-sky-100/50 to-transparent opacity-70 pointer-events-none" />
 
       <div className="w-full max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 relative z-10">
         
         {/* Header with Navigation Controls */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="text-left space-y-3 max-w-2xl">
-            <span className="font-cursive text-2xl text-amber-600 font-bold block">
+            <span className="font-cursive text-2xl text-[#0078BE] font-bold block">
               Authentic & Traditional
             </span>
             <h2 className="text-4xl md:text-5xl font-serif font-black text-slate-900 leading-tight">
@@ -73,14 +73,14 @@ export default function BilonaProcessSteps() {
             <button
               onClick={() => scroll("left")}
               aria-label="Previous Step"
-              className="w-12 h-12 rounded-full bg-white border border-amber-200/80 text-slate-800 flex items-center justify-center shadow-md hover:bg-amber-500 hover:text-white hover:border-amber-500 transition-all duration-300 active:scale-95 cursor-pointer"
+              className="w-12 h-12 rounded-full bg-white border border-sky-200/80 text-slate-800 flex items-center justify-center shadow-md hover:bg-[#0078BE] hover:text-white hover:border-[#0078BE] transition-all duration-300 active:scale-95 cursor-pointer"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
             <button
               onClick={() => scroll("right")}
               aria-label="Next Step"
-              className="w-12 h-12 rounded-full bg-white border border-amber-200/80 text-slate-800 flex items-center justify-center shadow-md hover:bg-amber-500 hover:text-white hover:border-amber-500 transition-all duration-300 active:scale-95 cursor-pointer"
+              className="w-12 h-12 rounded-full bg-white border border-sky-200/80 text-slate-800 flex items-center justify-center shadow-md hover:bg-[#0078BE] hover:text-white hover:border-[#0078BE] transition-all duration-300 active:scale-95 cursor-pointer"
             >
               <ChevronRight className="w-6 h-6" />
             </button>
@@ -96,7 +96,7 @@ export default function BilonaProcessSteps() {
             {steps.map((step, index) => (
               <div 
                 key={index} 
-                className="group relative flex flex-col w-[280px] shrink-0 snap-start bg-white rounded-3xl overflow-hidden border border-amber-100/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500"
+                className="group relative flex flex-col w-[280px] shrink-0 snap-start bg-white rounded-3xl overflow-hidden border border-sky-100/50 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-500"
               >
                 {/* Image Section */}
                 <div className="relative h-48 w-full bg-slate-100 overflow-hidden">

@@ -18,9 +18,9 @@ export default function MeetDadi() {
           
           {/* Left: Polaroid Image Block */}
           <div className="lg:col-span-5 flex justify-center">
-            <div className="relative bg-white p-4 pb-12 rounded-lg shadow-xl border border-amber-100/40 -rotate-2 max-w-sm w-full group hover:rotate-0 transition-transform duration-500">
+            <div className="relative bg-white p-4 pb-12 rounded-lg shadow-xl border border-sky-100 -rotate-2 max-w-sm w-full group hover:rotate-0 transition-transform duration-500">
               {/* Tape Effect on Top */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-8 bg-amber-100/60 backdrop-blur-sm -rotate-1 border border-amber-200/30 shadow-sm" />
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-8 bg-sky-100/60 backdrop-blur-sm -rotate-1 border border-sky-200/30 shadow-sm" />
               
               <div className="relative aspect-square w-full overflow-hidden rounded border border-slate-100">
                 <Image
@@ -33,11 +33,11 @@ export default function MeetDadi() {
 
               {/* Polaroid Label */}
               <div className="mt-4 text-center">
-                <p className="font-cursive text-2xl text-amber-700 font-bold">Kamlesh Gurjari (Dadi) making Bilona Ghee</p>
+                <p className="font-cursive text-2xl text-[#0078BE] font-bold">Kamlesh Gurjari (Dadi) making Bilona Ghee</p>
               </div>
 
               {/* Decorative Leaf Overlay */}
-              <div className="absolute -bottom-4 -left-4 w-12 h-12 text-amber-600/20 pointer-events-none">
+              <div className="absolute -bottom-4 -left-4 w-12 h-12 text-sky-600/20 pointer-events-none">
                 🌱
               </div>
             </div>
@@ -46,7 +46,7 @@ export default function MeetDadi() {
           {/* Right: Content Block */}
           <div className="lg:col-span-7 space-y-6 text-[#2E271E]">
             <div className="space-y-2">
-              <span className="font-cursive text-2xl text-amber-600 font-bold flex items-center gap-1">
+              <span className="font-cursive text-2xl text-[#0078BE] font-bold flex items-center gap-1">
                 Meet Kamlesh Gurjari (Dadi) <span className="text-sm">♡</span>
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-black leading-tight">
@@ -55,7 +55,7 @@ export default function MeetDadi() {
               </h2>
             </div>
 
-            <div className="w-20 h-1 bg-amber-500/80 rounded" />
+            <div className="w-20 h-1 bg-[#0078BE] rounded" />
 
             <div className="space-y-4 text-[#5A4F43] text-sm md:text-base leading-relaxed">
               <p>

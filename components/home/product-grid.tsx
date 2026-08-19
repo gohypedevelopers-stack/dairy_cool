@@ -143,15 +143,15 @@ export default function ProductGrid({ onAddToCart, onBuyNow, wpProducts }: Produ
   };
 
   return (
-    <section id="shop" className="relative py-24 bg-slate-50 border-t border-slate-100 overflow-hidden">
+    <section id="shop" className="relative py-24 bg-[#FAF6F0] border-t border-sky-100 overflow-hidden">
       {/* Decorative background gradients */}
-      <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-[#f0f9f0] to-transparent opacity-60" />
+      <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-sky-100/40 to-transparent opacity-60" />
       
       <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10">
         
         {/* Header Section */}
         <div className="text-center space-y-4 mb-16 max-w-2xl mx-auto">
-          <span className="font-cursive text-2xl text-amber-600 font-bold block">
+          <span className="font-cursive text-2xl text-[#0078BE] font-bold block">
             Dairy Cool Favorites
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif font-black text-slate-900 leading-tight">

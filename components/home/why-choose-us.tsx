@@ -41,17 +41,17 @@ const healthBenefits = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="py-24 bg-[#FAF6F0] overflow-hidden relative border-t border-amber-50">
+    <section className="py-24 bg-[#FAF6F0] overflow-hidden relative border-t border-sky-100">
       
       {/* Decorative Background Elements */}
-      <div className="absolute top-0 right-0 w-1/3 h-[600px] bg-gradient-to-bl from-amber-100/40 to-transparent opacity-70 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-1/3 h-[600px] bg-gradient-to-bl from-sky-100/40 to-transparent opacity-70 pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-1/4 h-[400px] bg-gradient-to-tr from-sky-100/40 to-transparent opacity-70 pointer-events-none" />
       
       <div className="w-full max-w-[1300px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
         <div className="text-center space-y-3 mb-20 max-w-2xl mx-auto">
-          <span className="font-cursive text-2xl text-amber-600 font-bold block">
+          <span className="font-cursive text-2xl text-[#0078BE] font-bold block">
             Why DAIRY COOL Ghee
           </span>
           <h2 className="text-4xl md:text-5xl font-serif font-black text-[#2E271E] leading-tight">

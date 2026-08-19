@@ -78,7 +78,7 @@ export default function QualityChecks({ onPlayVideo }: QualityChecksProps) {
         
         {/* Title */}
         <div className="text-center space-y-2 sm:space-y-3 mb-8 sm:mb-16 max-w-2xl mx-auto">
-          <span className="font-cursive text-xl sm:text-2xl text-amber-600 font-bold block">
+          <span className="font-cursive text-xl sm:text-2xl text-[#0078BE] font-bold block">
             Watch The Real Process
           </span>
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-serif font-black text-slate-900 leading-tight">
