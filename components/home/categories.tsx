@@ -6,7 +6,7 @@ const categories = [
   {
     title: "Pure Buffalo Milk",
     subtitle: "Thick & Creamy",
-    image: "/images/ingredients_cow_milk.png",
+    image: "/images/purebuffalomilk.png",
     link: "/#shop"
   },
   {
@@ -18,7 +18,7 @@ const categories = [
   {
     title: "A2 Bilona Ghee",
     subtitle: "Authentic & Handcrafted",
-    image: "/images/DSC_5141.JPG",
+    image: "/images/DSC_5378.JPG",
     link: "/#shop"
   },
   {

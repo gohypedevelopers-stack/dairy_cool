@@ -65,12 +65,23 @@ export async function fetchWooGraphQL(
   }
 
   try {
-    const res = await fetch(GRAPHQL_ENDPOINT, {
+    const options: RequestInit = {
       method: "POST",
       headers,
       body: JSON.stringify({ query, variables }),
-      next: { revalidate: 30 },
-    });
+    };
+
+    if (typeof window === "undefined") {
+      (options as any).next = { revalidate: 30 };
+    }
+
+    const res = await fetch(GRAPHQL_ENDPOINT, options);
+    if (!res.ok) {
+      if (process.env.NODE_ENV === "development") {
+        console.warn(`WooGraphQL HTTP ${res.status}: ${res.statusText}`);
+      }
+      return null;
+    }
 
     const json = await res.json();
 
@@ -83,7 +94,9 @@ export async function fetchWooGraphQL(
 
     return json.data;
   } catch (error) {
-    console.error("Failed to fetch from WooCommerce GraphQL:", error);
+    if (process.env.NODE_ENV === "development") {
+      console.warn("WooCommerce GraphQL endpoint unreachable (using fallback):", error instanceof Error ? error.message : error);
+    }
     return null;
   }
 }

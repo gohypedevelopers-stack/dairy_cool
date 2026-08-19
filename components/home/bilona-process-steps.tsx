@@ -10,27 +10,27 @@ const steps = [
   },
   { 
     name: "Dahi (Curd)", 
-    image: "/images/ingredients_cow_milk.png",
+    image: "/images/Dahicurd.png",
     desc: "The milk is boiled in earthen pots and naturally cultured into thick, probiotic-rich curd."
   },
   { 
     name: "Bilona Churning", 
-    image: "/images/ingredients_bilona.png",
+    image: "/images/DSC_5404.JPG",
     desc: "The curd is churned bidirectionally using a traditional wooden bilona before dawn."
   },
   { 
     name: "Makhan Separation", 
-    image: "/images/DSC_5208.JPG",
+    image: "/images/DSC_5283.JPG",
     desc: "Continuous churning separates the rich, pure butter (Makhan) from the buttermilk."
   },
   { 
     name: "Slow Heating", 
-    image: "/images/ingredients_slow_cooked.png",
+    image: "/images/heatingghee.png",
     desc: "The Makhan is slow-heated over a low flame using traditional mud chulhas (hearths)."
   },
   { 
     name: "Pure Bilona Ghee", 
-    image: "/images/DSC_5141.JPG",
+    image: "/images/DSC_5447.JPG",
     desc: "The result is 100% pure, golden, granular Bilona Ghee with an authentic aroma."
   },
 ];

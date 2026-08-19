@@ -12,7 +12,7 @@ export default function CtaBanner({ onWhatsAppDirect }: CtaBannerProps) {
         <div 
           className="rounded-[2rem] p-8 md:p-12 text-center text-white space-y-6 shadow-xl relative overflow-hidden bg-cover bg-center"
           style={{
-            backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.7)), url('/images/cta_bg.png')`
+            backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.7)), url('/images/DSC_5500.JPG')`
           }}
         >
           {/* Decorative circle */}

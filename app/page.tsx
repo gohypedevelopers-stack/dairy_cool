@@ -39,7 +39,7 @@ export default function Home() {
       if (data && data.length > 0) {
         setWpProducts(data);
       }
-    }).catch(console.error);
+    }).catch(() => {});
   }, []);
 
   // Video Modal State

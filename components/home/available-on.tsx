@@ -27,13 +27,13 @@ export default function AvailableOn() {
             {/* Left: Product Image & Amazon Logo directly above */}
             <div className="md:col-span-5 flex flex-col items-center gap-3">
               
-              {/* Amazon Logo Container JUST ABOVE IMAGE - FULL SIZE */}
-              <div className="relative h-14 w-52 sm:w-60 bg-white rounded-xl border-2 border-slate-300 shadow-sm flex items-center justify-center overflow-hidden">
+              {/* Amazon Logo Container JUST ABOVE IMAGE */}
+              <div className="relative h-12 w-44 sm:w-52 bg-white rounded-xl border border-slate-200 shadow-2xs flex items-center justify-center p-2">
                 <Image
                   src="/images/amazon.jpg"
                   alt="Amazon India Official Partner"
                   fill
-                  className="object-contain scale-[2.3]"
+                  className="object-contain p-2"
                   priority
                 />
               </div>
