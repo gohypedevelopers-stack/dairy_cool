@@ -16,7 +16,7 @@ const categories = [
     link: "/#shop"
   },
   {
-    title: "A2 Bilona Ghee",
+    title: "Bilona Ghee",
     subtitle: "Authentic & Handcrafted",
     image: "/images/DSC_5378.JPG",
     link: "/#shop"

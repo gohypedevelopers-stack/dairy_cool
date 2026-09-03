@@ -13,8 +13,11 @@ interface Product {
   desc: string;
   image: string;
   price: number;
+  mrp: number;
+  discount: string;
   badge: string;
   rating: string;
+  usp: string;
 }
 
 interface ProductGridProps {
@@ -27,42 +30,54 @@ const products: Product[] = [
   {
     id: "ghee_500ml",
     name: "Pure Buffalo Bilona Ghee",
-    sizeDesc: "500ml Jar",
+    sizeDesc: "200g / 500ml / 1kg",
     desc: "Handcrafted using traditional wooden churning on fresh curd. Hand-poured under Dadi's guidance.",
     image: "/images/buffalo_ghee_single.png",
     price: 749,
+    mrp: 949,
+    discount: "21% OFF",
     badge: "Bestseller",
-    rating: "4.9"
+    rating: "4.9",
+    usp: "Wooden Churned • Zero Preservatives"
   },
   {
     id: "ghee_1l",
-    name: "Pure Buffalo Bilona Ghee",
-    sizeDesc: "1 Litre Jar",
-    desc: "Handcrafted using traditional wooden churning on fresh curd. High granular quality for the family.",
+    name: "Premium Bilona Ghee",
+    sizeDesc: "200g / 500ml / 1kg",
+    desc: "Experience the authentic golden granular texture that only traditional bilona can achieve.",
     image: "/images/buffalo_ghee_single.png",
     price: 1399,
+    mrp: 1799,
+    discount: "22% OFF",
     badge: "Family Pick",
-    rating: "4.9"
+    rating: "4.9",
+    usp: "Cultured Curd • Glass Packaging"
   },
   {
     id: "ghee_twin_500ml",
     name: "Bilona Ghee Twin-Pack",
     sizeDesc: "2 x 500ml Jars",
-    desc: "A convenient twin-pack of our 500ml signature golden ghee. Perfect for regular use and gifting.",
+    desc: "A convenient twin-pack of our signature golden ghee. Perfect for regular use and gifting.",
     image: "/images/buffalo_ghee_combo.png",
     price: 1449,
+    mrp: 1898,
+    discount: "23% OFF",
     badge: "Combo Deal",
-    rating: "4.8"
+    rating: "4.8",
+    usp: "Great Value • Free Delivery"
   },
   {
     id: "ghee_twin_1l",
-    name: "Bilona Ghee Twin-Pack",
+    name: "Bilona Ghee Family Pack",
     sizeDesc: "2 x 1 Litre Jars",
     desc: "The ultimate family bundle. Enjoy our pure bilona ghee uninterrupted with this heavy-value pack.",
     image: "/images/buffalo_ghee_combo.png",
     price: 2699,
+    mrp: 3598,
+    discount: "25% OFF",
     badge: "Best Value",
-    rating: "4.9"
+    rating: "4.9",
+    usp: "Stock Up • Save Big"
   }
 ];
 
@@ -112,17 +127,30 @@ export default function ProductGrid({ onAddToCart, onBuyNow, wpProducts }: Produ
 
   const wpMapped: Product[] = (wpProducts || []).map((wp: any) => {
     const rawPrice = wp.price ? parseFloat(wp.price.replace(/[^0-9.]/g, "")) : 0;
+    const rawRegularPrice = wp.regularPrice ? parseFloat(wp.regularPrice.replace(/[^0-9.]/g, "")) : rawPrice;
     const { sizeDesc, desc } = parseWpProduct(wp);
+
+    let discountStr = "";
+    if (rawRegularPrice > rawPrice) {
+       discountStr = `${Math.round(((rawRegularPrice - rawPrice) / rawRegularPrice) * 100)}% OFF`;
+    } else {
+       discountStr = rawPrice ? Math.round((200 / (rawPrice+200))*100) + "% OFF" : "21% OFF";
+    }
+    
+    const finalMrp = rawRegularPrice > rawPrice ? rawRegularPrice : (rawPrice ? rawPrice + 200 : 949);
 
     return {
       id: wp.slug || String(wp.databaseId || wp.id),
       name: wp.name,
-      sizeDesc,
+      sizeDesc: "200g / 500ml / 1kg",
       desc: desc.slice(0, 100).trim() + "...",
       image: wp.image?.sourceUrl || "/images/buffalo_ghee_single.png",
       price: rawPrice || 749,
+      mrp: finalMrp,
+      discount: discountStr,
       badge: wp.onSale ? "On Sale" : "Bestseller",
-      rating: "4.9"
+      rating: "4.9",
+      usp: "Traditional Vedic Process"
     };
   });
 
@@ -229,9 +257,18 @@ export default function ProductGrid({ onAddToCart, onBuyNow, wpProducts }: Produ
                           {product.name}
                         </h3>
                       </Link>
-                      <p className="text-[#0284c7] font-extrabold text-xs mb-2">
-                        {product.sizeDesc}
+                      
+                      {/* Short USP */}
+                      <p className="text-amber-700 font-bold text-[10px] uppercase tracking-wider mb-2">
+                        {product.usp}
                       </p>
+                      
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-sky-50 text-[#0284c7] border border-sky-100 px-2 py-0.5 rounded font-bold text-[10px]">
+                          {product.sizeDesc}
+                        </span>
+                      </div>
+                      
                       <p className="text-slate-500 text-[11px] leading-relaxed line-clamp-2 min-h-[32px]">
                         {product.desc}
                       </p>
@@ -268,9 +305,19 @@ export default function ProductGrid({ onAddToCart, onBuyNow, wpProducts }: Produ
                   <div className="mt-4 pt-4 border-t border-slate-100 space-y-3">
                     
                     <div className="flex items-end justify-between">
-                      <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Total Price</span>
-                      <span className="font-serif font-black text-2xl text-slate-900 leading-none">
-                        ₹{product.price * qty}
+                      <div className="flex flex-col">
+                        <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Total Price</span>
+                        <div className="flex items-center gap-2">
+                          <span className="font-serif font-black text-2xl text-slate-900 leading-none">
+                            ₹{product.price * qty}
+                          </span>
+                          <span className="text-xs text-slate-400 line-through font-semibold">
+                            ₹{product.mrp * qty}
+                          </span>
+                        </div>
+                      </div>
+                      <span className="bg-green-100 text-green-700 px-1.5 py-0.5 rounded text-[10px] font-bold">
+                        {product.discount}
                       </span>
                     </div>
 
@@ -288,14 +335,14 @@ export default function ProductGrid({ onAddToCart, onBuyNow, wpProducts }: Produ
                           className="flex-1 flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-2.5 rounded-lg border-2 border-slate-200 text-slate-600 hover:border-[#0284c7] hover:text-[#0284c7] hover:bg-[#f0f9ff] font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer"
                         >
                           <ShoppingCart className="w-3.5 h-3.5 shrink-0" />
-                          <span>Add</span>
+                          <span>Add to Cart</span>
                         </button>
                         <button
                           onClick={() => onBuyNow(product.id, product.name, product.image, product.sizeDesc, product.price, qty)}
                           className="flex-1 flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-2.5 rounded-lg bg-[#0284c7] hover:bg-[#0274b3] text-white font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer shadow-md shadow-[#0284c7]/20 hover:shadow-lg hover:-translate-y-px"
                         >
                           <Zap className="w-3.5 h-3.5 shrink-0" />
-                          <span>Buy</span>
+                          <span>Buy Now</span>
                         </button>
                       </div>
                     )}

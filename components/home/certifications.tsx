@@ -5,7 +5,7 @@ const items = [
   "🛡️ FSSAI Certified",
   "🔬 Lab Tested",
   "🌟 ISO 9001",
-  "🥛 Natural A2",
+  "🥛 Pure & Natural",
   "🚚 Free Delivery Pan-India",
   "✅ No Preservatives",
   "🏡 Farm to Table",

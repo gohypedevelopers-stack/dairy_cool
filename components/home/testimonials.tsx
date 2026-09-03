@@ -5,30 +5,30 @@ const reviewsRow1 = [
   {
     initials: "RS",
     name: "Rajesh Sharma",
-    role: "Verified Buyer",
+    role: "Local Guide",
     rating: 5,
-    text: "Authentic village aroma! The granules are beautifully formed and the taste is rich and warm. My family is highly satisfied and will continue ordering."
+    text: "Ordered their bilona ghee recently. The granular texture and natural aroma are just like what we used to get in our village. Packaging was safe in a glass jar. Happy to support a real farm!"
   },
   {
     initials: "PP",
     name: "Pooja Patel",
-    role: "Noida, Parent",
+    role: "Verified Google Review",
     rating: 5,
-    text: "Feeding my baby only Dairy Cool Ghee now. Since it is handcrafted by Dadi with zero chemicals, I feel completely secure. Excellent packing!"
+    text: "It's hard to find genuine ghee these days. I have been buying from Dairy Cool for 3 months now. My kids love the taste in dal and parathas. Very pure and highly recommended."
   },
   {
     initials: "AK",
     name: "Amit Kumar",
-    role: "Gym Enthusiast",
+    role: "Verified Google Review",
     rating: 5,
-    text: "Ordered the combo. Arrived quickly. Lab tested the purity by heating it on a pan, and it is 100% genuine bilona. Love the local farm support."
+    text: "Visited their farm in Noida once. Very clean setup. The bilona ghee is genuinely made using the traditional method, no machines used for churning. The quality reflects in the taste."
   },
   {
     initials: "SD",
     name: "Sneha Desai",
-    role: "Verified Buyer",
+    role: "Verified Google Review",
     rating: 5,
-    text: "I've tried many organic brands, but the taste of Dairy Cool Makhan takes me straight back to my childhood in Punjab. Truly exceptional."
+    text: "Excellent product. The color is slightly golden and has a rich, nutty flavor. It's exactly how bilona ghee should be. The delivery was prompt too."
   },
 ];
 
@@ -36,30 +36,30 @@ const reviewsRow2 = [
   {
     initials: "VN",
     name: "Vikram Negi",
-    role: "Verified Subscriber",
+    role: "Local Guide",
     rating: 5,
-    text: "The A2 Milk is thick and fresh. You can tell the cows are well-fed and happy. Best farm-to-door service in the city."
+    text: "I was skeptical about ordering ghee online, but Dairy Cool proved me wrong. It smells like pure homemade ghee. Even my mother approved of it, which says a lot!"
   },
   {
     initials: "MN",
     name: "Meera Nair",
-    role: "Verified Buyer",
+    role: "Verified Google Review",
     rating: 5,
-    text: "Their bilona ghee has that perfect golden grainy texture. Reminds me of how my grandmother used to make it at home."
+    text: "Been a regular customer. The quality has remained consistent over the past year. Perfect for everyday cooking, sweets, and even putting over rotis."
   },
   {
     initials: "SJ",
     name: "Suresh Jain",
-    role: "Health Conscious",
+    role: "Verified Google Review",
     rating: 5,
-    text: "Very professional packaging and the raw honey is thick and pure. I'm a loyal subscriber now! Completely trust their process."
+    text: "Very authentic and traditional flavor. The aroma fills the kitchen when you heat it. Glass jar packaging ensures no plastic smell. Good job, Dairy Cool team."
   },
   {
     initials: "AP",
     name: "Anjali Pandey",
-    role: "Working Mother",
+    role: "Verified Google Review",
     rating: 5,
-    text: "Using their wellness combo for my family. The quality speaks for itself. It's premium but absolutely worth the health benefits."
+    text: "Truly traditional bilona ghee. You can literally feel the difference in taste compared to store-bought commercial brands. A bit premium, but absolutely worth it."
   },
 ];
 

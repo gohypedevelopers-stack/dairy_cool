@@ -1,32 +1,36 @@
 import React from "react";
 import Image from "next/image";
-import { Star, ShieldCheck, Truck, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { Star, ShieldCheck, Truck, ArrowRight, CheckCircle2 } from "lucide-react";
 
 export default function AvailableOn() {
   return (
-    <section className="py-20 bg-[#FAF8F5] border-y border-amber-100/40">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 bg-white relative overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-orange-50 to-transparent pointer-events-none" />
+      
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center space-y-2 mb-12">
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0284c7] block">
-            Online Store Availability
+        <div className="text-center space-y-3 mb-16 max-w-2xl mx-auto">
+          <span className="font-cursive text-2xl text-amber-600 font-bold block">
+            Nationwide Delivery
           </span>
-          <h2 className="text-3xl sm:text-4xl font-serif font-medium text-slate-800 tracking-tight">
-            Order Dairy Cool Ghee On <span className="text-[#0284c7]">Amazon</span>
+          <h2 className="text-4xl md:text-5xl font-serif font-black text-slate-900 leading-tight">
+            Now Available on <span className="text-[#FF9900]">Amazon</span>
           </h2>
-          <p className="text-slate-600 text-sm md:text-base max-w-lg mx-auto font-normal leading-relaxed">
-            Get authentic Dairy Cool Buffalo Bilona Ghee by Kamlesh Gurjari delivered straight to your home via Amazon India.
-          </p>
         </div>
 
-        {/* Clean Marketplace Card */}
-        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow duration-300 overflow-hidden">
-          <div className="p-6 sm:p-8 lg:p-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        {/* Premium Banner */}
+        <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl overflow-hidden shadow-2xl relative">
+          
+          <div className="absolute inset-0 bg-[url('/images/noise.png')] opacity-10 pointer-events-none mix-blend-overlay"></div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center p-8 sm:p-12 lg:p-16">
             
-            {/* Left: Product Image & Amazon Logo directly above */}
-            <div className="md:col-span-5 flex flex-col items-center gap-3">
+            {/* Left: Content */}
+            <div className="space-y-8 relative z-10 order-2 md:order-1 text-center md:text-left">
               
+<<<<<<< Updated upstream
               {/* Amazon Logo Container JUST ABOVE IMAGE */}
               <div className="relative h-12 w-44 sm:w-52 bg-white rounded-xl border border-slate-200 shadow-2xs flex items-center justify-center p-2">
                 <Image
@@ -36,99 +40,75 @@ export default function AvailableOn() {
                   className="object-contain p-2"
                   priority
                 />
+=======
+              <div className="flex justify-center md:justify-start">
+                <div className="bg-white px-4 py-2 rounded-xl inline-block shadow-md">
+                  <Image
+                    src="/images/amazon.jpg"
+                    alt="Amazon Logo"
+                    width={100}
+                    height={30}
+                    className="object-contain"
+                  />
+                </div>
+>>>>>>> Stashed changes
               </div>
 
-              <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-xl bg-[#FAF8F5] border border-slate-100 p-4 flex items-center justify-center">
-                <Image
-                  src="/images/buffalo_ghee_single.png"
-                  alt="Dairy Cool Buffalo Bilona Ghee on Amazon"
-                  fill
-                  className="object-contain p-2"
-                  priority
-                />
-              </div>
-              
-              <span className="text-[11px] text-slate-500 font-medium flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                Delivered by Amazon India
-              </span>
-            </div>
-
-            {/* Right: Real Listing Info & Action */}
-            <div className="md:col-span-7 space-y-5 text-left">
-              
-              <div className="flex items-center justify-between flex-wrap gap-2 pb-2 border-b border-slate-100">
-                <span className="text-xs text-amber-900 font-semibold bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
-                  Official Amazon Store Listing
-                </span>
-              </div>
-
-              {/* Exact Amazon Product Title */}
-              <div className="space-y-2">
-                <h3 className="font-serif font-medium text-slate-900 text-lg sm:text-xl leading-snug">
-                  Dairy Cool Buffalo Bilona Ghee by Kamlesh Gurjari
+              <div className="space-y-4">
+                <h3 className="font-serif font-medium text-white text-3xl sm:text-4xl leading-tight">
+                  Get Pure Bilona Ghee Delivered Faster
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                  Hand Churned Cultured Butter • Traditional Low Heat Method (28°C) • Blend of Authentic Fragrance &amp; Flavour.
+                <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                  Enjoy the convenience of Amazon's reliable delivery network. Get authentic Dairy Cool Buffalo Bilona Ghee shipped anywhere in India with secure packaging.
                 </p>
               </div>
 
-              {/* Pricing & Offer */}
-              <div className="flex items-baseline gap-3">
-                <span className="text-sm font-medium text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-100">-26%</span>
-                <span className="text-2xl font-serif font-semibold text-slate-900">₹1,490</span>
-                <span className="text-xs text-slate-400 line-through">M.R.P.: ₹2,000</span>
-                <span className="text-xs text-slate-500 font-normal">(₹149 / 100g)</span>
-              </div>
-
-              {/* Available Sizes Pills */}
-              <div className="space-y-1.5 pt-1">
-                <span className="text-xs text-slate-500 font-medium block">Available Sizes on Amazon:</span>
-                <div className="flex flex-wrap gap-2 text-xs">
-                  <span className="bg-sky-50 text-[#0284c7] border border-sky-200 font-medium px-2.5 py-1 rounded-md">1 Kg (₹1,490)</span>
-                  <span className="bg-slate-50 text-slate-700 border border-slate-200 font-medium px-2.5 py-1 rounded-md">2 Kg (₹2,949)</span>
-                  <span className="bg-slate-50 text-slate-700 border border-slate-200 font-medium px-2.5 py-1 rounded-md">5 Kg (₹7,399)</span>
-                  <span className="bg-slate-50 text-slate-700 border border-slate-200 font-medium px-2.5 py-1 rounded-md">200 Gm (₹299)</span>
-                </div>
-              </div>
-
-              {/* Trust Badges */}
-              <div className="flex items-center gap-4 flex-wrap text-xs text-slate-600 font-normal pt-1">
-                <div className="flex items-center gap-1.5 text-slate-600">
-                  <Truck className="w-4 h-4 text-[#0284c7]" />
-                  <span>Free Delivery</span>
-                </div>
-
-                <div className="flex items-center gap-1.5 text-slate-600">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>Secure Transaction</span>
-                </div>
-              </div>
-
-              {/* Professional Amazon CTA */}
-              <div className="pt-2">
+              <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-4">
                 <a
                   href="https://www.amazon.in/dp/B0GN2WVHZK?th=1"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 bg-[#FF9900] hover:bg-[#e68a00] text-slate-900 font-semibold text-sm px-7 py-3 rounded-xl shadow-2xs hover:shadow-sm transition-all duration-200 w-full sm:w-auto text-center cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 bg-[#FF9900] hover:bg-[#e68a00] text-slate-900 font-bold text-sm px-8 py-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:-translate-y-1 w-full sm:w-auto"
                 >
-                  <span>Buy Now on Amazon.in</span>
-                  <ArrowUpRight className="w-4 h-4 text-slate-900" />
+                  <span>Buy on Amazon.in</span>
+                  <ArrowRight className="w-4 h-4" />
                 </a>
+                <div className="flex items-center gap-2 text-slate-300 text-xs font-medium">
+                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                  <span>100% Purchase Protection</span>
+                </div>
               </div>
+            </div>
 
+            {/* Right: Product Visual */}
+            <div className="relative order-1 md:order-2 flex justify-center items-center">
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#FF9900]/20 to-transparent rounded-full blur-3xl transform scale-150 pointer-events-none"></div>
+              
+              <div className="relative w-64 h-64 sm:w-80 sm:h-80 drop-shadow-2xl hover:scale-105 transition-transform duration-700 ease-out">
+                <Image
+                  src="/images/buffalo_ghee_single.png"
+                  alt="Dairy Cool Buffalo Bilona Ghee"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+                
+                {/* Floating elements */}
+                <div className="absolute top-4 right-4 bg-white text-slate-900 text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg transform rotate-12 flex items-center gap-1">
+                  <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
+                  4.9 Rated
+                </div>
+                
+                <div className="absolute bottom-4 left-4 bg-emerald-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg transform -rotate-6 flex items-center gap-1">
+                  <Truck className="w-3 h-3" />
+                  Prime Delivery
+                </div>
+              </div>
             </div>
 
           </div>
         </div>
-
       </div>
     </section>
   );
 }
-
-
-
-
-

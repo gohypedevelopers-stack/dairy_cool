@@ -9,7 +9,7 @@ interface QualityChecksProps {
 
 const processVideos = [
   {
-    title: "Step 1: Happy A2 Buffaloes",
+    title: "Step 1: Happy Buffaloes",
     subtitle: "Free grazing on natural farms",
     url: "/videos/video1.MOV",
     poster: "/images/ingredients_cow_milk.png"

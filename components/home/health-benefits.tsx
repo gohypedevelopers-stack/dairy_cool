@@ -7,79 +7,79 @@ import Link from "next/link";
 
 const qualities = [
   {
-    id: "fats",
-    name: "Hearty Dietary Fats",
+    id: "dietary-fat",
+    name: "Traditional Dietary Fat",
     icon: HeartPulse,
     tag: "Nutrition",
-    subtitle: "Essential Lipid Balance for Daily Wellness",
-    summary: "Rich in natural fatty acid profiles including Omega-3 & Omega-9 suited for balanced traditional diets.",
+    subtitle: "A Wholesome Addition to Your Daily Meals",
+    summary: "Bilona Ghee is a classic dietary fat that has been part of Indian culinary traditions for generations.",
     highlights: [
-      "Naturally slow-churned from cultured dahi, retaining natural fatty acid structures.",
-      "Complements traditional Indian meals with wholesome dietary lipids.",
-      "Contains no hydrogenated fats, trans-fats, or synthetic additives."
+      "A natural source of dietary fat suitable for daily consumption.",
+      "Complements traditional Indian meals with wholesome goodness.",
+      "Free from hydrogenated oils and synthetic additives."
     ],
-    article: "Vedic Bilona Ghee is naturally rich in essential fatty acids. Unlike refined cooking oils, traditional A2 bilona ghee is prepared by slow-churning curd, retaining vital lipid profile nutrients that complement a balanced Indian diet when consumed in moderation.",
+    article: "Vedic Bilona Ghee has always been considered a cornerstone of Indian kitchens. As a traditional dietary fat, it naturally complements a balanced diet when consumed in moderation, offering a wholesome alternative to refined cooking oils.",
+    readTime: "2 min read"
+  },
+  {
+    id: "taste-aroma",
+    name: "Rich Taste & Aroma",
+    icon: Sparkles,
+    tag: "Flavor",
+    subtitle: "Enhances the Flavor of Every Dish",
+    summary: "Experience the authentic golden hue and nutty aroma that only slow-churned Bilona Ghee can provide.",
+    highlights: [
+      "Delivers a deeply satisfying, rich flavor to dal, rotis, and sweets.",
+      "Features a distinct, grainy texture and a golden, natural color.",
+      "Elevates everyday cooking into a memorable culinary experience."
+    ],
+    article: "The traditional bilona process results in a ghee that is not only pure but also exceptionally flavorful. Its rich, nutty aroma and perfect granular texture make it an indispensable ingredient that elevates the taste of your daily meals.",
+    readTime: "2 min read"
+  },
+  {
+    id: "bilona-prep",
+    name: "Traditional Bilona Preparation",
+    icon: Activity,
+    tag: "Heritage",
+    subtitle: "Handcrafted Following Ancient Vedic Methods",
+    summary: "Made slowly from cultured dahi (curd) rather than direct cream, preserving its authentic character.",
+    highlights: [
+      "Prepared by slow-churning curd in traditional wooden vessels.",
+      "Cooked on low heat to achieve its signature golden granularity.",
+      "Handmade with care and dedication by Kamlesh Gurjari (Dadi)."
+    ],
+    article: "We stay true to our roots by using the ancient Bilona method. The milk is first set into curd, which is then hand-churned to extract butter (makkhan). This butter is gently heated to create our pure Bilona Ghee, retaining its traditional essence.",
     readTime: "3 min read"
   },
   {
-    id: "energy",
-    name: "Sustained Energy Source",
+    id: "everyday-cooking",
+    name: "Suitable for Everyday Cooking",
     icon: Zap,
-    tag: "Energy",
-    subtitle: "Clean, Easy-to-Digest Fuel for Active Lifestyles",
-    summary: "Contains easy-to-digest short and medium-chain fatty acids for clean, active daily energy.",
+    tag: "Versatility",
+    subtitle: "Your Go-To Kitchen Companion",
+    summary: "With a high smoke point and versatile flavor, it's perfect for all your daily culinary needs.",
     highlights: [
-      "Short and medium-chain fatty acids provide readily available fuel for daily activities.",
-      "Traditionally enjoyed with warm milk or rotis in morning meals.",
-      "Gentle on the metabolic system without heavy sluggish feelings."
+      "Ideal for sautéing, frying, and tempering (tadka).",
+      "Traditionally enjoyed over warm milk, rice, or fresh rotis.",
+      "A stable cooking fat that brings out the best in Indian spices."
     ],
-    article: "Pure bilona ghee consists primarily of short and medium chain fatty acids that are readily absorbed by the body, serving as a rich, clean source of energy. Traditionally enjoyed with warm milk, rotis, or warm water in the morning.",
+    article: "Bilona Ghee is incredibly versatile. Whether you are tempering spices for dal, making wholesome sweets, or simply spreading it on a warm paratha, its stability at high temperatures makes it a safe and delicious choice for everyday cooking.",
     readTime: "2 min read"
   },
   {
     id: "purity",
-    name: "Pure & Unadulterated Quality",
+    name: "Pure & Unadulterated",
     icon: ShieldCheck,
-    tag: "Purity",
-    subtitle: "Pasture-Fed Milk Fortified with Fat-Soluble Vitamins",
-    summary: "Naturally rich in fat-soluble vitamins A, D, E, and K derived from pasture-fed livestock milk.",
+    tag: "Quality",
+    subtitle: "Straight from Our Farm to Your Home",
+    summary: "Sourced exclusively from our free-grazing buffaloes with zero chemical preservatives.",
     highlights: [
-      "100% natural fat-soluble vitamins without any artificial fortification.",
-      "Sourced exclusively from healthy, free-grazing farm buffaloes.",
-      "Lab tested for purity, heavy metals, and zero chemical preservatives."
+      "Made purely from fresh milk sourced directly from our farm.",
+      "Strictly free from any artificial colors, flavors, or preservatives.",
+      "Carefully packaged in glass jars to maintain its pristine quality."
     ],
-    article: "DAIRY COOL Bilona Ghee is prepared using fresh milk from pasture-fed livestock. The traditional bilona process preserves natural fat-soluble vitamins without synthetic fortification or artificial additives.",
-    readTime: "4 min read"
-  },
-  {
-    id: "digestion",
-    name: "Digestive Comfort",
-    icon: Activity,
-    tag: "Digestion",
-    subtitle: "Ayurvedic Agni Stimulation for Soothing Meals",
-    summary: "Contains natural butyric acid, traditionally valued in Ayurveda for soothing daily cooked meals.",
-    highlights: [
-      "High natural butyrate content soothes and lubricates the digestive tract.",
-      "Revered in Ayurveda for kindling Agni (digestive fire) naturally.",
-      "Adds rich aroma and digestibility to daily lentil and grain dishes."
-    ],
-    article: "In Ayurveda, pure ghee is revered for enhancing meal digestion (Agni). Its natural butyrate content makes it easy on the stomach, providing a soothing addition to daily cooked food.",
-    readTime: "3 min read"
-  },
-  {
-    id: "heritage",
-    name: "Traditional Ayurvedic Nourishment",
-    icon: Sparkles,
-    tag: "Heritage",
-    subtitle: "A Cherished Household Wellness Tradition",
-    summary: "Cherished across generations as a daily wellness cornerstone for wholesome Indian cooking.",
-    highlights: [
-      "Handmade by Kamlesh Gurjari (Dadi) following 30+ years of family tradition.",
-      "Cooked slowly on low heat in traditional vessels to achieve golden granularity.",
-      "Poured into clean glass jars for authentic taste, aroma, and longevity."
-    ],
-    article: "For generations, cultured ghee has been an integral cornerstone of Indian household traditions, prized for its rich aroma, golden color, and wholesome culinary benefits.",
-    readTime: "3 min read"
+    article: "At DAIRY COOL, we take pride in our farm-to-table approach. Our ghee is made without any compromises—no synthetic fortification, no preservatives, and no adulteration. Just pure, natural goodness straight from our happy buffaloes.",
+    readTime: "2 min read"
   }
 ];
 

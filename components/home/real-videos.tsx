@@ -7,7 +7,7 @@ interface RealVideosProps {
 
 const videoCategories = [
   {
-    title: "Video 1: Farm & Free-Grazing A2 Buffaloes",
+    title: "Video 1: Farm & Free-Grazing Buffaloes",
     videoId: "/videos/video1.MOV",
     image: "/images/ingredients_cow_milk.png",
     desc: "See our happy, grass-fed buffaloes roaming freely at Dairy Cool Farm."

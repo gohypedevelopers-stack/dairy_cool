@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const items = [
   "🧈 Factory Ka Nahi, Dadi Ke Haathon Ka Asli Bilona Ghee",
-  "🐄 100% Pure A2 Ghee - Made from Desi Cow Milk",
+  "🐄 100% Pure Bilona Ghee - Made from Farm Fresh Milk",
   "✨ No Preservatives, No Additives - Just Pure Goodness",
   "🌾 Farm Fresh Daily - From Our Farm to Your Kitchen",
   "🔬 FSSAI Certified & Lab Tested for Purity",
